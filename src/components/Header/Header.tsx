@@ -10,14 +10,16 @@ export const Header = () => {
   return (
     <header className={'sticky top-0'}>
       <div
-        className={'flex justify-between h-[64px] items-center p-3 bg-default'}
+        className={
+          'flex justify-between h-[64px] items-center p-3 bg-secondary text-secondary-foreground'
+        }
       >
         <a href={'/'} className={'logo'}>
           logo
         </a>
         <MenuToggle isOpen={isOpen} onChange={setIsOpen} size={'32'} />
       </div>
-      <nav className={'grid gap-2'}></nav>
+      {isOpen && <nav className={'grid gap-2'}>todo</nav>}
     </header>
   )
 }
@@ -41,7 +43,7 @@ const MenuToggle: FC<{
             transition={{ duration: 0.2 }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <X size={size} className="text-lightText" />
+            <X size={size} />
           </motion.div>
         ) : (
           <motion.div
@@ -52,7 +54,7 @@ const MenuToggle: FC<{
             transition={{ duration: 0.2 }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <Menu size={size} className="" />
+            <Menu size={size} />
           </motion.div>
         )}
       </AnimatePresence>
