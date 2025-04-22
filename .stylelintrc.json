@@ -1,0 +1,83 @@
+{
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-tailwindcss"],
+  "plugins": ["stylelint-scss", "stylelint-order"],
+  "rules": {
+    "no-duplicate-selectors": true,
+    "block-no-empty": true,
+    "no-invalid-double-slash-comments": true,
+    "declaration-block-no-duplicate-properties": true,
+    "selector-max-id": 0,
+    "selector-max-specificity": "0,3,0",
+    "no-descending-specificity": true,
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": null,
+    "max-nesting-depth": 3,
+    "scss/at-extend-no-missing-placeholder": true,
+    "scss/dollar-variable-pattern": "^[_]?[a-z0-9-]+$",
+    "selector-class-pattern": [
+      "^[a-z]+([A-Z0-9][a-zA-Z0-9]+)*$|^[a-z0-9]+(-[a-z0-9]+)*$",
+      {
+        "message": "Expected camelCase or kebab-case class selector pattern"
+      }
+    ],
+    "scss/at-mixin-pattern": [
+      "^[a-z][a-zA-Z0-9]*$|^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+      {
+        "message": "Expected mixin name to be camelCase or kebab-case"
+      }
+    ],
+    "custom-property-pattern": [
+      "^.*$",
+      {
+        "message": "Any pattern allowed"
+      }
+    ],
+    "order/order": [
+      "custom-properties",
+      "dollar-variables",
+      "declarations",
+      "at-rules",
+      "rules"
+    ],
+    "order/properties-order": [
+      "display",
+      "position",
+      "top",
+      "right",
+      "bottom",
+      "left",
+      "z-index",
+
+      "flex",
+      "flex-grow",
+      "flex-shrink",
+      "flex-basis",
+      "align-items",
+      "justify-content",
+      "gap",
+
+      "width",
+      "height",
+      "margin",
+      "padding",
+      "border",
+      "box-shadow",
+
+      "font",
+      "font-size",
+      "line-height",
+      "color",
+      "text-align",
+      "text-transform",
+
+      "background",
+      "opacity",
+      "transition",
+      "transform",
+
+      "cursor",
+      "pointer-events"
+    ]
+  },
+  "ignoreFiles": ["**/*.js", "**/*.ts"]
+}
