@@ -8,10 +8,10 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className={'sticky top-0'}>
+    <header className={'sticky top-0 z-10'}>
       <div
         className={
-          'flex justify-between h-[64px] items-center p-3 bg-secondary text-secondary-foreground'
+          'flex justify-between h-[var(--size-header)] items-center p-3 bg-secondary text-secondary-foreground'
         }
       >
         <a href={'/'} className={'logo'}>
@@ -19,7 +19,11 @@ export const Header = () => {
         </a>
         <MenuToggle isOpen={isOpen} onChange={setIsOpen} size={'32'} />
       </div>
-      {isOpen && <nav className={'grid gap-2'}>todo</nav>}
+      {isOpen && (
+        <nav className={'grid gap-2 fixed bg-background w-full h-full'}>
+          todo
+        </nav>
+      )}
     </header>
   )
 }
