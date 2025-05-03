@@ -4,7 +4,7 @@ export const Hero = () => {
   return (
     <div
       className={
-        'bg-[image:var(--background-hero)] h-[var(--block-size)] grid items-center p-4'
+        'bg-[image:var(--background-hero)] screenHeight grid items-center p-4'
       }
     >
       <div className={'grid gap-4 '}>

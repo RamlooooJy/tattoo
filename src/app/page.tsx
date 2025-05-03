@@ -5,6 +5,12 @@ import { Course } from 'blocks/Course3'
 import { Program } from 'blocks/Program4'
 import Price from '../blocks/Price6'
 import { Result } from 'blocks/Result5'
+import AfterCourse from 'blocks/AfterCourse7'
+import Diploma from 'blocks/Diploma8'
+import Reviews from 'blocks/Reviews9'
+import Reserve from 'blocks/Reserve10'
+import About from 'blocks/About11'
+import Questions from 'blocks/Questions12'
 
 export default function Home() {
   return (
@@ -16,6 +22,12 @@ export default function Home() {
       <Program />
       <Result />
       <Price />
+      <AfterCourse />
+      <Diploma />
+      <Reviews />
+      <Reserve />
+      <About />
+      <Questions />
     </>
   )
 }

@@ -1,0 +1,49 @@
+import { cn } from '../../lib/utils'
+import img from '../../assets/after-course.jpg'
+
+const AfterCourse = () => {
+  console.log(img)
+  return (
+    <div className={cn('grid content-start')}>
+      <div className={'relative'}>
+        <div
+          style={
+            {
+              '--local-background': `url(${img.src})`,
+            } as React.CSSProperties
+          }
+          className={'background-before screenHeight'}
+        />
+        <span
+          className={
+            'text-4xl text-foreground absolute left-0 bottom-12 right-12 justify-self-end font-medium'
+          }
+        >
+          Что будет после <br /> курса?
+        </span>
+      </div>
+      <div
+        className={'grid gap-3 bg-primary text-center px-4 py-12 screenHeight'}
+      >
+        <div className={'max-w-4/5 grid gap-8 justify-self-center'}>
+          {tips.map((tip) => (
+            <p key={tip} className={'text-primary-foreground'}>
+              {tip}
+            </p>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const tips = [
+  'На последнем занятии вручается сертификат и Вы можете приступать к самостоятельной работе!',
+  'Если вы успешно окончили любой курс начиная с "Базового" - можно принимать своих клиентов в студии под присмотром наставника.',
+  'Вы всегда сможете обратиться за поддержкой\n' +
+    'к своему преподавателю по тел., вайберу, вотсапу. Возникли вопросы по калористике или стилю?\n' +
+    'Пишите!',
+  'Вы окупите курс уже спустя 5 татуировок!',
+]
+
+export default AfterCourse

@@ -14,9 +14,9 @@ const Stepper: FC = () => {
               <div className="text-sm text-gray-500">{step.description}</div>
             </div>
           </div>
-          {index < steps.length - 1 && (
+          {index < steps.length - 1 ? (
             <div className="border-b border-destructive mt-4" />
-          )}
+          ) : null}
         </div>
       ))}
     </div>

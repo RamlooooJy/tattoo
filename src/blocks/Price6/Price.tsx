@@ -5,7 +5,7 @@ const Result = () => {
   return (
     <div
       className={cn(
-        'py-6 m-h-[var(--block-size)] bg-primary text-primary-foreground gap-4 grid content-start overflow-hidden',
+        'py-6 bg-primary text-primary-foreground gap-4 grid content-start overflow-hidden',
       )}
     >
       <div className="block-wrapper">

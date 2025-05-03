@@ -2,7 +2,7 @@ export const Info = () => {
   return (
     <div
       className={
-        'block-wrapper h-[var(--block-size)] grid gap-4 content-start bg-primary text-primary-foreground'
+        'block-wrapper grid gap-4 content-start bg-primary text-primary-foreground'
       }
     >
       <div className={'p-12 gap-2 grid'}>

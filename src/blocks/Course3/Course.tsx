@@ -4,9 +4,7 @@ import { Button } from 'components/ui/button'
 export const Course = () => {
   return (
     <div
-      className={
-        'm-h-[var(--block-size)] bg-accent text-accent-foreground gap-4 grid content-start'
-      }
+      className={'bg-accent text-accent-foreground gap-4 grid content-start'}
     >
       <h2 className={'text-2xl font-medium p-12'}>Ты научишься</h2>
       <img src={course} className={'w-full max-h-80 object-contain'} alt={''} />

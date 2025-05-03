@@ -5,7 +5,7 @@ export const Program = () => {
   return (
     <div
       className={
-        'm-h-[var(--block-size)] bg-primary text-primary-foreground gap-4 py-12 grid content-start overflow-hidden'
+        'bg-primary text-primary-foreground gap-4 py-12 grid content-start overflow-hidden'
       }
     >
       <div className="block-wrapper">
