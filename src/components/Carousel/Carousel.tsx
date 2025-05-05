@@ -13,7 +13,7 @@ import 'react-photo-view/dist/react-photo-view.css'
 import type { EmblaCarouselType } from 'embla-carousel'
 import { type FC, type ReactElement, useEffect, useRef } from 'react'
 import { useInView } from 'framer-motion'
-import { cn } from '../../lib/utils'
+import { cn } from 'lib/utils'
 
 type CarouselProps = {
   children: ReactElement[]
@@ -29,7 +29,9 @@ const CarouselPlugin: FC<CarouselProps> = ({
   slideClassName,
   useAutoplay = true,
 }) => {
-  const plugin = React.useRef(Autoplay({ delay: 2000, playOnInit: false }))
+  const plugin = React.useRef(
+    useAutoplay ? Autoplay({ delay: 2000 }) : undefined,
+  )
   const [api, setApi] = React.useState<EmblaCarouselType | undefined>()
 
   const onSetApiCallback = (api: EmblaCarouselType | undefined) => {
@@ -78,7 +80,7 @@ const CarouselPlugin: FC<CarouselProps> = ({
     <Carousel
       ref={ref}
       setApi={onSetApiCallback}
-      plugins={[plugin.current]}
+      plugins={plugin.current ? [plugin.current] : undefined}
       className="w-full"
       onMouseEnter={plugin.current?.stop}
       onMouseLeave={onMouseLeave}

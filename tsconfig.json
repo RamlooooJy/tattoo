@@ -22,7 +22,8 @@
       "app/*": ["./app/*"],
       "assets/*": ["./assets/*"],
       "blocks/*": ["./blocks/*"],
-      "components/*": ["./components/*"]
+      "components/*": ["./components/*"],
+      "lib/*": ["./lib/*"]
     },
     "baseUrl": "src"
   },
