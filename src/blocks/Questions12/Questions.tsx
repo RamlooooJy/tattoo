@@ -13,8 +13,9 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Input } from 'components/ui/input'
+import { Input, masks } from 'components/ui/input'
 import { Textarea } from 'components/ui/textarea'
+import { CheckboxWithText } from 'components/ui/checkbox'
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -24,6 +25,9 @@ const FormSchema = z.object({
     message: 'phone must be at least 2 characters.',
   }),
   question: z.string(),
+  agreement: z.boolean().refine((val) => val, {
+    message: 'You must agree to continue.',
+  }),
 })
 
 const Questions = () => {
@@ -33,13 +37,18 @@ const Questions = () => {
       name: '',
       phone: '',
       question: '',
+      agreement: false,
     },
   })
 
-  const onSubmit = () => {}
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
+    console.log(data)
+  }
+
+  console.log(form.formState)
 
   return (
-    <div className={'p-4'}>
+    <div className={'grid gap-6 p-4'}>
       <div>
         <h2 className={'text-2xl'}>Остались вопросы?</h2>
         <p>
@@ -54,9 +63,9 @@ const Questions = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Имя</FormLabel>
                 <FormControl>
-                  <Input placeholder="Имя" {...field} />
+                  <Input type={'text'} placeholder="Оля" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -66,12 +75,14 @@ const Questions = () => {
             name="phone"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>Телефон</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
+                    placeholder="+7 (___) ___-__-__"
+                    mask={masks.phone}
                     type="tel"
                     inputMode="numeric"
-                    placeholder="+7 (___) ___-__-__"
                   />
                 </FormControl>
               </FormItem>
@@ -92,6 +103,26 @@ const Questions = () => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="agreement"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                <FormControl>
+                  <CheckboxWithText
+                    checked={field.value}
+                    onChange={field.onChange}
+                    policy={true}
+                    note={
+                      'You agree to our Terms of Service and Privacy Policy.'
+                    }
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <Button type="submit">Submit</Button>
         </form>
       </Form>
