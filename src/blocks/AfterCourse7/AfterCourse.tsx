@@ -1,10 +1,9 @@
-import { cn } from '../../lib/utils'
+import { cn, navigation } from 'lib/utils'
 import img from '../../assets/after-course.jpg'
 
 const AfterCourse = () => {
-  console.log(img)
   return (
-    <div className={cn('grid content-start')}>
+    <section id={navigation.afterCourse} className={cn('grid content-start')}>
       <div className={'relative'}>
         <div
           style={
@@ -33,7 +32,7 @@ const AfterCourse = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

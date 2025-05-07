@@ -23,7 +23,8 @@
       "assets/*": ["./assets/*"],
       "blocks/*": ["./blocks/*"],
       "components/*": ["./components/*"],
-      "lib/*": ["./lib/*"]
+      "lib/*": ["./lib/*"],
+      "types/*": ["./types/*"]
     },
     "baseUrl": "src"
   },

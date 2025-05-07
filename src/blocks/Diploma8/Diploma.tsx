@@ -1,4 +1,4 @@
-import { cn } from '../../lib/utils'
+import { cn, navigation } from 'lib/utils'
 import background from '../../assets/sheet.png'
 import diploma1 from '../../assets/diplom1.png'
 import diploma2 from '../../assets/diplom2.png'
@@ -6,7 +6,8 @@ import diploma3 from '../../assets/diplom3.png'
 
 const Diploma = () => {
   return (
-    <div
+    <section
+      id={navigation.diploma}
       style={
         {
           '--local-background': `url(${background.src})`,
@@ -29,7 +30,7 @@ const Diploma = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

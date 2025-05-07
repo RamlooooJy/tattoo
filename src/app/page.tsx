@@ -11,23 +11,31 @@ import Reviews from 'blocks/Reviews9'
 import Reserve from 'blocks/Reserve10'
 import About from 'blocks/About11'
 import Questions from 'blocks/Questions12'
+import Contacts from 'blocks/Contacts13'
+import type { FC } from 'react'
+import fetchCourses from '../store/course.store'
 
-export default function Home() {
+const Home: FC = async () => {
+  const courses = await fetchCourses()
+
   return (
     <>
       <Header />
-      <Hero />
+      <Hero courses={courses} />
       <Info />
       <Course />
       <Program />
       <Result />
-      <Price />
+      <Price courses={courses} />
       <AfterCourse />
       <Diploma />
       <Reviews />
       <Reserve />
       <About />
       <Questions />
+      <Contacts />
     </>
   )
 }
+
+export default Home

@@ -1,9 +1,11 @@
 import FixedGallery from '../../components/FixedGallery'
 import Stepper from 'components/Stepper/Stepper'
+import { navigation } from 'lib/utils'
 
 export const Program = () => {
   return (
-    <div
+    <section
+      id={navigation.program}
       className={
         'bg-primary text-primary-foreground gap-4 py-12 grid content-start overflow-hidden'
       }
@@ -18,6 +20,6 @@ export const Program = () => {
       <div className="block-wrapper">
         <Stepper />
       </div>
-    </div>
+    </section>
   )
 }

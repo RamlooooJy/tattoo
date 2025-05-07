@@ -1,9 +1,11 @@
 import { course } from 'assets/urls'
 import { Button } from 'components/ui/button'
+import { navigation } from 'lib/utils'
 
 export const Course = () => {
   return (
-    <div
+    <section
+      id={navigation.course}
       className={'bg-accent text-accent-foreground gap-4 grid content-start'}
     >
       <h2 className={'text-2xl font-medium p-12'}>Ты научишься</h2>
@@ -20,6 +22,6 @@ export const Course = () => {
           <Button size={'lg'}>Хочу на курс</Button>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

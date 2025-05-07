@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap");
 @import "tailwindcss";
 @import "../assets/common.css";
 
 @theme inline {
+  --font-primary: "inter", Arial, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -118,7 +120,14 @@
     @apply border-border outline-ring/50;
   }
   body {
+    font-family: var(--font-primary);
     @apply bg-background text-foreground;
+    scroll-behavior: smooth;
+  }
+  /* Глобальные стили */
+  section {
+    scroll-margin-top: var(--size-header);
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 }
 

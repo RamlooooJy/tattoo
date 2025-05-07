@@ -5,8 +5,9 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { CheckIcon } from 'lucide-react'
 
 import { cn } from 'lib/utils'
-import type { FC } from 'react'
+import type { FC, ReactElement } from 'react'
 import Link from 'next/link'
+import { Label } from 'components/ui/label'
 
 type Props = React.ComponentProps<typeof CheckboxPrimitive.Root>
 
@@ -32,7 +33,7 @@ function Checkbox({ className, ...props }: Props) {
 
 type CheckboxWithTextProps = {
   policy?: boolean
-  note?: string
+  note?: ReactElement
 } & Props
 const CheckboxWithText: FC<CheckboxWithTextProps> = ({
   note,
@@ -40,28 +41,25 @@ const CheckboxWithText: FC<CheckboxWithTextProps> = ({
   ...props
 }) => {
   return (
-    <div className="items-top flex space-x-2">
-      <Checkbox {...props} id="terms1" />
+    <Label className="flex items-start text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+      <Checkbox {...props} />
       <div className="grid gap-1.5 leading-none">
-        <label
-          htmlFor="terms1"
-          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        >
-          {policy ? (
-            <>
-              Я согласен с{' '}
-              <Link
-                href="/policy"
-                className="underline text-blue-600 hover:text-blue-800"
-              >
-                Политикой обработки данных
-              </Link>
-            </>
-          ) : null}
-        </label>
-        <p className="text-sm text-muted-foreground">{note}</p>
+        {policy ? (
+          <>
+            Я согласен с{' '}
+            <Link
+              onClick={(e) => e.stopPropagation()}
+              target="_blank"
+              href="/policy"
+              className="underline text-blue-600 hover:text-blue-800"
+            >
+              Политикой обработки данных
+            </Link>
+          </>
+        ) : null}
+        {note}
       </div>
-    </div>
+    </Label>
   )
 }
 

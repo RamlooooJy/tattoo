@@ -1,8 +1,12 @@
 import { Button } from 'components/ui/button'
+import { navigation } from 'lib/utils'
 
 const Reserve = () => {
   return (
-    <div className={'screenHeight grid content-center justify-center'}>
+    <section
+      id={navigation.reserve}
+      className={'screenHeight grid content-center justify-center'}
+    >
       <div className={'grid p-4 gap-4'}>
         <h2 className={'text-3xl'}>ЗАПИСАТЬСЯ НА КУРС — ЛЕГКО</h2>
         <p>
@@ -12,7 +16,7 @@ const Reserve = () => {
         </p>
         <Button>Записаться</Button>
       </div>
-    </div>
+    </section>
   )
 }
 

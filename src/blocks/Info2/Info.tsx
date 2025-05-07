@@ -1,6 +1,9 @@
+import { navigation } from 'lib/utils'
+
 export const Info = () => {
   return (
-    <div
+    <section
+      id={navigation.info}
       className={
         'block-wrapper grid gap-4 content-start bg-primary text-primary-foreground'
       }
@@ -25,6 +28,6 @@ export const Info = () => {
           развиваться вместе)
         </p>
       </div>
-    </div>
+    </section>
   )
 }

@@ -1,13 +1,12 @@
 import img from '../../assets/card-skin.png'
-import { getBackgroundImage } from '../../lib/helpers'
-import { cn } from '../../lib/utils'
+import { cn, getBackgroundImage, navigation } from 'lib/utils'
 import Carousel from 'components/Carousel'
 
 const { style, backgroundImageClassName } = getBackgroundImage(img.src)
 
 const Reviews = () => {
   return (
-    <div className={'bg-accent'}>
+    <section id={navigation.reviews} className={'bg-accent'}>
       <Carousel useAutoplay={false}>
         {reviews.map((review) => (
           <div
@@ -32,7 +31,7 @@ const Reviews = () => {
           </div>
         ))}
       </Carousel>
-    </div>
+    </section>
   )
 }
 

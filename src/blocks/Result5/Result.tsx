@@ -1,9 +1,11 @@
 'use client'
 import PictureCarousel from 'components/PictureCarousel'
+import { navigation } from 'lib/utils'
 
 export const Result = () => {
   return (
-    <div
+    <section
+      id={navigation.result}
       className={
         'bg-primary text-primary-foreground gap-4 grid content-start overflow-hidden'
       }
@@ -12,7 +14,7 @@ export const Result = () => {
         <h2 className={'text-3xl font-medium'}>Результат курса</h2>
       </div>
       <PictureCarousel items={items} />
-    </div>
+    </section>
   )
 }
 

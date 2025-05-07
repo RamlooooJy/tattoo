@@ -1,8 +1,9 @@
 import img from 'assets/about.jpeg'
+import { navigation } from 'lib/utils'
 
 const About = () => {
   return (
-    <div className={''}>
+    <section id={navigation.about} className={''}>
       <div className={'p-4 grid gap-4'}>
         <h2 className={'text-3xl'}>Немного об авторе</h2>
         <img className={'w-full max-h-96'} src={img.src} alt="" />
@@ -32,7 +33,7 @@ const About = () => {
           профессиональное оборудование.
         </p>
       </div>
-    </div>
+    </section>
   )
 }
 

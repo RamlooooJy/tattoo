@@ -4,7 +4,6 @@ import { Button } from 'components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -12,27 +11,22 @@ import {
 } from 'components/ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { Input, masks } from 'components/ui/input'
+import type { z } from 'zod'
+import { Input, MaskedInput, masks } from 'components/ui/input'
 import { Textarea } from 'components/ui/textarea'
 import { CheckboxWithText } from 'components/ui/checkbox'
+import { FormSchema, navigation } from 'lib/utils'
 
-const FormSchema = z.object({
-  name: z.string().min(2, {
-    message: 'Name must be at least 2 characters.',
-  }),
-  phone: z.string().min(10, {
-    message: 'phone must be at least 2 characters.',
-  }),
-  question: z.string(),
-  agreement: z.boolean().refine((val) => val, {
-    message: 'You must agree to continue.',
-  }),
+const QuestionSchema = FormSchema.pick({
+  name: true,
+  phone: true,
+  question: true,
+  agreement: true,
 })
 
 const Questions = () => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof QuestionSchema>>({
+    resolver: zodResolver(QuestionSchema),
     defaultValues: {
       name: '',
       phone: '',
@@ -41,14 +35,13 @@ const Questions = () => {
     },
   })
 
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log(data)
+  const onSubmit = (data: z.infer<typeof QuestionSchema>) => {
+    // todo form
+    alert(`Форма связи не настроена, ${JSON.stringify(data)}`)
   }
 
-  console.log(form.formState)
-
   return (
-    <div className={'grid gap-6 p-4'}>
+    <section id={navigation.questions} className={'grid gap-6 p-4'}>
       <div>
         <h2 className={'text-2xl'}>Остались вопросы?</h2>
         <p>
@@ -57,7 +50,10 @@ const Questions = () => {
         </p>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 max-w-md mx-auto"
+        >
           <FormField
             control={form.control}
             name="name"
@@ -65,11 +61,13 @@ const Questions = () => {
               <FormItem>
                 <FormLabel>Имя</FormLabel>
                 <FormControl>
-                  <Input type={'text'} placeholder="Оля" {...field} />
+                  <Input type={'text'} placeholder="Оля?" {...field} />
                 </FormControl>
+                <FormMessage className={'text-xs'} />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="phone"
@@ -77,7 +75,7 @@ const Questions = () => {
               <FormItem>
                 <FormLabel>Телефон</FormLabel>
                 <FormControl>
-                  <Input
+                  <MaskedInput
                     {...field}
                     placeholder="+7 (___) ___-__-__"
                     mask={masks.phone}
@@ -85,24 +83,25 @@ const Questions = () => {
                     inputMode="numeric"
                   />
                 </FormControl>
+                <FormMessage className={'text-xs'} />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="question"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>Question</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Вопрос" {...field} />
+                  <Textarea placeholder="Напишите нам..." {...field} />
                 </FormControl>
-                <FormDescription>
-                  Опиши свой вопрос и мы ответим
-                </FormDescription>
-                <FormMessage />
+                <FormMessage className={'text-xs'} />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="agreement"
@@ -110,15 +109,12 @@ const Questions = () => {
               <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                 <FormControl>
                   <CheckboxWithText
-                    checked={field.value}
-                    onChange={field.onChange}
                     policy={true}
-                    note={
-                      'You agree to our Terms of Service and Privacy Policy.'
-                    }
+                    note={<FormMessage className={'text-xs'} />}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -126,7 +122,7 @@ const Questions = () => {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
-    </div>
+    </section>
   )
 }
 
