@@ -1,15 +1,21 @@
 import { navigation } from 'lib/utils'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 export const Info = () => {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref)
+
   return (
     <section
+      ref={ref}
       id={navigation.info}
       className={
         'block-wrapper grid gap-4 content-start bg-primary text-primary-foreground'
       }
     >
       <div className={'p-12 gap-2 grid'}>
-        <h2 className={'text-2xl font-medium'}>ЦЕЛЬ КУРСА</h2>
+        <motion.h2 className={'text-2xl font-medium'}>ЦЕЛЬ КУРСА</motion.h2>
         <p className={'pl-5'}>
           Главная цель нашей команды – научить вас наносить безопасные, грамотно
           расположенные и правильно выполненные татуировки. Мы готовы помочь

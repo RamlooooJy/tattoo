@@ -4,10 +4,8 @@ import { getDefaultOrigin } from 'lib/utils'
 
 export const coursesPathName = `${getDefaultOrigin()}/api/courses`
 
-async function fetchCourses() {
+export async function fetchCourses() {
   const courses: AxiosResponse<Course[]> = await axios.get(coursesPathName)
 
   return courses.data
 }
-
-export default fetchCourses

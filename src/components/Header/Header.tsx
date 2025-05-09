@@ -19,7 +19,7 @@ export const Header = () => {
     <header className={'sticky top-0 z-10'}>
       <div
         className={
-          'flex justify-between h-[var(--size-header)] items-center p-3 bg-secondary text-secondary-foreground'
+          'flex justify-between h-[var(--size-header)] items-center p-3 bg-sidebar text-sidebar-foreground'
         }
       >
         <Link href={'/'} className={'logo'}>
@@ -48,7 +48,7 @@ export const Header = () => {
               x: '100%',
             }}
             className={
-              'grid gap-2 fixed bg-background w-full h-full content-start justify-end p-4'
+              'grid gap-2 fixed bg-sidebar-primary text-sidebar-primary-foreground w-full h-full content-start justify-end p-4'
             }
           >
             {Object.values(navigation).map((value, idx) => (

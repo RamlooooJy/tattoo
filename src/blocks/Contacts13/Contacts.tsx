@@ -19,7 +19,7 @@ const Contacts = () => {
     <section
       id={navigation.contacts}
       className={
-        'bg-secondary text-secondary-foreground screenHeight grid content-center p-10'
+        'bg-secondary text-secondary-foreground grid justify-center p-10'
       }
     >
       <h2 className={'text-2xl font-medium pb-5'}>Контакты</h2>

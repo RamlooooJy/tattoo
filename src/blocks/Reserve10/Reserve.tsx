@@ -1,5 +1,6 @@
 import { Button } from 'components/ui/button'
 import { navigation } from 'lib/utils'
+import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
 
 const Reserve = () => {
   return (
@@ -14,7 +15,9 @@ const Reserve = () => {
           «Отправить заявку» <br />
           Мы свяжемся в ближайшее время!
         </p>
-        <Button>Записаться</Button>
+        <ContactFormTrigger>
+          <Button>Записаться</Button>
+        </ContactFormTrigger>
       </div>
     </section>
   )

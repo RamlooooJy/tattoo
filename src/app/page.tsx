@@ -13,20 +13,21 @@ import About from 'blocks/About11'
 import Questions from 'blocks/Questions12'
 import Contacts from 'blocks/Contacts13'
 import type { FC } from 'react'
-import fetchCourses from '../store/course.store'
+import { fetchCourses } from '../store/course.store'
+import { CoursesProvider } from 'contexts/courses'
 
 const Home: FC = async () => {
   const courses = await fetchCourses()
 
   return (
-    <>
+    <CoursesProvider courses={courses}>
       <Header />
-      <Hero courses={courses} />
+      <Hero />
       <Info />
       <Course />
       <Program />
       <Result />
-      <Price courses={courses} />
+      <Price />
       <AfterCourse />
       <Diploma />
       <Reviews />
@@ -34,7 +35,7 @@ const Home: FC = async () => {
       <About />
       <Questions />
       <Contacts />
-    </>
+    </CoursesProvider>
   )
 }
 

@@ -11,9 +11,6 @@ export type Course = {
   }>
 }
 
-export type HeroProps = {
-  courses: Course[]
-}
-export type PriceProps = {
+export type Courses = {
   courses: Course[]
 }

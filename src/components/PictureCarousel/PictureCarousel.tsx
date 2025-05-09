@@ -4,6 +4,7 @@ import { type FC, useState } from 'react'
 import { Button } from '../ui/button'
 import { AnimatePresence, motion } from 'framer-motion'
 import CarouselPlugin from 'components/Carousel'
+import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
 
 type CarouselProps = {
   items: Array<{
@@ -55,9 +56,11 @@ const PictureCarousel: FC<CarouselProps> = ({ items }) => {
             <p className={'text-base'}>{items[currentSlide].description}</p>
           </motion.div>
         </AnimatePresence>
-        <Button variant={'secondary'} size={'lg'}>
-          Хочу так же
-        </Button>
+        <ContactFormTrigger>
+          <Button variant={'secondary'} size={'lg'}>
+            Хочу так же
+          </Button>
+        </ContactFormTrigger>
       </div>
     </div>
   )

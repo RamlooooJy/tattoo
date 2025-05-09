@@ -1,8 +1,10 @@
 import { course } from 'assets/urls'
 import { Button } from 'components/ui/button'
 import { navigation } from 'lib/utils'
+import type { FC } from 'react'
+import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
 
-export const Course = () => {
+export const Course: FC = () => {
   return (
     <section
       id={navigation.course}
@@ -19,7 +21,9 @@ export const Course = () => {
           <p>Не веришь? Приходи!</p>
         </div>
         <div>
-          <Button size={'lg'}>Хочу на курс</Button>
+          <ContactFormTrigger>
+            <Button size={'lg'}>Хочу на курс</Button>
+          </ContactFormTrigger>
         </div>
       </div>
     </section>

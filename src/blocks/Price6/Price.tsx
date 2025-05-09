@@ -2,10 +2,12 @@
 
 import { Button } from 'components/ui/button'
 import { cn, navigation } from 'lib/utils'
-import type { FC } from 'react'
-import type { PriceProps } from 'types/types'
+import { CoursesContext } from '../../contexts/courses'
+import { useContext } from 'react'
+import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
 
-const Price: FC<PriceProps> = ({ courses }) => {
+const Price = () => {
+  const data = useContext(CoursesContext)
   return (
     <section
       id={navigation.price}
@@ -16,7 +18,7 @@ const Price: FC<PriceProps> = ({ courses }) => {
       <div className="block-wrapper">
         <h2 className="text-3xl font-semibold">Стоимость курса</h2>
       </div>
-      {courses?.map((course) => (
+      {data?.courses.map((course) => (
         <div
           key={course.id}
           className={cn(
@@ -42,9 +44,11 @@ const Price: FC<PriceProps> = ({ courses }) => {
                 <p className={'text-xs'}>{course.description}</p>
               </div>
               <div>
-                <Button size={'lg'} variant={'outline'}>
-                  Оставить заявку
-                </Button>
+                <ContactFormTrigger>
+                  <Button size={'lg'} variant={'outline'}>
+                    Оставить заявку
+                  </Button>
+                </ContactFormTrigger>
               </div>
             </div>
           </div>

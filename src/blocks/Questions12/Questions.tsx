@@ -16,6 +16,9 @@ import { Input, MaskedInput, masks } from 'components/ui/input'
 import { Textarea } from 'components/ui/textarea'
 import { CheckboxWithText } from 'components/ui/checkbox'
 import { FormSchema, navigation } from 'lib/utils'
+import type { ContactFormType } from 'components/ContactForm/ContactFormSchema'
+import contactStore from '../../store/contact.store'
+import { useState } from 'react'
 
 const QuestionSchema = FormSchema.pick({
   name: true,
@@ -25,6 +28,8 @@ const QuestionSchema = FormSchema.pick({
 })
 
 const Questions = () => {
+  const [wasSent, setWasSent] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
@@ -35,13 +40,21 @@ const Questions = () => {
     },
   })
 
-  const onSubmit = (data: z.infer<typeof QuestionSchema>) => {
-    // todo form
-    alert(`Форма связи не настроена, ${JSON.stringify(data)}`)
+  const onSubmit = (formData: ContactFormType) => {
+    setIsLoading(true)
+    contactStore(formData).then(() => {
+      form.reset()
+      setWasSent(true)
+    })
   }
 
   return (
-    <section id={navigation.questions} className={'grid gap-6 p-4'}>
+    <section id={navigation.questions} className={'grid gap-6 p-4 relative'}>
+      {wasSent ? (
+        <div className="flex flex-col justify-center items-center absolute inset-0 backdrop-blur-sm bg-muted">
+          <h2 className={'text-2xl font-semibold'}>Мы с вами свяжемся!</h2>
+        </div>
+      ) : null}
       <div>
         <h2 className={'text-2xl'}>Остались вопросы?</h2>
         <p>
@@ -49,79 +62,81 @@ const Questions = () => {
           все вопросы
         </p>
       </div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 max-w-md mx-auto"
-        >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Имя</FormLabel>
-                <FormControl>
-                  <Input type={'text'} placeholder="Оля?" {...field} />
-                </FormControl>
-                <FormMessage className={'text-xs'} />
-              </FormItem>
-            )}
-          />
+      <div className={isLoading ? 'opacity-50 pointer-events-none' : ''}>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 max-w-md mx-auto"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Имя</FormLabel>
+                  <FormControl>
+                    <Input type={'text'} placeholder="Оля?" {...field} />
+                  </FormControl>
+                  <FormMessage className={'text-xs'} />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Телефон</FormLabel>
-                <FormControl>
-                  <MaskedInput
-                    {...field}
-                    placeholder="+7 (___) ___-__-__"
-                    mask={masks.phone}
-                    type="tel"
-                    inputMode="numeric"
-                  />
-                </FormControl>
-                <FormMessage className={'text-xs'} />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Телефон</FormLabel>
+                  <FormControl>
+                    <MaskedInput
+                      {...field}
+                      placeholder="+7 (___) ___-__-__"
+                      mask={masks.phone}
+                      type="tel"
+                      inputMode="numeric"
+                    />
+                  </FormControl>
+                  <FormMessage className={'text-xs'} />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="question"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Question</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="Напишите нам..." {...field} />
-                </FormControl>
-                <FormMessage className={'text-xs'} />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="question"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Question</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Напишите нам..." {...field} />
+                  </FormControl>
+                  <FormMessage className={'text-xs'} />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="agreement"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                <FormControl>
-                  <CheckboxWithText
-                    policy={true}
-                    note={<FormMessage className={'text-xs'} />}
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="agreement"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <CheckboxWithText
+                      policy={true}
+                      note={<FormMessage className={'text-xs'} />}
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
+            <Button type="submit">Submit</Button>
+          </form>
+        </Form>
+      </div>
     </section>
   )
 }

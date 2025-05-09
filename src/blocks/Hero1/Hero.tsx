@@ -1,14 +1,10 @@
-'use client'
-
 import { Button } from 'components/ui/button'
 import { cn, getBackgroundImage, navigation } from 'lib/utils'
-import DialogReserve from 'components/DialogReserve'
-import type { HeroProps } from 'types/types'
-import { type FC, useState } from 'react'
+import type { FC } from 'react'
+import { ContactFormTrigger } from 'components/ContactForm'
 
-export const Hero: FC<HeroProps> = ({ courses }) => {
+export const Hero: FC = () => {
   const { backgroundImageClassName } = getBackgroundImage('')
-  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <section
@@ -36,16 +32,9 @@ export const Hero: FC<HeroProps> = ({ courses }) => {
           </p>
         </div>
         <div>
-          <Button onClick={() => setIsOpen(true)} size={'lg'}>
-            Записаться
-          </Button>
-          {isOpen ? (
-            <DialogReserve
-              courses={courses}
-              isOpen={isOpen}
-              onOpenChange={setIsOpen}
-            />
-          ) : null}
+          <ContactFormTrigger>
+            <Button size={'lg'}>Записаться</Button>
+          </ContactFormTrigger>
         </div>
       </div>
     </section>
