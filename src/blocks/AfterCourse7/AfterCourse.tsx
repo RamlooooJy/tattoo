@@ -1,5 +1,6 @@
 import { cn, navigation } from 'lib/utils'
 import img from '../../assets/after-course.jpg'
+import { SlideY } from 'components/Animations/SlideY'
 
 const AfterCourse = () => {
   return (
@@ -13,22 +14,24 @@ const AfterCourse = () => {
           }
           className={'background-before screenHeight'}
         />
-        <span
+        <SlideY
           className={
-            'text-4xl text-foreground absolute left-0 bottom-12 right-12 justify-self-end font-medium'
+            'text-4xl text-primary-foreground absolute left-0 bottom-12 right-12 justify-self-end font-semibold'
           }
         >
-          Что будет после <br /> курса?
-        </span>
+          <h2>
+            Что будет после <br /> курса?
+          </h2>
+        </SlideY>
       </div>
       <div
         className={'grid gap-3 bg-primary text-center px-4 py-12 screenHeight'}
       >
         <div className={'max-w-4/5 grid gap-8 justify-self-center'}>
           {tips.map((tip) => (
-            <p key={tip} className={'text-primary-foreground'}>
-              {tip}
-            </p>
+            <SlideY key={tip} className={'text-primary-foreground'}>
+              <p>{tip}</p>
+            </SlideY>
           ))}
         </div>
       </div>

@@ -16,20 +16,25 @@ export const Header = () => {
   }
 
   return (
-    <header className={'sticky top-0 z-10'}>
-      <div
-        className={
-          'flex justify-between h-[var(--size-header)] items-center p-3 bg-sidebar text-sidebar-foreground'
-        }
-      >
-        <Link href={'/'} className={'logo'}>
-          <Logo size={'64px'} />
-        </Link>
-        <MenuToggle isOpen={isOpen} onChange={onChange} size={'32'} />
-      </div>
+    <>
+      <header className={'sticky top-0 z-20'}>
+        <div
+          className={
+            'flex justify-between h-[var(--size-header)] items-center p-3 bg-sidebar text-sidebar-foreground'
+          }
+        >
+          <Link href={'/'} className={'logo'}>
+            <Logo size={'64px'} />
+          </Link>
+          <MenuToggle isOpen={isOpen} onChange={onChange} size={'32'} />
+        </div>
+      </header>
       <AnimatePresence>
         {isOpen && (
           <motion.nav
+            className={
+              'grid gap-2 top-[var(--size-header)] p-4 z-10 fixed inset-0 bg-sidebar-primary text-sidebar-primary-foreground content-start justify-end'
+            }
             key={String(isOpen)}
             transition={{
               duration: 0.1,
@@ -47,9 +52,6 @@ export const Header = () => {
               opacity: 0,
               x: '100%',
             }}
-            className={
-              'grid gap-2 fixed bg-sidebar-primary text-sidebar-primary-foreground w-full h-full content-start justify-end p-4'
-            }
           >
             {Object.values(navigation).map((value, idx) => (
               <motion.div
@@ -91,7 +93,7 @@ export const Header = () => {
           </motion.nav>
         )}
       </AnimatePresence>
-    </header>
+    </>
   )
 }
 

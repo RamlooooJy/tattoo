@@ -5,6 +5,7 @@ import { cn, navigation } from 'lib/utils'
 import { CoursesContext } from '../../contexts/courses'
 import { useContext } from 'react'
 import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
+import { SlideY } from 'components/Animations/SlideY'
 
 const Price = () => {
   const data = useContext(CoursesContext)
@@ -12,18 +13,19 @@ const Price = () => {
     <section
       id={navigation.price}
       className={cn(
-        'py-6 bg-primary text-primary-foreground gap-4 grid content-start overflow-hidden',
+        'py-12 bg-primary text-primary-foreground gap-4 grid content-start relative',
       )}
     >
-      <div className="block-wrapper">
+      <SlideY className="p-3">
         <h2 className="text-3xl font-semibold">Стоимость курса</h2>
-      </div>
+      </SlideY>
       {data?.courses.map((course) => (
-        <div
+        <SlideY
           key={course.id}
           className={cn(
+            'sticky top-[var(--size-header)]',
             'grid justify-self-center w-full grid-cols-1 md:max-w-10/12',
-            'overflow-hidden p-12 background-before var(--background-course)',
+            'p-12 background-before var(--background-course)',
             course.textStyle,
             course.backgroundStyle,
           )}
@@ -52,7 +54,7 @@ const Price = () => {
               </div>
             </div>
           </div>
-        </div>
+        </SlideY>
       ))}
     </section>
   )

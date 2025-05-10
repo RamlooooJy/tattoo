@@ -14,3 +14,5 @@ export type Course = {
 export type Courses = {
   courses: Course[]
 }
+
+export type ClassicComponent = { className?: string }

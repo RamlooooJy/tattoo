@@ -13,14 +13,14 @@ const Reviews = () => {
             style={style}
             className={cn(
               backgroundImageClassName,
-              'reviewCard',
+              'reviewCard cursor-grab select-none',
               'text-card-foreground background-container aspect-[16/24] w-[300px]',
             )}
             key={review.description}
           >
             <h3
               className={
-                'reviewCardHeader font-semibold text-primary-foreground'
+                'reviewCardHeader font-semibold text-secondary-foreground'
               }
             >
               {review.title}

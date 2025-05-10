@@ -3,6 +3,7 @@ import background from '../../assets/sheet.png'
 import diploma1 from '../../assets/diplom1.png'
 import diploma2 from '../../assets/diplom2.png'
 import diploma3 from '../../assets/diplom3.png'
+import { SlideY } from 'components/Animations/SlideY'
 
 const Diploma = () => {
   return (
@@ -13,13 +14,15 @@ const Diploma = () => {
           '--local-background': `url(${background.src})`,
         } as React.CSSProperties
       }
-      className={cn('grid p-16 background-container screenHeight')}
+      className={cn('p-4', 'grid background-container screenHeight')}
     >
       <div>
-        <span className={'text-4xl text-foreground p-8'}>
-          Дипломы <br />– обязательно
-        </span>
-        <div className="diplomas p-8 h-[250px] relative">
+        <SlideY className={'text-4xl text-primary-foreground py-12'}>
+          <h2>
+            Дипломы <br />– обязательно
+          </h2>
+        </SlideY>
+        <div className="diplomas p-8 h-[250px] relative left-[var(--container-padding-sm)]">
           {diplomas.map((img) => (
             <img
               className={cn('h-full absolute', img.rotateClass)}

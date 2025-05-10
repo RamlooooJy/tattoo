@@ -1,6 +1,6 @@
-'use client'
 import PictureCarousel from 'components/PictureCarousel'
 import { navigation } from 'lib/utils'
+import { SlideY } from 'components/Animations/SlideY'
 
 export const Result = () => {
   return (
@@ -10,9 +10,11 @@ export const Result = () => {
         'bg-primary text-primary-foreground gap-4 grid content-start overflow-hidden'
       }
     >
-      <div className="block-wrapper">
-        <h2 className={'text-3xl font-medium'}>Результат курса</h2>
-      </div>
+      <SlideY>
+        <div className="p-3">
+          <h2 className={'text-3xl font-medium py-12'}>Результат курса</h2>
+        </div>
+      </SlideY>
       <PictureCarousel items={items} />
     </section>
   )

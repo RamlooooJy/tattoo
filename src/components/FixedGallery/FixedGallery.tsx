@@ -1,7 +1,6 @@
-'use client'
-
 import type { FC } from 'react'
 import { cn } from 'lib/utils'
+import { SlideY } from 'components/Animations/SlideY'
 
 type ImageType = {
   id: number
@@ -38,7 +37,7 @@ const images = [
 
 const FixedGallery: FC = () => {
   return (
-    <div className="flex flex-col md:flex-row py-20">
+    <SlideY className="flex flex-col md:flex-row py-20">
       <div className="relative md:w-3/4 py-4 space-y-16">
         {images.map((imageItem, idx) => (
           <FixedGalleryItem
@@ -48,7 +47,7 @@ const FixedGallery: FC = () => {
           />
         ))}
       </div>
-    </div>
+    </SlideY>
   )
 }
 
