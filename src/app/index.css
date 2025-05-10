@@ -130,7 +130,6 @@
   }
   /* Глобальные стили */
   section {
-    overflow: hidden;
     scroll-margin-top: var(--size-header);
     transition: transform 0.3s ease, opacity 0.3s ease;
   }

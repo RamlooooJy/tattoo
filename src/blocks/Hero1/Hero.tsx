@@ -17,7 +17,7 @@ export const Hero: FC = () => {
       }
       className={cn(
         backgroundImageClassName,
-        'screenHeight grid items-center p-4',
+        'screenHeight grid items-center p-4 overflow-hidden',
       )}
     >
       <div className={'grid gap-4 '}>

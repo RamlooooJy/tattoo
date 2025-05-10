@@ -1,5 +1,4 @@
 import { Header } from 'components/Header/Header'
-import { Hero } from 'blocks/Hero1'
 import { Info } from 'blocks/Info2'
 import { Course } from 'blocks/Course3'
 import { Program } from 'blocks/Program4'
@@ -15,6 +14,7 @@ import Contacts from 'blocks/Contacts13'
 import type { FC } from 'react'
 import { fetchCourses } from '../store/course.store'
 import { CoursesProvider } from 'contexts/courses'
+import { Hero } from 'blocks/Hero1'
 
 const Home: FC = async () => {
   const courses = await fetchCourses()
