@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
     // 👉 Добавляем версию как глобальную переменную
     config.plugins.push(
       new webpack.DefinePlugin({
-        'process.env.APP_VERSION': JSON.stringify(packageJson.version),
+        'process.env.__APP_VERSION__': JSON.stringify(packageJson.version),
       }),
     )
 

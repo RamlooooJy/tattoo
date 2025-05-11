@@ -11,7 +11,7 @@ import type { AnimationProps } from 'components/Animations/types'
 
 export const styleProps = {
   initial: { opacity: 0, scale: 0.4, borderRadius: '1000px' },
-  whileInView: { opacity: 1, scale: 1, borderRadius: 0 },
+  animate: { opacity: 1, scale: 1, borderRadius: 0 },
   ...settingStraight,
 }
 

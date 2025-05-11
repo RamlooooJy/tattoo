@@ -12,9 +12,7 @@ const Questions = () => {
           все вопросы
         </p>
       </AnimationSlideY>
-      <AnimationSlideY>
-        <ContactQuestionForm />
-      </AnimationSlideY>
+      <ContactQuestionForm />
     </section>
   )
 }
