@@ -21,30 +21,30 @@ export function generateContactEmailHTML({
         body {
           background: #111827;
           color: #ffffff;
-          padding: 40px;
+          padding: 20px;
           font-family: 'Segoe UI', Roboto, sans-serif;
         }
         .container {
           background: linear-gradient(to top left, #1f2937 80%, #4b5563 100%);
-          padding: 40px;
+          padding: 10px;
           border-radius: 12px;
           max-width: 600px;
           margin: 0 auto;
         }
         h2 {
-          font-size: 24px;
-          margin-bottom: 24px;
+          font-size: 16px;
+          margin-bottom: 12px;
           border-bottom: 1px solid #6b7280;
-          padding-bottom: 12px;
+          padding-bottom: 6px;
         }
         table {
           width: 100%;
           border-collapse: collapse;
-          font-size: 14px;
+          font-size: 12px;
           margin-bottom: 12px;
         }
         td {
-          padding: 12px;
+          padding: 6px;
           border-bottom: 1px solid #374151;
           vertical-align: top;
         }
