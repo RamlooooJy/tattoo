@@ -15,11 +15,9 @@ const AfterCourse = () => {
           className={'background-before screenHeight'}
         />
         <AnimationSlideY
-          className={
-            'text-4xl text-primary-foreground absolute left-0 bottom-12 right-12 justify-self-end font-semibold'
-          }
+          className={'absolute left-0 bottom-12 right-12 justify-self-end'}
         >
-          <h2>
+          <h2 className={'font-semibold text-4xl text-primary-foreground'}>
             Что будет после <br /> курса?
           </h2>
         </AnimationSlideY>

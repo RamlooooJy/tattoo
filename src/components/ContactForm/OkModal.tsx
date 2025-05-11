@@ -8,7 +8,6 @@ export const OkModal: FC = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
-    console.log(123)
     if (isOpen) {
       setTimeout(() => {
         setIsOpen(false)

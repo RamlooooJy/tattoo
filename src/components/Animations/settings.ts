@@ -2,7 +2,7 @@ import type { MotionProps } from 'framer-motion'
 import { produce } from 'immer'
 
 const duration = 0.8
-const durationFast = 0.4
+const durationFast = 0.2
 
 export const settingsSpring: Required<
   Pick<MotionProps, 'transition' | 'viewport'>
@@ -14,6 +14,7 @@ export const settingsSpring: Required<
     duration,
   },
   viewport: {
+    // once: true,
     amount: 0.2, // 👈 элемент считается "вошедшим", когда 20% его видны
   },
 }
@@ -23,14 +24,6 @@ export const settingStraight: Pick<MotionProps, 'transition'> = {
     duration: durationFast,
     ease: 'easeIn',
   },
-}
-
-export const getSettingsWithDelay = (delay: number, settings: MotionProps) => {
-  return produce(settings, (draft) => {
-    if (draft.transition) {
-      draft.transition.delay = delay
-    }
-  })
 }
 
 export const settingsNavigationItems: MotionProps = {
@@ -71,4 +64,12 @@ export const settingsNavigationContainer: MotionProps = {
     opacity: 0,
     x: '100%',
   },
+}
+
+export const getSettingsWithDelay = (delay: number, settings: MotionProps) => {
+  return produce(settings, (draft) => {
+    if (draft.transition) {
+      draft.transition.delay = delay
+    }
+  })
 }

@@ -15,7 +15,7 @@ import type { FC } from 'react'
 import { fetchCourses } from '../store/course.store'
 import { CoursesProvider } from 'contexts/courses'
 import { Hero } from 'blocks/Hero1'
-import { VersionSetter } from 'components/Version/VersionSetter'
+import { AppPreload } from 'components/Version/AppPreload'
 
 const Home: FC = async () => {
   const courses = await fetchCourses()
@@ -39,7 +39,7 @@ const Home: FC = async () => {
       {/**
        * extra
        * */}
-      <VersionSetter />
+      <AppPreload />
       {/**
        * extra
        * */}

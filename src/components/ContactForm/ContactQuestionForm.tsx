@@ -53,7 +53,6 @@ export const ContactQuestionForm = () => {
 
   return (
     <div className={isLoading ? 'opacity-50 pointer-events-none' : ''}>
-      {wasSent ? <ContactOk /> : null}
       <AnimationSlideY>
         <Form {...form}>
           <form
@@ -101,7 +100,11 @@ export const ContactQuestionForm = () => {
                 <FormItem>
                   <FormLabel>Question</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Напишите нам..." {...field} />
+                    <Textarea
+                      maxLength={95}
+                      placeholder="Напишите нам..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage className={'text-xs'} />
                 </FormItem>
@@ -129,6 +132,7 @@ export const ContactQuestionForm = () => {
           </form>
         </Form>
       </AnimationSlideY>
+      {wasSent ? <ContactOk /> : null}
     </div>
   )
 }

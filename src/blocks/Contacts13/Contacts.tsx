@@ -22,7 +22,7 @@ const Contacts = () => {
         'bg-secondary text-secondary-foreground grid justify-center p-10'
       }
     >
-      <h2 className={'text-2xl font-medium pb-5'}>Контакты</h2>
+      <h2 className={'text-2xl font-semibold pb-5'}>Контакты</h2>
       <div className="text-sm space-y-2">
         <p>
           <strong>Адрес:</strong> {address}

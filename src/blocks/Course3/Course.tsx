@@ -12,7 +12,7 @@ export const Course: FC = () => {
       className={'bg-accent text-accent-foreground gap-4 grid content-start'}
     >
       <AnimationSlideY>
-        <h2 className={'text-2xl font-medium p-12'}>Ты научишься</h2>
+        <h2 className={'text-2xl font-semibold p-12'}>Ты научишься</h2>
       </AnimationSlideY>
       <AnimationSlideY>
         <img

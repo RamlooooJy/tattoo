@@ -51,7 +51,7 @@ const CheckboxWithText: FC<CheckboxWithTextProps> = ({
               onClick={(e) => e.stopPropagation()}
               target="_blank"
               href="/policy"
-              className="underline text-blue-600 hover:text-blue-800"
+              className="text-blue-600 hover:text-blue-800"
             >
               Политикой обработки данных
             </Link>

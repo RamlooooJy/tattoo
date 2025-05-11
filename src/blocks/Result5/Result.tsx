@@ -12,7 +12,7 @@ export const Result = () => {
     >
       <AnimationSlideY>
         <div className="p-3">
-          <h2 className={'text-3xl font-medium py-12'}>Результат курса</h2>
+          <h2 className={'text-3xl font-semibold py-12'}>Результат курса</h2>
         </div>
       </AnimationSlideY>
       <PictureCarousel items={items} />

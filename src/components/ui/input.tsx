@@ -9,6 +9,7 @@ type InputProps = Omit<React.HTMLAttributes<HTMLInputElement>, 'onChange'> & {
   mask?: string
   placeholder?: string
   type?: 'text' | 'password' | 'email' | 'tel'
+  maxLength?: number
 }
 
 const masks = {
@@ -21,10 +22,16 @@ const defaultClassName = cn(
   'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
 )
 
-const Input: FC<InputProps> = ({ className, onChange, ...props }) => {
+const Input: FC<InputProps> = ({
+  className,
+  onChange,
+  maxLength,
+  ...props
+}) => {
   return (
     <input
       {...props}
+      maxLength={maxLength ?? 20}
       onChange={(ev) => onChange(ev.target.value)}
       data-slot="input"
       className={cn(defaultClassName, className)}

@@ -17,8 +17,10 @@ const Diploma = () => {
       className={cn('p-4', 'grid background-container screenHeight')}
     >
       <div>
-        <AnimationSlideY className={'text-4xl text-primary-foreground py-12'}>
-          <h2>
+        <AnimationSlideY>
+          <h2
+            className={'text-4xl font-semibold text-primary-foreground py-12'}
+          >
             Дипломы <br />– обязательно
           </h2>
         </AnimationSlideY>

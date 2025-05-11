@@ -9,7 +9,7 @@ export const Info = () => {
     >
       <div className={'p-12 gap-2 grid'}>
         <AnimationSlideY>
-          <h2 className={'text-2xl font-medium'}>ЦЕЛЬ КУРСА</h2>
+          <h2 className={'text-2xl font-semibold'}>ЦЕЛЬ КУРСА</h2>
         </AnimationSlideY>
         <AnimationSlideY>
           <p className={'pl-5'}>
@@ -27,7 +27,7 @@ export const Info = () => {
       </div>
       <div className={'p-12 gap-2 grid'}>
         <AnimationSlideY>
-          <h2 className={'text-2xl font-medium'}>для кого</h2>
+          <h2 className={'text-2xl font-semibold'}>для кого</h2>
         </AnimationSlideY>
         <AnimationSlideY>
           <p className={'pl-5'}>
