@@ -130,7 +130,7 @@
   }
   /* Глобальные стили */
   section {
-    scroll-margin-top: var(--size-header);
+    scroll-margin-top: var(--size-header) !important;
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
 }

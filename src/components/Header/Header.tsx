@@ -40,7 +40,7 @@ export const Header = () => {
           <motion.nav
             key={String(isOpen)}
             className={
-              'top-[var(--size-header)] p-4 z-10 fixed inset-0 bg-sidebar-primary text-sidebar-primary-foreground'
+              'flex gap-2 top-[var(--size-header)] p-4 z-10 fixed inset-0 bg-sidebar-primary text-sidebar-primary-foreground'
             }
             {...settingsNavigationContainer}
           >
@@ -50,34 +50,36 @@ export const Header = () => {
                   onChange(false)
                 }}
                 href={'/'}
-                className={'logo '}
+                className={'logo'}
               >
-                <Logo />
+                <Logo className={'object-cover'} />
               </Link>
             </AnimationSlideX>
             <div className={'grid gap-2 content-start justify-end'}>
-              {Object.values(navigation).map((value, idx) => (
-                <motion.div
-                  key={`${value}+${isOpen}`}
-                  {...getSettingsWithDelay(
-                    (0.1 * idx) / 5,
-                    settingsNavigationItems,
-                  )}
-                >
-                  <Link
-                    onClick={() => {
-                      onChange(false)
-                    }}
-                    className={
-                      'text-foreground font-semibold cursor-pointer hover:text-chart-5 transition'
-                    }
-                    key={value}
-                    href={`#${value}`}
+              {Object.values(navigation)
+                .slice(1)
+                .map((value, idx) => (
+                  <motion.div
+                    key={`${value}+${isOpen}`}
+                    {...getSettingsWithDelay(
+                      (0.1 * idx) / 5,
+                      settingsNavigationItems,
+                    )}
                   >
-                    {navigationNames[value]}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      onClick={() => {
+                        onChange(false)
+                      }}
+                      className={
+                        'text-foreground font-semibold cursor-pointer hover:text-chart-5 transition'
+                      }
+                      key={value}
+                      href={`#${value}`}
+                    >
+                      {navigationNames[value]}
+                    </Link>
+                  </motion.div>
+                ))}
             </div>
           </motion.nav>
         )}

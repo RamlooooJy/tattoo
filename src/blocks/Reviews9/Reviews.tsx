@@ -1,6 +1,6 @@
+import Carousel from 'components/Carousel'
 import img from '../../assets/card-skin.png'
 import { cn, getBackgroundImage, navigation } from 'lib/utils'
-import Carousel from 'components/Carousel'
 
 const { style, backgroundImageClassName } = getBackgroundImage(img.src)
 

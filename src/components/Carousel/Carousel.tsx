@@ -3,11 +3,11 @@
 import * as React from 'react'
 import Autoplay from 'embla-carousel-autoplay'
 import {
-  Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  DefaultCarousel,
 } from 'components/ui/carousel'
 import 'react-photo-view/dist/react-photo-view.css'
 import type { EmblaCarouselType } from 'embla-carousel'
@@ -22,7 +22,7 @@ type CarouselProps = {
   onSetApi?: (api: EmblaCarouselType | undefined) => void
   slideClassName?: string
 }
-const CarouselPlugin: FC<CarouselProps> = ({
+const Carousel: FC<CarouselProps> = ({
   children,
   onChange,
   onSetApi,
@@ -77,7 +77,7 @@ const CarouselPlugin: FC<CarouselProps> = ({
   }
 
   return (
-    <Carousel
+    <DefaultCarousel
       ref={ref}
       setApi={onSetApiCallback}
       plugins={plugin.current ? [plugin.current] : undefined}
@@ -97,8 +97,8 @@ const CarouselPlugin: FC<CarouselProps> = ({
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
-    </Carousel>
+    </DefaultCarousel>
   )
 }
 
-export default CarouselPlugin
+export default Carousel

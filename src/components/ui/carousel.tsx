@@ -42,7 +42,7 @@ function useCarousel() {
   return context
 }
 
-function Carousel({
+function DefaultCarousel({
   orientation = 'horizontal',
   opts,
   setApi,
@@ -232,7 +232,7 @@ function CarouselNext({
 
 export {
   type CarouselApi,
-  Carousel,
+  DefaultCarousel,
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
