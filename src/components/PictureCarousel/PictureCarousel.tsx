@@ -5,7 +5,7 @@ import 'react-photo-view/dist/react-photo-view.css'
 import { type FC, useState } from 'react'
 import { Button } from '../ui/button'
 import { AnimatePresence, motion } from 'framer-motion'
-import CarouselPlugin from 'components/Carousel'
+import Carousel from 'components/Carousel'
 import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
 
 type CarouselProps = {
@@ -22,17 +22,17 @@ const PictureCarousel: FC<CarouselProps> = ({ items }) => {
   return (
     <div className="grid gap-4">
       <PhotoProvider>
-        <CarouselPlugin onChange={setCurrentSlide}>
+        <Carousel onChange={setCurrentSlide}>
           {items.map((item) => (
             <PhotoView key={item.id} src={item.src}>
               <img
-                className="object-cover h-[400px] w-full"
+                className="object-cover h-[400px] w-[85vw]"
                 src={item.src}
                 alt=""
               />
             </PhotoView>
           ))}
-        </CarouselPlugin>
+        </Carousel>
       </PhotoProvider>
       <div className="userdata grid gap-2 p-12 overflow-hidden">
         <AnimatePresence>
