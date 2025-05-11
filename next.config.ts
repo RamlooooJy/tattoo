@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next'
 import path from 'path'
+import { webpack } from 'next/dist/compiled/webpack/webpack'
+import packageJson from './package.json'
 
 const nextConfig: NextConfig = {
   webpack: (config) => {
@@ -14,6 +16,14 @@ const nextConfig: NextConfig = {
       ...config.resolve.alias,
       '@app': path.resolve('./app'),
     }
+
+    // 👉 Добавляем версию как глобальную переменную
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.APP_VERSION': JSON.stringify(packageJson.version),
+      }),
+    )
+
     return config
   },
   images: {

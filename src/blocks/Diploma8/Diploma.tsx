@@ -3,7 +3,7 @@ import background from '../../assets/sheet.png'
 import diploma1 from '../../assets/diplom1.png'
 import diploma2 from '../../assets/diplom2.png'
 import diploma3 from '../../assets/diplom3.png'
-import { SlideY } from 'components/Animations/SlideY'
+import { AnimationSlideY } from 'components/Animations/AnimationSlideY'
 
 const Diploma = () => {
   return (
@@ -17,11 +17,11 @@ const Diploma = () => {
       className={cn('p-4', 'grid background-container screenHeight')}
     >
       <div>
-        <SlideY className={'text-4xl text-primary-foreground py-12'}>
+        <AnimationSlideY className={'text-4xl text-primary-foreground py-12'}>
           <h2>
             Дипломы <br />– обязательно
           </h2>
-        </SlideY>
+        </AnimationSlideY>
         <div className="diplomas p-8 h-[250px] relative left-[var(--container-padding-sm)]">
           {diplomas.map((img) => (
             <img

@@ -1,6 +1,6 @@
 import PictureCarousel from 'components/PictureCarousel'
 import { navigation } from 'lib/utils'
-import { SlideY } from 'components/Animations/SlideY'
+import { AnimationSlideY } from 'components/Animations/AnimationSlideY'
 
 export const Result = () => {
   return (
@@ -10,11 +10,11 @@ export const Result = () => {
         'bg-primary text-primary-foreground gap-4 grid content-start overflow-hidden'
       }
     >
-      <SlideY>
+      <AnimationSlideY>
         <div className="p-3">
           <h2 className={'text-3xl font-medium py-12'}>Результат курса</h2>
         </div>
-      </SlideY>
+      </AnimationSlideY>
       <PictureCarousel items={items} />
     </section>
   )

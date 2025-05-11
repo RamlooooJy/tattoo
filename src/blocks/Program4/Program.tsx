@@ -1,7 +1,7 @@
 import FixedGallery from '../../components/FixedGallery'
 import Stepper from 'components/Stepper/Stepper'
 import { navigation } from 'lib/utils'
-import { SlideY } from 'components/Animations/SlideY'
+import { AnimationSlideY } from 'components/Animations/AnimationSlideY'
 
 export const Program = () => {
   return (
@@ -12,12 +12,12 @@ export const Program = () => {
       }
     >
       <div className="p-3">
-        <SlideY>
+        <AnimationSlideY>
           <h2 className={'text-3xl font-semibold'}>ПРОГРАММА КУРСА</h2>
           <h3 className={'text-2xl font-semibold text-muted-foreground'}>
             по блокам
           </h3>
-        </SlideY>
+        </AnimationSlideY>
       </div>
       <FixedGallery />
       <div className="p-3">

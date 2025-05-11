@@ -2,7 +2,7 @@ import { Button } from 'components/ui/button'
 import { cn, getBackgroundImage, navigation } from 'lib/utils'
 import type { FC } from 'react'
 import { ContactFormTrigger } from 'components/ContactForm'
-import { SlideX } from 'components/Animations/SlideX'
+import { AnimationSlideX } from 'components/Animations/AnimationSlideX'
 
 export const Hero: FC = () => {
   const { backgroundImageClassName } = getBackgroundImage('')
@@ -22,29 +22,29 @@ export const Hero: FC = () => {
     >
       <div className={'grid gap-4 '}>
         <div className={'grid gap-3'}>
-          <SlideX type={'right'} delay={0.2}>
+          <AnimationSlideX type={'right'} delay={0.2}>
             <h2 className={'text-3xl font-bold'}>
               Запишитесь на{' '}
               <span className={'text-chart-4'}>бесплатно пробное</span> занятие
             </h2>
-          </SlideX>
-          <SlideX type={'left'} delay={0.6}>
+          </AnimationSlideX>
+          <AnimationSlideX type={'left'} delay={0.6}>
             <h2 className={'font-bold text-3xl'}>
               ПРАКТИКУМ ПРОХОДИТ В Москве
             </h2>
-          </SlideX>
-          <SlideX type={'right'} delay={1}>
+          </AnimationSlideX>
+          <AnimationSlideX type={'right'} delay={1}>
             <p className={'text-base'}>
               Набейте свою первую татуировку под руководством мастеров taurus
               tattoo academy
             </p>
-          </SlideX>
+          </AnimationSlideX>
         </div>
-        <SlideX type={'left'} delay={1}>
+        <AnimationSlideX type={'left'} delay={1}>
           <ContactFormTrigger>
             <Button size={'lg'}>Записаться</Button>
           </ContactFormTrigger>
-        </SlideX>
+        </AnimationSlideX>
       </div>
     </section>
   )

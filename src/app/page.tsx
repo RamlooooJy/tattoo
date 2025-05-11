@@ -15,6 +15,7 @@ import type { FC } from 'react'
 import { fetchCourses } from '../store/course.store'
 import { CoursesProvider } from 'contexts/courses'
 import { Hero } from 'blocks/Hero1'
+import { VersionSetter } from 'components/Version/VersionSetter'
 
 const Home: FC = async () => {
   const courses = await fetchCourses()
@@ -35,6 +36,13 @@ const Home: FC = async () => {
       <About />
       <Questions />
       <Contacts />
+      {/**
+       * extra
+       * */}
+      <VersionSetter />
+      {/**
+       * extra
+       * */}
     </CoursesProvider>
   )
 }

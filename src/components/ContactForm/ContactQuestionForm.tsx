@@ -20,7 +20,7 @@ import type { ContactFormType } from 'components/ContactForm/ContactFormSchema'
 import type { z } from 'zod'
 import contactStore from '../../store/contact.store'
 import { AnimatePresence } from 'framer-motion'
-import { Appear } from 'components/Animations/Appear'
+import { AnimationAppear } from 'components/Animations/AnimationAppear'
 
 const QuestionSchema = FormSchema.pick({
   name: true,
@@ -55,9 +55,9 @@ export const ContactQuestionForm = () => {
     <div className={isLoading ? 'opacity-50 pointer-events-none' : ''}>
       <AnimatePresence>
         {wasSent ? (
-          <Appear className="flex flex-col justify-center items-center absolute inset-0 backdrop-blur-sm bg-muted">
+          <AnimationAppear className="flex flex-col justify-center items-center absolute inset-0 backdrop-blur-sm bg-muted">
             <h2 className={'text-2xl font-semibold'}>Мы с вами свяжемся!</h2>
-          </Appear>
+          </AnimationAppear>
         ) : null}
       </AnimatePresence>
       <Form {...form}>

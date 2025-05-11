@@ -5,12 +5,13 @@ import { getDefaultOrigin } from 'lib/utils'
 export const coursesPathName = `${getDefaultOrigin()}/api/courses`
 
 export async function fetchCourses() {
-  const isBuild = process.env.NEXT_PHASE === 'phase-production-build'
+  let result: Course[] = []
+  try {
+    const res: AxiosResponse<Course[]> = await axios.get(coursesPathName)
 
-  if (isBuild) {
-    return []
+    result = res.data
+  } catch (error) {
+    console.log(error)
   }
-  const courses: AxiosResponse<Course[]> = await axios.get(coursesPathName)
-
-  return courses.data
+  return result ?? []
 }

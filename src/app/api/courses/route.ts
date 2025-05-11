@@ -145,9 +145,14 @@ const cache: Cache = {
   ],
 }
 
-// GET - получить список курсов
 export async function GET() {
-  return Response.json(cache.courses)
+  try {
+    console.log('Fetching courses...')
+    return Response.json(cache.courses)
+  } catch (error) {
+    console.error('Error fetching courses:', error)
+    return Response.json({ error: 'Internal server error' }, { status: 500 })
+  }
 }
 
 export async function POST(request: Request) {

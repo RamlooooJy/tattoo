@@ -1,11 +1,11 @@
-import { SlideY } from 'components/Animations/SlideY'
+import { AnimationSlideY } from 'components/Animations/AnimationSlideY'
 import type { FC } from 'react'
 
 const Stepper: FC = () => {
   return (
     <div className="max-w-xl p-6 space-y-6 md:max-w-2/5">
       {steps.map((step, index) => (
-        <SlideY key={step.title}>
+        <AnimationSlideY key={step.title}>
           <div className="flex items-start space-x-4">
             <div className="text-lg font-bold text-gray-700">{index + 1}</div>
             <div>
@@ -16,7 +16,7 @@ const Stepper: FC = () => {
           {index < steps.length - 1 ? (
             <div className="border-b border-destructive mt-4" />
           ) : null}
-        </SlideY>
+        </AnimationSlideY>
       ))}
     </div>
   )

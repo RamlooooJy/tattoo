@@ -6,6 +6,12 @@ import { type FC, useState } from 'react'
 import Link from 'next/link'
 import { navigation, navigationNames } from 'lib/utils'
 import Logo from 'components/Logo/Logo'
+import {
+  getSettingsWithDelay,
+  settingsNavigationContainer,
+  settingsNavigationItems,
+} from 'components/Animations/settings'
+import { AnimationSlideX } from 'components/Animations/AnimationSlideX'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,64 +38,47 @@ export const Header = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.nav
-            className={
-              'grid gap-2 top-[var(--size-header)] p-4 z-10 fixed inset-0 bg-sidebar-primary text-sidebar-primary-foreground content-start justify-end'
-            }
             key={String(isOpen)}
-            transition={{
-              duration: 0.1,
-              ease: [0, 0.31, 0.7, 1.01],
-            }}
-            initial={{
-              opacity: 0,
-              x: '100%',
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            exit={{
-              opacity: 0,
-              x: '100%',
-            }}
+            className={
+              'top-[var(--size-header)] p-4 z-10 fixed inset-0 bg-sidebar-primary text-sidebar-primary-foreground'
+            }
+            {...settingsNavigationContainer}
           >
-            {Object.values(navigation).map((value, idx) => (
-              <motion.div
-                key={`${value}+${isOpen}`}
-                transition={{
-                  delay: (0.1 * idx) / 5,
-                  type: 'spring',
-                  stiffness: 100,
-                  damping: 10,
-                  duration: 0.3,
+            <AnimationSlideX>
+              <Link
+                onClick={() => {
+                  onChange(false)
                 }}
-                initial={{
-                  opacity: 0,
-                  x: '100%',
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: '100%',
-                }}
+                href={'/'}
+                className={'logo '}
               >
-                <Link
-                  onClick={() => {
-                    onChange(false)
-                  }}
-                  className={
-                    'text-foreground font-semibold cursor-pointer hover:text-chart-5 transition'
-                  }
-                  key={value}
-                  href={`#${value}`}
+                <Logo />
+              </Link>
+            </AnimationSlideX>
+            <div className={'grid gap-2 content-start justify-end'}>
+              {Object.values(navigation).map((value, idx) => (
+                <motion.div
+                  key={`${value}+${isOpen}`}
+                  {...getSettingsWithDelay(
+                    (0.1 * idx) / 5,
+                    settingsNavigationItems,
+                  )}
                 >
-                  {navigationNames[value]}
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    onClick={() => {
+                      onChange(false)
+                    }}
+                    className={
+                      'text-foreground font-semibold cursor-pointer hover:text-chart-5 transition'
+                    }
+                    key={value}
+                    href={`#${value}`}
+                  >
+                    {navigationNames[value]}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
           </motion.nav>
         )}
       </AnimatePresence>
