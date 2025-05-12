@@ -26,7 +26,7 @@ const PictureCarousel: FC<CarouselProps> = ({ items }) => {
           {items.map((item) => (
             <PhotoView key={item.id} src={item.src}>
               <img
-                className="object-cover h-[400px] w-[85vw]"
+                className="object-cover h-[400px] w-full max-w-[450px]"
                 src={item.src}
                 alt=""
               />

@@ -16,34 +16,37 @@ import { fetchCourses } from '../store/course.store'
 import { CoursesProvider } from 'contexts/courses'
 import { Hero } from 'blocks/Hero1'
 import { AppPreload } from 'components/Version/AppPreload'
+import { MainProvider } from '../contexts/mainProvider'
 
 const Home: FC = async () => {
   const courses = await fetchCourses()
 
   return (
-    <CoursesProvider courses={courses}>
-      <Header />
-      <Hero />
-      <Info />
-      <Course />
-      <Program />
-      <Result />
-      <Price />
-      <AfterCourse />
-      <Diploma />
-      <Reviews />
-      <Reserve />
-      <About />
-      <Questions />
-      <Contacts />
-      {/**
-       * extra
-       * */}
-      <AppPreload />
-      {/**
-       * extra
-       * */}
-    </CoursesProvider>
+    <MainProvider>
+      <CoursesProvider courses={courses}>
+        <Header />
+        <Hero />
+        <Info />
+        <Course />
+        <Program />
+        <Result />
+        <Price />
+        <AfterCourse />
+        <Diploma />
+        <Reviews />
+        <Reserve />
+        <About />
+        <Questions />
+        <Contacts />
+        {/**
+         * extra
+         * */}
+        <AppPreload />
+        {/**
+         * extra
+         * */}
+      </CoursesProvider>
+    </MainProvider>
   )
 }
 

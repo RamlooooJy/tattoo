@@ -18,65 +18,68 @@ const Contacts = () => {
   return (
     <section
       id={navigation.contacts}
-      className={
-        'bg-secondary text-secondary-foreground grid justify-center p-10'
-      }
+      className={'bg-secondary text-secondary-foreground'}
     >
-      <h2 className={'text-2xl font-semibold pb-5'}>Контакты</h2>
-      <div className="text-sm space-y-2">
-        <p>
-          <strong>Адрес:</strong> {address}
-        </p>
-        <p>
-          <strong>Телефон:</strong>{' '}
-          <Link href={`tel:${phone}`} className="text-blue-600 hover:underline">
-            {phone}
-          </Link>
-        </p>
-        <p>
-          <strong>Email:</strong>{' '}
-          <Link
-            href={`mailto:${mail}`}
-            className="text-blue-600 hover:underline"
-          >
-            {mail}
-          </Link>
-        </p>
-        <p>
-          <strong>График работы:</strong> {schedule}
-        </p>
-        <div>
-          {Object.keys(socials).length > 0 && (
-            <div className="space-x-4">
-              {socials.vk && (
-                <Link
-                  href={socials.vk}
-                  target="_blank"
-                  className="text-blue-500 hover:underline"
-                >
-                  VK
-                </Link>
-              )}
-              {socials.telegram && (
-                <Link
-                  href={socials.telegram}
-                  target="_blank"
-                  className="text-blue-500 hover:underline"
-                >
-                  Telegram
-                </Link>
-              )}
-              {socials.instagram && (
-                <Link
-                  href={socials.instagram}
-                  target="_blank"
-                  className="text-pink-500 hover:underline"
-                >
-                  Instagram
-                </Link>
-              )}
-            </div>
-          )}
+      <div className={'container-max-width grid justify-center p-10'}>
+        <h2 className={'text-2xl font-semibold pb-5'}>Контакты</h2>
+        <div className="text-sm space-y-2">
+          <p>
+            <strong>Адрес:</strong> {address}
+          </p>
+          <p>
+            <strong>Телефон:</strong>{' '}
+            <Link
+              href={`tel:${phone}`}
+              className="text-blue-600 hover:underline"
+            >
+              {phone}
+            </Link>
+          </p>
+          <p>
+            <strong>Email:</strong>{' '}
+            <Link
+              href={`mailto:${mail}`}
+              className="text-blue-600 hover:underline"
+            >
+              {mail}
+            </Link>
+          </p>
+          <p>
+            <strong>График работы:</strong> {schedule}
+          </p>
+          <div>
+            {Object.keys(socials).length > 0 && (
+              <div className="space-x-4">
+                {socials.vk && (
+                  <Link
+                    href={socials.vk}
+                    target="_blank"
+                    className="text-blue-500 hover:underline"
+                  >
+                    VK
+                  </Link>
+                )}
+                {socials.telegram && (
+                  <Link
+                    href={socials.telegram}
+                    target="_blank"
+                    className="text-blue-500 hover:underline"
+                  >
+                    Telegram
+                  </Link>
+                )}
+                {socials.instagram && (
+                  <Link
+                    href={socials.instagram}
+                    target="_blank"
+                    className="text-pink-500 hover:underline"
+                  >
+                    Instagram
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

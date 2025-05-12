@@ -16,7 +16,7 @@ const Diploma = () => {
       }
       className={cn('p-4', 'grid background-container screenHeight')}
     >
-      <div>
+      <div className={'container-max-width'}>
         <AnimationSlideY>
           <h2
             className={'text-4xl font-semibold text-primary-foreground py-12'}

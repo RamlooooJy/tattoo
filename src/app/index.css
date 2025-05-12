@@ -137,6 +137,10 @@
 }
 
 @layer components {
+  .desktop-link {
+    @apply text-sm text-sidebar-primary-foreground font-semibold cursor-pointer hover:text-chart-5 transition;
+  }
+
   .background-before {
     position: relative;
   }
@@ -184,6 +188,10 @@
 }
 
 @layer utilities {
+  .container-max-width {
+    @apply max-w-[1280px] m-auto w-full;
+  }
+
   .background-container {
     background-size: cover;
     background-position: center;

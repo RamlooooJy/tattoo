@@ -2,87 +2,45 @@
 
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { type FC, useState } from 'react'
+import { type FC, useContext, useState } from 'react'
 import Link from 'next/link'
-import { navigation, navigationNames } from 'lib/utils'
 import Logo from 'components/Logo/Logo'
-import {
-  getSettingsWithDelay,
-  settingsNavigationContainer,
-  settingsNavigationItems,
-} from 'components/Animations/settings'
-import { AnimationSlideX } from 'components/Animations/AnimationSlideX'
+import { MainContext } from '../../contexts/mainProvider'
+import { MobileNavigation } from 'components/Header/MobileNavigation'
+import { DesktopNavigation } from 'components/Header/DesktopNavigation'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { isMobile, isHydrated } = useContext(MainContext)
 
   const onChange = (value: boolean) => {
     setIsOpen(value)
-    document.body.style.overflow = document.body.style.overflow ? '' : 'hidden'
+    document.body.style.overflow = value ? 'hidden' : ''
   }
 
   return (
     <>
-      <header className={'sticky top-0 z-20'}>
+      <header className={'sticky top-0 z-20 bg-sidebar'}>
         <div
           className={
-            'flex justify-between h-[var(--size-header)] items-center p-3 bg-sidebar text-sidebar-foreground'
+            'flex justify-between h-[var(--size-header)] items-center p-3 text-sidebar-foreground container-max-width'
           }
         >
           <Link href={'/'} className={'logo'}>
             <Logo size={'64px'} />
           </Link>
-          <MenuToggle isOpen={isOpen} onChange={onChange} size={'32'} />
+          {isHydrated && !isMobile ? (
+            <DesktopNavigation onChange={onChange} />
+          ) : null}
+          {isHydrated && isMobile ? (
+            <MenuToggle isOpen={isOpen} onChange={onChange} size={'32'} />
+          ) : null}
         </div>
       </header>
       <AnimatePresence>
-        {isOpen && (
-          <motion.nav
-            key={String(isOpen)}
-            className={
-              'flex gap-2 top-[var(--size-header)] p-4 z-10 fixed inset-0 bg-sidebar-primary text-sidebar-primary-foreground'
-            }
-            {...settingsNavigationContainer}
-          >
-            <AnimationSlideX>
-              <Link
-                onClick={() => {
-                  onChange(false)
-                }}
-                href={'/'}
-                className={'logo'}
-              >
-                <Logo className={'object-cover'} />
-              </Link>
-            </AnimationSlideX>
-            <div className={'grid gap-2 content-start justify-end'}>
-              {Object.values(navigation)
-                .slice(1)
-                .map((value, idx) => (
-                  <motion.div
-                    key={`${value}+${isOpen}`}
-                    {...getSettingsWithDelay(
-                      (0.1 * idx) / 5,
-                      settingsNavigationItems,
-                    )}
-                  >
-                    <Link
-                      onClick={() => {
-                        onChange(false)
-                      }}
-                      className={
-                        'text-foreground font-semibold cursor-pointer hover:text-chart-5 transition'
-                      }
-                      key={value}
-                      href={`#${value}`}
-                    >
-                      {navigationNames[value]}
-                    </Link>
-                  </motion.div>
-                ))}
-            </div>
-          </motion.nav>
-        )}
+        {isOpen && isMobile && isHydrated ? (
+          <MobileNavigation onChange={onChange} />
+        ) : null}
       </AnimatePresence>
     </>
   )

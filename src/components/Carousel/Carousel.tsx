@@ -60,6 +60,7 @@ const Carousel: FC<CarouselProps> = ({
 
   useEffect(() => {
     const autoplay = api?.plugins()?.autoplay
+    console.log(autoplay)
 
     if (autoplay) {
       if (inView) {

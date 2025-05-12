@@ -37,13 +37,13 @@ const images = [
 
 const FixedGallery: FC = () => {
   return (
-    <AnimationSlideY className="flex flex-col md:flex-row py-20">
+    <AnimationSlideY className="flex justify-center flex-col md:flex-row py-20">
       <div className="relative md:w-3/4 py-4 space-y-16">
         {images.map((imageItem, idx) => (
           <FixedGalleryItem
             key={imageItem.id}
             {...imageItem}
-            className={idx !== 0 ? 'absolute' : 'relative z-[1] w-full'}
+            className={cn(idx !== 0 ? 'absolute' : 'relative z-[1]')}
           />
         ))}
       </div>
@@ -68,7 +68,11 @@ const FixedGalleryItem: FC<GalleryItemProps> = ({
       id={`section-${id}`}
       className={cn('scroll-mt-20 top-0', rotateClass, className)}
     >
-      <img src={src} alt={title} className="w-full rounded shadow-lg" />
+      <img
+        src={src}
+        alt={title}
+        className="'w-full max-h-80', rounded shadow-lg"
+      />
     </section>
   )
 }

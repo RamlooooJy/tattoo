@@ -9,7 +9,9 @@ const Reserve = () => {
       id={navigation.reserve}
       className={'screenHeight grid content-center justify-center'}
     >
-      <AnimationSlideY className={'grid p-4 gap-4 sticky top-2/5'}>
+      <AnimationSlideY
+        className={'grid p-4 gap-4 sticky top-2/5 container-max-width'}
+      >
         <h2 className={'text-3xl font-semibold'}>ЗАПИСАТЬСЯ НА КУРС — ЛЕГКО</h2>
         <p>
           Просто заполните форму, выбери подходящий курс, и нажми кнопку

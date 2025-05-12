@@ -15,17 +15,21 @@ const AfterCourse = () => {
           className={'background-before screenHeight'}
         />
         <AnimationSlideY
-          className={'absolute left-0 bottom-12 right-12 justify-self-end'}
+          className={
+            'absolute left-0 bottom-12 right-12 justify-self-end container-max-width'
+          }
         >
           <h2 className={'font-semibold text-4xl text-primary-foreground'}>
             Что будет после <br /> курса?
           </h2>
         </AnimationSlideY>
       </div>
-      <div
-        className={'grid gap-3 bg-primary text-center px-4 py-12 screenHeight'}
-      >
-        <div className={'max-w-4/5 grid gap-8 justify-self-center'}>
+      <div className={'bg-primary text-center px-4 py-12'}>
+        <div
+          className={
+            'max-w-4/5 grid gap-12 justify-self-center container-max-width'
+          }
+        >
           {tips.map((tip) => (
             <AnimationSlideY key={tip} className={'text-primary-foreground'}>
               <p>{tip}</p>

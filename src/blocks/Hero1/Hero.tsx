@@ -20,7 +20,7 @@ export const Hero: FC = () => {
         'screenHeight grid items-center p-4 overflow-hidden',
       )}
     >
-      <div className={'grid gap-4 '}>
+      <div className={'grid gap-4 container-max-width'}>
         <div className={'grid gap-3'}>
           <AnimationSlideX type={'right'} delay={0.2}>
             <h2 className={'text-3xl font-bold'}>

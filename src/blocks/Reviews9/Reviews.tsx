@@ -7,30 +7,32 @@ const { style, backgroundImageClassName } = getBackgroundImage(img.src)
 const Reviews = () => {
   return (
     <section id={navigation.reviews} className={'bg-accent'}>
-      <Carousel useAutoplay={false}>
-        {reviews.map((review) => (
-          <div
-            style={style}
-            className={cn(
-              backgroundImageClassName,
-              'reviewCard cursor-grab select-none',
-              'text-card-foreground background-container aspect-[16/24] w-[300px]',
-            )}
-            key={review.description}
-          >
-            <h3
-              className={
-                'reviewCardHeader font-semibold text-secondary-foreground'
-              }
+      <div className={'container-max-width'}>
+        <Carousel useAutoplay={false}>
+          {reviews.map((review) => (
+            <div
+              style={style}
+              className={cn(
+                backgroundImageClassName,
+                'reviewCard cursor-grab select-none',
+                'text-card-foreground background-container aspect-[16/24] w-[300px]',
+              )}
+              key={review.description}
             >
-              {review.title}
-            </h3>
-            <div className={'reviewCardBody p-2'}>
-              <p className={'text-sm font-semibold'}>{review.description}</p>
+              <h3
+                className={
+                  'reviewCardHeader font-semibold text-secondary-foreground'
+                }
+              >
+                {review.title}
+              </h3>
+              <div className={'reviewCardBody p-2'}>
+                <p className={'text-sm font-semibold'}>{review.description}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </Carousel>
+          ))}
+        </Carousel>
+      </div>
     </section>
   )
 }

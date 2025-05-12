@@ -19,7 +19,7 @@ const ContactFormModal: FC<ContactModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChangeAction}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent forceMount className="sm:max-w-[425px]">
         <div className={isLoading ? 'opacity-50 pointer-events-none' : ''}>
           <DialogHeader>
             <DialogTitle>Записаться на курс</DialogTitle>

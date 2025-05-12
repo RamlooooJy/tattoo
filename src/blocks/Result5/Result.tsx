@@ -6,16 +6,16 @@ export const Result = () => {
   return (
     <section
       id={navigation.result}
-      className={
-        'bg-primary text-primary-foreground gap-4 grid content-start overflow-hidden'
-      }
+      className={'bg-primary text-primary-foreground overflow-hidden'}
     >
-      <AnimationSlideY>
-        <div className="p-3">
-          <h2 className={'text-3xl font-semibold py-12'}>Результат курса</h2>
-        </div>
-      </AnimationSlideY>
-      <PictureCarousel items={items} />
+      <div className={'container-max-width gap-4 grid content-start '}>
+        <AnimationSlideY>
+          <div className="p-3">
+            <h2 className={'text-3xl font-semibold py-12'}>Результат курса</h2>
+          </div>
+        </AnimationSlideY>
+        <PictureCarousel items={items} />
+      </div>
     </section>
   )
 }
