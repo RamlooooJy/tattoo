@@ -23,18 +23,19 @@ export const Hero: FC = () => {
       <div className={'grid gap-4 container-max-width'}>
         <div className={'grid gap-3'}>
           <AnimationSlideX type={'right'} delay={0.2}>
-            <h2 className={'text-3xl font-bold'}>
+            <h2 className={'text-3xl md:text-4xl font-bold'}>
               Запишитесь на{' '}
-              <span className={'text-chart-4'}>бесплатно пробное</span> занятие
+              <span className={'text-site-primary'}>бесплатно пробное</span>{' '}
+              занятие
             </h2>
           </AnimationSlideX>
           <AnimationSlideX type={'left'} delay={0.6}>
             <h2 className={'font-bold text-3xl'}>
-              ПРАКТИКУМ ПРОХОДИТ В Москве
+              Практикум проходит в Москве
             </h2>
           </AnimationSlideX>
           <AnimationSlideX type={'right'} delay={1}>
-            <p className={'text-base'}>
+            <p className={'font-medium max-w-96'}>
               Набейте свою первую татуировку под руководством мастеров taurus
               tattoo academy
             </p>
@@ -42,7 +43,7 @@ export const Hero: FC = () => {
         </div>
         <AnimationSlideX type={'left'} delay={1}>
           <ContactFormTrigger>
-            <Button size={'lg'}>Записаться</Button>
+            <Button size={'xxxl'}>Записаться на мастер класс</Button>
           </ContactFormTrigger>
         </AnimationSlideX>
       </div>

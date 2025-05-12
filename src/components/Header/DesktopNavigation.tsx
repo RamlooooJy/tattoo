@@ -22,7 +22,7 @@ const secondaryNavigation = Object.values(navigation)
 
 export const DesktopNavigation: FC<DesktopNavigationProps> = ({ onChange }) => {
   return (
-    <div className={'flex gap-2'}>
+    <div className={'flex gap-2 p-4'}>
       {mainNavigation.map((value) => (
         <Link
           onClick={() => {

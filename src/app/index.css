@@ -2,7 +2,28 @@
 @import "tailwindcss";
 
 @theme inline {
+  --color-site-primary: var(--color-orange-500);
+  --color-site-primary-hover: var(--color-orange-600);
+  --color-site-primary-text: var(--color-stone-50);
+  --color-site-secondary: var(--color-stone-900);
+  --color-site-secondary-hover: var(--color-stone-800);
+  --color-site-secondary-text: var(--color-stone-50);
+  --color-site-accent: var(--color-slate-800);
+  --color-site-accent-text: var(--color-slate-50);
+  --color-site-header: oklch(0.268 0.006 34.298 / 0.67);
+  --color-site-header-hover: oklch(0.268 0.006 34.298 / 0.87);
+  --color-site-header-text: var(--color-stone-50);
   --font-primary: "inter", Arial, sans-serif;
+
+  --size-header: 64px;
+  --container-padding: 48px;
+  --container-padding-sm: 12px;
+  --app-height-with-header: calc(var(--app-height) - var(--size-header));
+  --background-hero: url("https://media.istockphoto.com/id/669911398/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BC%D1%83%D0%B6%D1%87%D0%B8%D0%BD%D0%B0-%D0%B4%D0%B5%D0%BB%D0%B0%D0%B5%D1%82-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BD%D0%B0-%D1%80%D1%83%D0%BA%D0%B5.jpg?s=2048x2048&w=is&k=20&c=jw8d-mze1_0qHtjMR80YRqfmdUjiJfUMXWak7EZY2Vo=");
+  --local-background: url("../assets/course-card-bg.png");
+  /*
+  * shadcn
+  */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -38,13 +59,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
-  --size-header: 64px;
-  --container-padding: 48px;
-  --container-padding-sm: 12px;
-  --app-height-with-header: calc(var(--app-height) - var(--size-header));
-  --background-hero: url("https://media.istockphoto.com/id/669911398/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BC%D1%83%D0%B6%D1%87%D0%B8%D0%BD%D0%B0-%D0%B4%D0%B5%D0%BB%D0%B0%D0%B5%D1%82-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BD%D0%B0-%D1%80%D1%83%D0%BA%D0%B5.jpg?s=2048x2048&w=is&k=20&c=jw8d-mze1_0qHtjMR80YRqfmdUjiJfUMXWak7EZY2Vo=");
-  --local-background: url("../assets/course-card-bg.png");
 }
 
 :root {
@@ -134,11 +148,21 @@
     scroll-margin-top: var(--size-header) !important;
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
+
+  @media (min-width: 760px) {
+    :root {
+      --size-header: 120px;
+    }
+  }
 }
 
 @layer components {
   .desktop-link {
     @apply text-sm text-sidebar-primary-foreground font-semibold cursor-pointer hover:text-chart-5 transition;
+  }
+
+  .logo-img {
+    object-fit: contain;
   }
 
   .background-before {
@@ -151,13 +175,13 @@
     inset: 0;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    @apply pointer-fine:bg-fixed;
     background-image: var(--local-background);
     pointer-events: none;
   }
 
   .screenHeight {
-    height: var(--app-height-with-header);
+    height: var(--app-height);
   }
 
   .reviewCard {

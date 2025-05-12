@@ -17,13 +17,12 @@ type MobileNavigationProps = {
 export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
   return (
     <motion.nav
-      // key={String(isOpen)}
       className={
-        'flex gap-2 top-[var(--size-header)] p-4 z-10 fixed inset-0 bg-sidebar-primary text-sidebar-primary-foreground'
+        'grid grid-cols-[1fr_max-content] gap-2 top-[var(--size-header)] p-4 z-10 fixed inset-0 bg-site-header-hover text-site-header-text'
       }
       {...settingsNavigationContainer}
     >
-      <AnimationSlideX>
+      <AnimationSlideX className={'relative'}>
         <Link
           onClick={() => {
             onChange(false)
@@ -31,7 +30,7 @@ export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
           href={'/'}
           className={'logo'}
         >
-          <Logo className={'object-cover'} />
+          <Logo className={'object-contain'} />
         </Link>
       </AnimationSlideX>
       <div className={'grid gap-2 content-start justify-end'}>

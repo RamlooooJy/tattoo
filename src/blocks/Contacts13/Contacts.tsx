@@ -18,15 +18,15 @@ const Contacts = () => {
   return (
     <section
       id={navigation.contacts}
-      className={'bg-secondary text-secondary-foreground'}
+      className={'bg-site-accent text-site-accent-text'}
     >
-      <div className={'container-max-width grid justify-center p-10'}>
+      <div className={'container-max-width grid p-10'}>
         <h2 className={'text-2xl font-semibold pb-5'}>Контакты</h2>
-        <div className="text-sm space-y-2">
-          <p>
+        <div className="text-sm space-y-2 grid grid-cols-3 gap-1">
+          <p className={'m-0'}>
             <strong>Адрес:</strong> {address}
           </p>
-          <p>
+          <p className={'m-0'}>
             <strong>Телефон:</strong>{' '}
             <Link
               href={`tel:${phone}`}
@@ -35,7 +35,7 @@ const Contacts = () => {
               {phone}
             </Link>
           </p>
-          <p>
+          <p className={'m-0'}>
             <strong>Email:</strong>{' '}
             <Link
               href={`mailto:${mail}`}
@@ -44,7 +44,7 @@ const Contacts = () => {
               {mail}
             </Link>
           </p>
-          <p>
+          <p className={'m-0'}>
             <strong>График работы:</strong> {schedule}
           </p>
           <div>

@@ -31,6 +31,7 @@ export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [])
 
   return (
+    // <ParallaxProvider>
     <MainContext.Provider
       value={{
         isMobile,
@@ -39,5 +40,6 @@ export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
     >
       {children}
     </MainContext.Provider>
+    // </ParallaxProvider>
   )
 }

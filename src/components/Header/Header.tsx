@@ -8,6 +8,7 @@ import Logo from 'components/Logo/Logo'
 import { MainContext } from '../../contexts/mainProvider'
 import { MobileNavigation } from 'components/Header/MobileNavigation'
 import { DesktopNavigation } from 'components/Header/DesktopNavigation'
+import { cn } from 'lib/utils'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,14 +21,19 @@ export const Header = () => {
 
   return (
     <>
-      <header className={'sticky top-0 z-20 bg-sidebar'}>
+      <header
+        className={cn(
+          'fixed top-0 z-20 w-full bg-site-header text-site-header-text transition hover:bg-site-header-hover',
+          isOpen ? 'bg-site-header-hover' : 'bg-site-header',
+        )}
+      >
         <div
           className={
-            'flex justify-between h-[var(--size-header)] items-center p-3 text-sidebar-foreground container-max-width'
+            'flex justify-between h-[var(--size-header)] items-center container-max-width'
           }
         >
-          <Link href={'/'} className={'logo'}>
-            <Logo size={'64px'} />
+          <Link href={'/'} className={'logo-link h-full aspect-square'}>
+            <Logo className={'h-full'} />
           </Link>
           {isHydrated && !isMobile ? (
             <DesktopNavigation onChange={onChange} />
