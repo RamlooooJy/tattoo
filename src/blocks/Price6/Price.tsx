@@ -6,9 +6,12 @@ import { CoursesContext } from '../../contexts/courses'
 import { useContext } from 'react'
 import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
 import { AnimationSlideY } from 'components/Animations/AnimationSlideY'
+import { MainContext } from '../../contexts/mainProvider'
 
 const Price = () => {
+  const { isMobile, isHydrated } = useContext(MainContext)
   const data = useContext(CoursesContext)
+
   return (
     <section
       id={navigation.price}
@@ -25,6 +28,7 @@ const Price = () => {
               'sticky top-[var(--size-header)]',
               'grid justify-self-center w-full grid-cols-1 md:max-w-10/12',
               'p-12 background-before var(--background-course)',
+              isHydrated && isMobile ? 'sm:relative' : ' ',
               course.textStyle,
               course.backgroundStyle,
             )}
