@@ -131,6 +131,10 @@
   --sidebar-ring: oklch(0.553 0.013 58.071);
 }
 
+.desktop {
+  --size-header: 120px;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -147,12 +151,6 @@
   section {
     scroll-margin-top: var(--size-header) !important;
     transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  @media (min-width: 760px) {
-    :root {
-      --size-header: 120px;
-    }
   }
 }
 

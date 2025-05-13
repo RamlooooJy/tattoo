@@ -16,7 +16,7 @@ export const MainContext = createContext<{
   isHydrated: false,
 })
 
-const mobileBreakpoint = 450
+const mobileBreakpoint = 640
 
 export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isMobile, setIsMobile] = useState<null | boolean>(null)
@@ -29,6 +29,16 @@ export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
     handler()
     return () => window.removeEventListener('resize', handler)
   }, [])
+
+  useLayoutEffect(() => {
+    if (isMobile) {
+      document.documentElement.classList.add('mobile')
+      document.documentElement.classList.remove('desktop')
+      return
+    }
+    document.documentElement.classList.remove('mobile')
+    document.documentElement.classList.add('desktop')
+  }, [isMobile])
 
   return (
     // <ParallaxProvider>

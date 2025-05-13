@@ -33,7 +33,11 @@ export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
           <Logo className={'object-contain'} />
         </Link>
       </AnimationSlideX>
-      <div className={'grid gap-2 content-start justify-end'}>
+      <div
+        className={
+          'grid gap-2 content-start justify-end sm:px-5 sm:overflow-auto'
+        }
+      >
         {Object.values(navigation)
           .slice(1)
           .map((value, idx) => (
@@ -49,7 +53,7 @@ export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
                   onChange(false)
                 }}
                 className={
-                  'text-foreground font-semibold cursor-pointer hover:text-chart-5 transition'
+                  'text-foreground font-semibold cursor-pointer hover:text-chart-5 transition sm:text-sm'
                 }
                 key={value}
                 href={`#${value}`}
