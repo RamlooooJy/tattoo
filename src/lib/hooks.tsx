@@ -1,4 +1,4 @@
-import type { RefObject } from 'react'
+import { type RefObject, useEffect } from 'react'
 import { useScroll, useTransform } from 'framer-motion'
 
 export const useInScrollSlideUp = (ref: RefObject<HTMLElement | null>) => {
@@ -16,4 +16,24 @@ export const useInScrollSlideUp = (ref: RefObject<HTMLElement | null>) => {
     y,
     opacity,
   }
+}
+
+export const useOutside = (ref: RefObject<HTMLDivElement | null>) => {
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        ref.current &&
+        event.target &&
+        !ref.current.contains(event.target as Node)
+      ) {
+        alert('You clicked outside of me!')
+      }
+    }
+    // Bind the event listener
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [ref])
 }

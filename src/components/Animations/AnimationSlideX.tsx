@@ -19,16 +19,29 @@ const fromLeftStyleProps = {
   whileInView: { opacity: 1, x: 0 },
 }
 
+const animate: MotionProps['animate'] = {
+  opacity: 1,
+  x: 0,
+}
+
 type Props = {
   type?: 'left' | 'right'
 } & AnimationProps
 export const AnimationSlideX: FC<
   PropsWithChildren<ClassicComponent & Props>
-> = ({ children, className, type = 'left', delay = 0 }) => {
-  const styleProps = type === 'left' ? fromRightStyleProps : fromLeftStyleProps
+> = ({
+  children,
+  className,
+  type = 'left',
+  delay = 0,
+  whileInViewEnabled = true,
+}) => {
+  const { whileInView, ...styleProps } =
+    type === 'left' ? fromRightStyleProps : fromLeftStyleProps
   return (
     <motion.div
       {...styleProps}
+      {...(whileInViewEnabled ? { whileInView } : { animate })}
       {...getSettingsWithDelay(delay, settingsSpring)}
       className={className}
     >

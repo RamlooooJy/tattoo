@@ -12,6 +12,7 @@ const Logo: FC<LogoProps> = ({ className }) => {
   return (
     <div className={'relative w-full h-full'}>
       <Image
+        priority
         className={cn(
           'logo-image object-contain object-left-top invert',
           className,

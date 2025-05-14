@@ -1,15 +1,14 @@
 'use client'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { Loader2 } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MainContext } from '../../contexts/mainProvider'
 import { settingStraight } from 'components/Animations/settings'
+import { Greetings } from 'components/Greatings/Greatings'
+import { WidgetReservation } from 'components/WidgetReservation'
 
 export const AppPreload = () => {
   const { isHydrated } = useContext(MainContext)
-  useEffect(() => {
-    window.__APP_VERSION__ = process.env.__APP_VERSION__
-  }, [])
 
   /**
    * todo сомнительно
@@ -27,7 +26,12 @@ export const AppPreload = () => {
         >
           <Loader2 className={'animate-spin'} />
         </motion.div>
-      ) : null}
+      ) : (
+        <>
+          <Greetings />
+          <WidgetReservation />
+        </>
+      )}
     </AnimatePresence>
   )
 }

@@ -67,7 +67,10 @@ export const ContactForm: FC<ContactFormProps> = ({
   const onSubmit = (formData: ContactFormType) => {
     onOpenChangeAction?.(true)
     onLoadChangeAction?.(true)
-    contactStore(formData).then(() => {
+    contactStore({
+      ...formData,
+      name: formData.name.trim(),
+    }).then(() => {
       form.reset()
       onLoadChangeAction?.(false)
       onOpenChangeAction?.(false)

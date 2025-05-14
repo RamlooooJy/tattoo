@@ -15,12 +15,19 @@ export const styleProps: MotionProps = {
   ...settingsSpring,
 }
 
+const animate: MotionProps['animate'] = {
+  opacity: 1,
+  y: 0,
+}
+
 export const AnimationSlideY: FC<
   PropsWithChildren<ClassicComponent & AnimationProps>
-> = ({ children, className, delay = 0 }) => {
+> = ({ children, className, delay = 0, whileInViewEnabled = true }) => {
+  const { whileInView, ...settings } = styleProps
   return (
     <motion.div
-      {...getSettingsWithDelay(delay, styleProps)}
+      {...getSettingsWithDelay(delay, settings)}
+      {...(whileInViewEnabled ? { whileInView } : { animate })}
       className={className}
     >
       {children}

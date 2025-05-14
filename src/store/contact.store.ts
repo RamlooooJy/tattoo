@@ -1,9 +1,9 @@
-import axios, { type AxiosResponse } from 'axios'
 import { getDefaultOrigin } from 'lib/utils'
+import axios, { type AxiosResponse } from 'axios'
 
 const pathName = `${getDefaultOrigin()}/api/contact`
 
-async function fetchCourses(
+async function fetchContactApi(
   data: Record<string, string | number | undefined | boolean>,
 ) {
   try {
@@ -15,4 +15,4 @@ async function fetchCourses(
   }
 }
 
-export default fetchCourses
+export default fetchContactApi

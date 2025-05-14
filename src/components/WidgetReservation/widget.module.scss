@@ -1,0 +1,73 @@
+$font: var(--font-widget-reservation);
+
+$height: 100vh;
+$width: 95vw;
+$max-height: min($height, 350px);
+$max-width: min($width, 300px);
+$offset: var(--default-safari-offset);
+
+.container {
+  --site-primary: var(--widget-primary);
+  --site-primary-hover: var(--widget-primary-selected);
+  --site-primary-text: #efefef;
+  --muted-foreground: rgba(255,255,255, 0.3);
+  scroll-margin-top: 200px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(10px);
+  padding: 8px;
+  font-family: $font;
+  display: grid;
+  grid-gap: 2rem;
+  max-height: $max-height;
+  max-width: $max-width;
+  width: $width;
+  height: $height;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.authContainer {
+  display: inherit;
+  grid-gap: inherit;
+  padding: 24px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+  font-size: 16px;
+}
+
+.inputs {
+  display: grid;
+  gap: 1.2rem;
+  font-size: 20px;
+}
+
+.rememberPassword {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnContainer {
+  display: grid;
+  gap: 1rem;
+}
+
+.register {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  &-link {
+    font-weight: bold;
+  }
+}
+

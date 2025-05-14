@@ -14,7 +14,7 @@ export const settingsSpring: Required<
     duration,
   },
   viewport: {
-    // once: true,
+    once: true,
     amount: 0.2, // 👈 элемент считается "вошедшим", когда 20% его видны
   },
 }

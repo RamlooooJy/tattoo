@@ -44,7 +44,11 @@ export const ContactQuestionForm = () => {
 
   const onSubmit = (formData: ContactFormType) => {
     setIsLoading(true)
-    contactStore(formData).then(() => {
+    contactStore({
+      ...formData,
+      name: formData.name.trim(),
+      question: formData.name.trim(),
+    }).then(() => {
       // form.reset()
       setIsLoading(false)
       setWasSent(true)

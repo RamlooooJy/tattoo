@@ -53,14 +53,29 @@ export const FormSchema = z.object({
     .min(2, {
       message: 'Имя должно содержать минимум 2 символа',
     })
-    .regex(/^[a-zA-Zа-яА-ЯёЁ]+$/, {
+    .regex(/^[a-zA-Zа-яА-ЯёЁ]+( [a-zA-Zа-яА-ЯёЁ]+)*$/, {
       message:
-        'Имя должно содержать только буквы, без пробелов и спецсимволов.',
+        'Имя должно содержать только буквы, без пробелов и спецсимволов. Например: Оля, Оля Ивановна',
     }),
   phone: z.string().refine((val) => val.replaceAll(/\D/g, '').length >= 11, {
-    message: 'Номер телефона должен содержать 11 цифр.',
+    message: 'Номер телефона должен содержать 11 цифр',
   }),
   question: z.string().optional(),
+  login: z.string().regex(/^(\+7\s?\(\d{3}\)\s?\d{3}-?\d{2}-?\d{2}|7\d{10})$/, {
+    message: 'Номер телефона неполный +7 (999) 555 22 33',
+  }),
+  loginOrPhone: z
+    .string()
+    .regex(
+      /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\+7 \(\d{3}\) \d{3}-\d{2}-\d{2})$/,
+      {
+        message: 'Логин вида login@domain или +7 (999) 555 22 33',
+      },
+    )
+    .optional(),
+  password: z.string().min(4, {
+    message: 'Короткий пароль',
+  }),
   course: z.string().optional(),
   agreement: z.boolean().refine((val) => val, {
     message: 'Согласитесь с политикой, чтобы продолжить',

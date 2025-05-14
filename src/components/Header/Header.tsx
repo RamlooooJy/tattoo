@@ -1,7 +1,7 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, User, X } from 'lucide-react'
 import { type FC, useContext, useState } from 'react'
 import Link from 'next/link'
 import Logo from 'components/Logo/Logo'
@@ -9,10 +9,13 @@ import { MainContext } from '../../contexts/mainProvider'
 import { MobileNavigation } from 'components/Header/MobileNavigation'
 import { DesktopNavigation } from 'components/Header/DesktopNavigation'
 import { cn } from 'lib/utils'
+import { Button } from 'components/ui/button'
+import { AnimationSlideX } from 'components/Animations/AnimationSlideX'
+import { auth } from 'components/WidgetReservation/store/authStore'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { isMobile, isHydrated } = useContext(MainContext)
+  const { isMobile, isAdmin, isHydrated } = useContext(MainContext)
 
   const onChange = (value: boolean) => {
     setIsOpen(value)
@@ -39,7 +42,27 @@ export const Header = () => {
             <DesktopNavigation onChange={onChange} />
           ) : null}
           {isHydrated && isMobile ? (
-            <MenuToggle isOpen={isOpen} onChange={onChange} size={'32'} />
+            <div className={'grid grid-flow-col items-stretch gap-2'}>
+              {!isAdmin ? (
+                <AnimationSlideX
+                  className={'h-full aspect-square'}
+                  whileInViewEnabled={false}
+                  delay={0.5}
+                >
+                  <Button
+                    onClick={() => {
+                      auth.actions.clearAuthentication()
+                    }}
+                    className={'h-full w-full'}
+                    size={'inherit'}
+                    variant={'profile'}
+                  >
+                    <User className={'size-auto'} size={20} />
+                  </Button>
+                </AnimationSlideX>
+              ) : null}
+              <MenuToggle isOpen={isOpen} onChange={onChange} size={'32'} />
+            </div>
           ) : null}
         </div>
       </header>

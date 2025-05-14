@@ -1,20 +1,21 @@
 'use client'
-import {
-  getSettingsWithDelay,
-  settingsNavigationContainer,
-  settingsNavigationItems,
-} from 'components/Animations/settings'
+import { settingsNavigationContainer } from 'components/Animations/settings'
 import { AnimationSlideX } from 'components/Animations/AnimationSlideX'
 import Link from 'next/link'
 import Logo from 'components/Logo/Logo'
 import { navigation, navigationNames } from 'lib/utils'
 import { motion } from 'framer-motion'
-import type { FC } from 'react'
+import { type FC, useContext } from 'react'
+import { User } from 'lucide-react'
+import { Button } from 'components/ui/button'
+import { auth } from 'components/WidgetReservation/store/authStore'
+import { MainContext } from '../../contexts/mainProvider'
 
 type MobileNavigationProps = {
   onChange(state: boolean): void
 }
 export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
+  const { isAdmin } = useContext(MainContext)
   return (
     <motion.nav
       className={
@@ -41,12 +42,11 @@ export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
         {Object.values(navigation)
           .slice(1)
           .map((value, idx) => (
-            <motion.div
+            <AnimationSlideX
+              whileInViewEnabled={false}
+              type={'left'}
               key={value}
-              {...getSettingsWithDelay(
-                (0.1 * idx) / 5,
-                settingsNavigationItems,
-              )}
+              delay={(0.1 * idx) / 5}
             >
               <Link
                 onClick={() => {
@@ -60,8 +60,25 @@ export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
               >
                 {navigationNames[value]}
               </Link>
-            </motion.div>
+            </AnimationSlideX>
           ))}
+        {!isAdmin ? (
+          <AnimationSlideX
+            className={'justify-self-center'}
+            whileInViewEnabled={false}
+            delay={0.5}
+          >
+            <Button className={'size-16'} size={'inherit'} variant={'profile'}>
+              <User
+                className={'size-auto'}
+                size={24}
+                onClick={() => {
+                  auth.actions.clearAuthentication()
+                }}
+              />
+            </Button>
+          </AnimationSlideX>
+        ) : null}
       </div>
     </motion.nav>
   )
