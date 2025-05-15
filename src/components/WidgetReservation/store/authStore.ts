@@ -48,6 +48,7 @@ const authStore = create<AuthStore>()(
       },
     }),
     {
+      version: 1,
       name: `${appKey}auth`,
       storage: createJSONStorage(() => localStorage),
     },
