@@ -20,7 +20,7 @@ const buttonVariants = cva(
           'border border-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
         profile:
-          'size-auto border rounded-full border-blue-100/10 hover:bg-site-primary/50',
+          'size-auto border rounded-full border-blue-100/10 hover:bg-site-primary/50 active:bg-site-primary ',
       },
       size: {
         default: 'min-h-9 px-4 py-2 has-[>svg]:px-3',

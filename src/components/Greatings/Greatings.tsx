@@ -23,6 +23,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from 'components/ui/dialog'
+import { CustomEventType, useEventBus } from 'lib/eventBus'
 
 const GreetingsFormSchema = FormSchema.pick({
   login: true,
@@ -32,7 +33,7 @@ const GreetingsFormSchema = FormSchema.pick({
 type GreetingsFormType = z.infer<typeof GreetingsFormSchema>
 
 export const Greetings: FC = () => {
-  const isAuthenticated = auth.hooks.useAuthentication()
+  const isFirstLoad = auth.hooks.useIsFirstLoad()
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const form = useForm<GreetingsFormType>({
@@ -59,19 +60,20 @@ export const Greetings: FC = () => {
   }
 
   useEffect(() => {
-    if (isAuthenticated) return
+    if (!isFirstLoad) return
 
     const handler = () => {
+      auth.actions.setFirstLoad()
       setIsOpen(true)
     }
-
     let timeout = 0
-    if (!isAuthenticated) {
-      timeout = window.setTimeout(handler, 2000)
-    }
-
+    timeout = window.setTimeout(handler, 15_000)
     return () => window.clearTimeout(timeout)
-  }, [isAuthenticated])
+  }, [isFirstLoad])
+
+  useEventBus(CustomEventType.AuthenticationValidationReceived, () => {
+    setIsOpen(true)
+  })
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

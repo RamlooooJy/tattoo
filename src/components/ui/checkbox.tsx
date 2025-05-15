@@ -43,25 +43,25 @@ const CheckboxWithText: FC<CheckboxWithTextProps> = ({
   ...props
 }) => {
   return (
-    <Label className="flex items-start text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-      <Checkbox {...props} />
-      <div className="grid gap-1.5 leading-none">
+    <div className="grid gap-1">
+      <Label className="flex items-center text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+        <Checkbox {...props} />
         {policy ? (
           <>
-            Я согласен с{' '}
+            <span className={''}>Я согласен с</span>{' '}
             <Link
               onClick={(e) => e.stopPropagation()}
               target="_blank"
               href="/policy"
-              className="text-blue-600 hover:text-blue-800"
+              className="text-blue-600 hover:text-blue-800 text-[10px] block"
             >
               Политикой обработки данных
             </Link>
           </>
         ) : null}
-        {note}
-      </div>
-    </Label>
+      </Label>
+      {note}
+    </div>
   )
 }
 
