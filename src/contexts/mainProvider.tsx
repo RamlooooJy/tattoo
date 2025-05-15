@@ -54,6 +54,15 @@ export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
     document.documentElement.classList.add('desktop')
   }, [isMobile])
 
+  useLayoutEffect(() => {
+    const setHeight = () => {
+      const vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }
+
+    setHeight()
+  }, [isPortrait])
+
   return (
     <MainContext.Provider
       value={{
