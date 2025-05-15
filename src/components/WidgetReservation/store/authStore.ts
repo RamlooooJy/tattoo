@@ -3,7 +3,6 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { appKey } from 'components/WidgetReservation/constants'
 
 type AuthStore = {
-  savingEnabled: boolean
   isAuthenticated: boolean
   isAdmin: boolean
   accessToken: string
@@ -12,7 +11,6 @@ type AuthStore = {
   signIn(data: {
     login: string
     password: string
-    save?: boolean
   }): Promise<void>
   authenticate(data: {
     login: string
@@ -27,16 +25,13 @@ const authStore = create<AuthStore>()(
       isAuthenticated: false,
       isAdmin: false,
       accessToken: '',
-      savingEnabled: false,
       isLoggedIn: () => {
         return !!get().accessToken
       },
       setAccessToken: (token) => {
         set({ accessToken: token })
       },
-      async signIn({ login, password, save }) {
-        set({ savingEnabled: Boolean(save) })
-        console.log(login)
+      async signIn({ login, password }) {
         get().setAccessToken(`accessToken ${login} ${password}`)
       },
       async authenticate({ login }) {
@@ -49,7 +44,6 @@ const authStore = create<AuthStore>()(
     {
       name: `${appKey}auth`,
       storage: createJSONStorage(() => localStorage),
-      //   todo мб убрать поля
     },
   ),
 )

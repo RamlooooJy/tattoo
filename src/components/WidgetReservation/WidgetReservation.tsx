@@ -29,6 +29,7 @@ export const WidgetReservation: FC<WidgetReservationType> = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent
+        onOpenAutoFocus={(e) => e.preventDefault()}
         side={isPortrait ? 'top' : 'left'}
         className={cn(styles.popover, 'z-50')}
         asChild

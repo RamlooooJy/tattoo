@@ -2,8 +2,6 @@
 
 import styles from 'components/WidgetReservation/widget.module.scss'
 import { Input, MaskedInput, masks } from 'components/ui/input'
-import { Label } from 'components/ui/label'
-import { Checkbox } from 'components/ui/checkbox'
 import { Button } from 'components/ui/button'
 import {
   Form,
@@ -16,7 +14,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormSchema } from 'lib/utils'
 import type { z } from 'zod'
-import { useRef } from 'react'
 import { auth } from 'components/WidgetReservation/store/authStore'
 
 const AuthFormSchema = FormSchema.pick({
@@ -35,9 +32,9 @@ const AuthFormSchema = FormSchema.pick({
 type AuthFormType = z.infer<typeof AuthFormSchema>
 
 export const Auth = () => {
-  const saveRef = useRef<boolean>(true)
   const form = useForm<AuthFormType>({
     resolver: zodResolver(AuthFormSchema),
+    shouldFocusError: false,
     defaultValues: {
       login: '',
       password: '',
@@ -45,7 +42,7 @@ export const Auth = () => {
   })
 
   const onSubmit = (formData: AuthFormType) => {
-    auth.actions.signIn({ ...formData, save: saveRef.current }).then(() => {
+    auth.actions.signIn(formData).then(() => {
       form.reset({
         login: '',
         password: '',
@@ -111,18 +108,7 @@ export const Auth = () => {
               )}
             />
           </div>
-          <div className={styles.rememberPassword}>
-            <Label className={'flex items-center gap-2 cursor-pointer'}>
-              <Checkbox
-                defaultChecked={true}
-                onCheckedChange={(val) => {
-                  saveRef.current = Boolean(val)
-                }}
-              />
-              Запомнить меня
-            </Label>
-            <div className={'font-light text-[12px]'}>Забыли пароль?</div>
-          </div>
+          <div className={'font-light text-[12px]'}>Забыли пароль?</div>
           <div className={styles.btnContainer}>
             <Button
               type={'submit'}
