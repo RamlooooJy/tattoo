@@ -15,7 +15,7 @@ import { cn, FormSchema } from 'lib/utils'
 import type { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { auth } from 'components/WidgetReservation/store/authStore'
+import { auth } from '../../widgets/WidgetReservation/store/authStore'
 import {
   Dialog,
   DialogContent,
@@ -40,22 +40,19 @@ export const Greetings: FC = () => {
     resolver: zodResolver(GreetingsFormSchema),
     defaultValues: {
       login: '',
-      agreement: false,
+      agreement: true,
     },
   })
 
   const onSubmit = (formData: GreetingsFormType) => {
     setIsLoading(true)
-    auth.actions.authenticate({ ...formData }).then(() => {
+    auth.actions.identify({ ...formData }).then(() => {
       setIsLoading(false)
       setIsOpen(false)
-      form.reset({
-        login: '',
-        agreement: false,
-      })
+      form.resetField('login')
       setTimeout(() => {
         form.clearErrors()
-      }, 0)
+      }, 10)
     })
   }
 

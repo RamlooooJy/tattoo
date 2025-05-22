@@ -8,28 +8,33 @@ type ImageType = {
   title: string
   rotateClass?: string
 }
+import les1 from '../../assets/les1.png'
+import les2 from '../../assets/les2.png'
+import les3 from '../../assets/les3.png'
+import les4 from '../../assets/les4.png'
+import Image from 'next/image'
 const images = [
   {
     id: 1,
-    src: 'https://static.tildacdn.com/tild3036-6233-4838-b539-306663313761/b4BllFDcq9I.jpg',
+    src: les1.src,
     title: 'Основы татуировки',
     rotateClass: 'rotate-[-20deg]',
   },
   {
     id: 2,
-    src: 'https://vse-kursy.com/uploads/posts/2020-07/1594297361_tattoo-3268988_1920.jpg',
+    src: les2.src,
     title: 'Уроки для начинающих',
     rotateClass: 'rotate-[5deg]',
   },
   {
     id: 3,
-    src: 'https://shoptattoo.ru/upload/medialibrary/965/9658865ab342ecb98dfe97b8525fe80a.jpg',
+    src: les3.src,
     title: 'Практика в студии',
     rotateClass: 'rotate-[10deg]',
   },
   {
     id: 4,
-    src: 'https://haycaptaintattoo.com/images/soveti/obuchenie-tatu-15.jpg',
+    src: les4.src,
     title: 'Мастер-классы',
     rotateClass: 'rotate-[15deg]',
   },
@@ -63,17 +68,22 @@ const FixedGalleryItem: FC<GalleryItemProps> = ({
   className,
 }) => {
   return (
-    <section
+    <div
       key={id}
       id={`section-${id}`}
-      className={cn('scroll-mt-20 top-0', rotateClass, className)}
+      className={cn(
+        'scroll-mt-20 top-0 size-full h-[400px]',
+        rotateClass,
+        className,
+      )}
     >
-      <img
+      <Image
+        fill
         src={src}
         alt={title}
-        className="'w-full max-h-80', rounded shadow-lg"
+        className="'w-full max-h-80', rounded shadow-lg object-cover"
       />
-    </section>
+    </div>
   )
 }
 

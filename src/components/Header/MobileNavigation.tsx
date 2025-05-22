@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import { type FC, useContext } from 'react'
 import { User } from 'lucide-react'
 import { Button } from 'components/ui/button'
-import { auth } from 'components/WidgetReservation/store/authStore'
+import { auth } from '../../widgets/WidgetReservation/store/authStore'
 import { MainContext } from '../../contexts/mainProvider'
 
 type MobileNavigationProps = {

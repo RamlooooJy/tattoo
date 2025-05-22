@@ -7,8 +7,8 @@ import {
   useState,
 } from 'react'
 import { isMobileDeviceBySize } from 'lib/dimension'
-import { mobileBreakpoint } from 'components/WidgetReservation/constants'
-import { auth } from 'components/WidgetReservation/store/authStore'
+import { mobileBreakpoint } from '../widgets/WidgetReservation/constants'
+import { auth } from '../widgets/WidgetReservation/store/authStore'
 
 export const MainContext = createContext<{
   isMobile: boolean | null

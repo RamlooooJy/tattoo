@@ -1,7 +1,7 @@
-import { getDefaultOrigin } from 'lib/utils'
+import { getPath } from 'lib/utils'
 import axios, { type AxiosResponse } from 'axios'
 
-const pathName = `${getDefaultOrigin()}/api/contact`
+const pathName = getPath('/api/contact')
 
 async function fetchContactApi(
   data: Record<string, string | number | undefined | boolean>,

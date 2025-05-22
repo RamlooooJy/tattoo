@@ -50,6 +50,7 @@ const CheckboxWithText: FC<CheckboxWithTextProps> = ({
           <>
             <span className={''}>Я согласен с</span>{' '}
             <Link
+              tabIndex={-1}
               onClick={(e) => e.stopPropagation()}
               target="_blank"
               href="/policy"

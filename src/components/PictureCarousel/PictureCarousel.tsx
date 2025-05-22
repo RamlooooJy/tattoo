@@ -7,6 +7,7 @@ import { Button } from '../ui/button'
 import { AnimatePresence, motion } from 'framer-motion'
 import Carousel from 'components/Carousel'
 import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
+import Image from 'next/image'
 
 type CarouselProps = {
   items: Array<{
@@ -22,14 +23,16 @@ const PictureCarousel: FC<CarouselProps> = ({ items }) => {
   return (
     <div className="grid gap-4">
       <PhotoProvider>
-        <Carousel onChange={setCurrentSlide}>
+        <Carousel
+          slideClassName={'h-[400px] max-w-[450px] relative'}
+          useAutoplay={false}
+          onChange={setCurrentSlide}
+        >
           {items.map((item) => (
             <PhotoView key={item.id} src={item.src}>
-              <img
-                className="object-cover h-[400px] w-full max-w-[450px]"
-                src={item.src}
-                alt=""
-              />
+              <div className={'size-full'}>
+                <Image className="object-cover" src={item.src} fill alt="" />
+              </div>
             </PhotoView>
           ))}
         </Carousel>

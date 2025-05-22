@@ -21,10 +21,11 @@
     "paths": {
       "app/*": ["./app/*"],
       "assets/*": ["./assets/*"],
-      "blocks/*": ["./blocks/*"],
+      "sections/*": ["./sections/*"],
       "components/*": ["./components/*"],
       "lib/*": ["./lib/*"],
-      "types/*": ["./types/*"]
+      "types/*": ["./types/*"],
+      "prisma/*": ["../prisma/generated/*"]
     },
     "baseUrl": "src"
   },
