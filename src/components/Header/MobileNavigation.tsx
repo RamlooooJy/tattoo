@@ -5,17 +5,12 @@ import Link from 'next/link'
 import Logo from 'components/Logo/Logo'
 import { navigation, navigationNames } from 'lib/utils'
 import { motion } from 'framer-motion'
-import { type FC, useContext } from 'react'
-import { User } from 'lucide-react'
-import { Button } from 'components/ui/button'
-import { auth } from '../../widgets/WidgetReservation/store/authStore'
-import { MainContext } from '../../contexts/mainProvider'
+import type { FC } from 'react'
 
 type MobileNavigationProps = {
   onChange(state: boolean): void
 }
 export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
-  const { isAdmin } = useContext(MainContext)
   return (
     <motion.nav
       className={
@@ -62,23 +57,6 @@ export const MobileNavigation: FC<MobileNavigationProps> = ({ onChange }) => {
               </Link>
             </AnimationSlideX>
           ))}
-        {!isAdmin ? (
-          <AnimationSlideX
-            className={'justify-self-center'}
-            whileInViewEnabled={false}
-            delay={0.5}
-          >
-            <Button className={'size-16'} size={'inherit'} variant={'profile'}>
-              <User
-                className={'size-auto'}
-                size={24}
-                onClick={() => {
-                  auth.actions.clearAuthentication()
-                }}
-              />
-            </Button>
-          </AnimationSlideX>
-        ) : null}
       </div>
     </motion.nav>
   )

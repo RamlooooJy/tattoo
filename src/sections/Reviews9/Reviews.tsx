@@ -8,14 +8,14 @@ const Reviews = () => {
   return (
     <section id={navigation.reviews} className={'bg-accent'}>
       <div className={'container-max-width'}>
-        <Carousel useAutoplay={false}>
+        <Carousel slideClassName={'basis-auto w-[300px]'} useAutoplay={false}>
           {reviews.map((review) => (
             <div
               style={style}
               className={cn(
                 backgroundImageClassName,
                 'reviewCard cursor-grab select-none',
-                'text-card-foreground background-container aspect-[16/24] w-[300px]',
+                'text-card-foreground background-container aspect-[16/24] w-full',
               )}
               key={review.description}
             >

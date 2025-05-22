@@ -11,14 +11,8 @@ const About = () => {
           <h2 className={'text-3xl font-semibold py-12 px-4'}>
             Немного об авторе
           </h2>
-          <div className={'screenHeight w-full max-h-96'}>
-            <Image
-              className={'object-cover'}
-              src={img.src}
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+          <div className={'aspect-video w-full max-h-96 relative'}>
+            <Image className={'object-cover'} src={img.src} alt="" fill />
           </div>
         </AnimationSlideY>
         <div

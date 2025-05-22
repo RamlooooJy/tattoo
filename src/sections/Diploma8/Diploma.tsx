@@ -15,7 +15,10 @@ const Diploma = () => {
           '--local-background': `url(${background.src})`,
         } as React.CSSProperties
       }
-      className={cn('p-4', 'grid background-container screenHeight')}
+      className={cn(
+        'p-4',
+        'grid background-container screenHeight overflow-hidden',
+      )}
     >
       <div className={'container-max-width'}>
         <AnimationSlideY>
@@ -25,16 +28,19 @@ const Diploma = () => {
             Дипломы <br />– обязательно
           </h2>
         </AnimationSlideY>
-        <div className="diplomas p-8 h-[250px] relative left-[var(--container-padding-sm)]">
+        <div className="diplomas min-h-[500px] p-8 relative left-[var(--container-padding-sm)]">
           {diplomas.map((img) => (
-            <Image
-              className={cn('h-full absolute', img.rotateClass)}
+            <div
               key={img.id}
-              src={img.src}
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+              className={'absolute top-0 aspect-square h-[300px]'}
+            >
+              <Image
+                className={cn(img.rotateClass, 'object-contain')}
+                src={img.src}
+                alt=""
+                fill
+              />
+            </div>
           ))}
         </div>
       </div>
