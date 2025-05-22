@@ -11,7 +11,7 @@ import { DesktopNavigation } from 'components/Header/DesktopNavigation'
 import { cn } from 'lib/utils'
 import { Button } from 'components/ui/button'
 import { AnimationSlideX } from 'components/Animations/AnimationSlideX'
-import { auth } from 'components/WidgetReservation/store/authStore'
+import { auth } from '../../widgets/WidgetReservation/store/authStore'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)

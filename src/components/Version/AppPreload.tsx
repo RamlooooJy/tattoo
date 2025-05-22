@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { MainContext } from '../../contexts/mainProvider'
 import { settingStraight } from 'components/Animations/settings'
 import { Greetings } from 'components/Greatings/Greatings'
-import { WidgetReservation } from 'components/WidgetReservation'
+import { WidgetReservation } from 'widgets/WidgetReservation'
 
 export const AppPreload = () => {
   const { isHydrated } = useContext(MainContext)

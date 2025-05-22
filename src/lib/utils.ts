@@ -84,4 +84,13 @@ export const FormSchema = z.object({
 
 export type FormType = z.infer<typeof FormSchema>
 
-export const getDefaultOrigin = () => process.env.NEXT_PUBLIC_SITE_URL
+export const getPath = (path: string) => {
+  const url = process.env.NEXT_PUBLIC_SITE_URL
+  if (!url) throw Error('getDefaultOrigin: Fill NEXT_PUBLIC_SITE_URL ')
+
+  if (!path) {
+    return url
+  }
+
+  return `${url}/${path}`
+}

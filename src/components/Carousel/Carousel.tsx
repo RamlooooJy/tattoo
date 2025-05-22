@@ -88,7 +88,7 @@ const Carousel: FC<CarouselProps> = ({
       <CarouselContent>
         {Array.from(children).map((item, idx) => (
           <CarouselItem
-            className={cn('basis-auto max-w-screen', slideClassName)}
+            className={cn('max-w-screen w-full', slideClassName)}
             key={String(idx)}
           >
             {item}

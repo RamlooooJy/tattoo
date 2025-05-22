@@ -4,6 +4,7 @@
 @import "tailwindcss";
 
 @theme inline {
+  --breakpoint-xs: 22rem;
   --color-site-primary: var(--site-primary);
   --color-site-primary-hover: var(--site-primary-hover);
   --color-site-primary-text: var(--site-primary-text);
