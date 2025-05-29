@@ -10,9 +10,19 @@ export const Course: FC = () => {
   return (
     <section
       id={navigation.course}
-      className={'bg-accent text-accent-foreground'}
+      className={'bg-primary text-primary-foreground overflow-hidden'}
     >
-      <div className={'container-max-width gap-4 grid content-start'}>
+      <div
+        className={
+          'container-max-width py-12 gap-4 grid content-start relative'
+        }
+      >
+        <div
+          className={
+            'absolute size-full top-[5%] left-[20%] bg-blue-100/5 pointer-events-none hidden xl:block'
+          }
+        />
+
         <AnimationSlideY>
           <h2 className={'text-3xl font-semibold p-12'}>Ты научишься</h2>
         </AnimationSlideY>
@@ -27,8 +37,10 @@ export const Course: FC = () => {
             />
           </div>
         </AnimationSlideY>
-        <div className={'p-12 grid gap-3'}>
-          <div className={'grid gap-2 text-lg'}>
+        <div className={'p-12 grid gap-3 justify-end'}>
+          <div
+            className={'grid gap-2 text-lg xl:text-2xl font-medium max-w-2xl'}
+          >
             <AnimationSlideY>
               <p>
                 Ты научишься бить классные татуировки! Ты станешь мастером! Тебе
@@ -41,7 +53,9 @@ export const Course: FC = () => {
           </div>
           <div>
             <ContactFormTrigger>
-              <Button size={'lg'}>Хочу на курс</Button>
+              <Button size={'xxxl'} className={'w-full'}>
+                Хочу на курс
+              </Button>
             </ContactFormTrigger>
           </div>
         </div>

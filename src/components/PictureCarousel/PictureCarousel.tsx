@@ -8,6 +8,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Carousel from 'components/Carousel'
 import { ContactFormTrigger } from 'components/ContactForm/ContactFormModal'
 import Image from 'next/image'
+import { cn } from 'lib/utils'
+import styles from './picture-carousel.module.scss'
 
 type CarouselProps = {
   items: Array<{
@@ -30,14 +32,25 @@ const PictureCarousel: FC<CarouselProps> = ({ items }) => {
         >
           {items.map((item) => (
             <PhotoView key={item.id} src={item.src}>
-              <div className={'size-full'}>
+              <div className={cn('size-full', styles.picture)}>
                 <Image className="object-cover" src={item.src} fill alt="" />
+                <div
+                  className={cn(
+                    'hidden xl:grid justify-center content-center text-center gap-2 select-none cursor-pointer',
+                    styles.description,
+                  )}
+                >
+                  <h3 className={'text-3xl font-bold capitalize'}>
+                    {item.title}
+                  </h3>
+                  <p>{item.description}</p>
+                </div>
               </div>
             </PhotoView>
           ))}
         </Carousel>
       </PhotoProvider>
-      <div className="userdata grid gap-2 p-12 overflow-hidden">
+      <div className="userdata grid gap-2 p-12 overflow-hidden xl:hidden">
         <AnimatePresence>
           <motion.div
             key={currentSlide}

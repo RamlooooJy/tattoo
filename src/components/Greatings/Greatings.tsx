@@ -6,9 +6,10 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from 'components/ui/form'
-import { MaskedInput, masks } from 'components/ui/input'
+import { Input, MaskedInput, masks } from 'components/ui/input'
 import { CheckboxWithText } from 'components/ui/checkbox'
 import { Button } from 'components/ui/button'
 import { cn, FormSchema } from 'lib/utils'
@@ -24,9 +25,11 @@ import {
   DialogTitle,
 } from 'components/ui/dialog'
 import { CustomEventType, useEventBus } from 'lib/eventBus'
+import contactStore from '../../store/contact.store'
 
 const GreetingsFormSchema = FormSchema.pick({
-  login: true,
+  phone: true,
+  name: true,
   agreement: true,
 })
 
@@ -39,17 +42,20 @@ export const Greetings: FC = () => {
   const form = useForm<GreetingsFormType>({
     resolver: zodResolver(GreetingsFormSchema),
     defaultValues: {
-      login: '',
+      phone: '',
+      name: '',
       agreement: true,
     },
   })
 
-  const onSubmit = (formData: GreetingsFormType) => {
+  const onSubmit = async (formData: GreetingsFormType) => {
     setIsLoading(true)
-    auth.actions.identify({ ...formData }).then(() => {
+    await contactStore(formData)
+    auth.actions.identify(formData).then(() => {
       setIsLoading(false)
       setIsOpen(false)
-      form.resetField('login')
+      form.resetField('phone')
+      form.resetField('name')
       setTimeout(() => {
         form.clearErrors()
       }, 10)
@@ -87,7 +93,7 @@ export const Greetings: FC = () => {
               <div className={'grid gap-5'}>
                 <FormField
                   control={form.control}
-                  name="login"
+                  name="phone"
                   render={({ field }) => (
                     <FormItem className={'relative'}>
                       <FormControl>
@@ -105,6 +111,19 @@ export const Greetings: FC = () => {
                           'text-[10px] absolute top-full left-0 right-0 whitespace-nowrap'
                         }
                       />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Имя</FormLabel>
+                      <FormControl>
+                        <Input type={'text'} placeholder="Оля?" {...field} />
+                      </FormControl>
+                      <FormMessage className={'text-xs'} />
                     </FormItem>
                   )}
                 />

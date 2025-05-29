@@ -1,0 +1,19 @@
+.description {
+  visibility: hidden;
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.picture {
+  position: relative;
+  overflow: hidden;
+  &:hover .description {
+    transition: all 0.3s ease;
+    display: grid;
+    opacity: 1;
+    visibility: visible;
+  }
+}

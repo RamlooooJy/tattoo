@@ -22,7 +22,7 @@ type AuthStore = {
     password: string
   }): Promise<boolean>
   identify(data: {
-    login: string
+    phone: string
   }): Promise<boolean>
 }
 /**
@@ -71,7 +71,7 @@ const authStore = create<AuthStore>()(
           })
       },
 
-      async identify({ login }) {
+      async identify({ phone }) {
         return await http
           .makeRequestWithResponse<
             IdentificationResponse,
@@ -80,7 +80,7 @@ const authStore = create<AuthStore>()(
             method: HTTPMethod.POST,
             url: identificationPath,
             data: {
-              login,
+              login: phone,
             },
           })
           .then(({ response }) => {

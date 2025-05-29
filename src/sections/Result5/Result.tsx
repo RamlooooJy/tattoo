@@ -20,12 +20,14 @@ export const Result = () => {
   )
 }
 
-import work1 from '../../assets/work1.png'
-import work2 from '../../assets/work2.png'
-import work3 from '../../assets/work3.png'
-import work4 from '../../assets/work4.jpg'
-import work5 from '../../assets/work5.jpg'
-import work6 from '../../assets/work6.jpg'
+import work1 from '../../assets/work1.jpg'
+import work2 from '../../assets/work2.jpeg'
+import work3 from '../../assets/work3.jpeg'
+import work4 from '../../assets/work4.jpeg'
+import work5 from '../../assets/work5.jpeg'
+import work6 from '../../assets/work6.jpeg'
+import work7 from '../../assets/work7.jpeg'
+import work8 from '../../assets/work8.jpeg'
 
 const items = [
   {
@@ -63,5 +65,17 @@ const items = [
     title: 'Борис Моисеев',
     description: 'без опыта',
     src: work6.src,
+  },
+  {
+    id: 7,
+    title: 'Катя',
+    description: 'без опыта',
+    src: work7.src,
+  },
+  {
+    id: 8,
+    title: 'Лена',
+    description: 'без опыта',
+    src: work8.src,
   },
 ]
