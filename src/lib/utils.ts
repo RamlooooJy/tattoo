@@ -14,7 +14,7 @@ export const getBackgroundImage = (src: string) => {
   return { style, backgroundImageClassName: 'background-container' }
 }
 
-export const navigation = {
+export const allNavigation = {
   main: 'main',
   info: 'info',
   course: 'course',
@@ -29,6 +29,17 @@ export const navigation = {
   questions: 'questions',
   contacts: 'contacts',
 }
+
+export const disabled = [
+  allNavigation.reviews,
+  allNavigation.about,
+  allNavigation.questions,
+]
+
+export const navigation = Object.fromEntries(
+  Object.entries(allNavigation).filter(([k]) => !disabled.includes(k)),
+) as typeof allNavigation
+
 export type NavigationKey = keyof typeof navigation
 export type NavigationAnchor = (typeof navigation)[NavigationKey]
 export const navigationNames: Record<NavigationAnchor, string> = {

@@ -15,7 +15,7 @@ const data = {
 
 const Contacts = () => {
   const { mail, phone, address, schedule, socials } = data
-  return (
+  return navigation.contacts ? (
     <section
       id={navigation.contacts}
       className={'bg-site-accent text-site-accent-text'}
@@ -83,7 +83,7 @@ const Contacts = () => {
         </div>
       </div>
     </section>
-  )
+  ) : null
 }
 
 export default Contacts

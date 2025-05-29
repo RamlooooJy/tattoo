@@ -24,6 +24,12 @@ export const MainContext = createContext<{
   isHydrated: false,
 })
 
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
+
 export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isMobile, setIsMobile] = useState<null | boolean>(null)
   const [isPortrait, setIsPortrait] = useState<null | boolean>(null)

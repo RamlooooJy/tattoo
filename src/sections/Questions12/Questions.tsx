@@ -3,7 +3,7 @@ import { ContactQuestionForm } from 'components/ContactForm'
 import { AnimationSlideY } from 'components/Animations/AnimationSlideY'
 
 const Questions = () => {
-  return (
+  return navigation.questions ? (
     <section id={navigation.questions} className={'relative'}>
       <div className={'container-max-width grid gap-6 p-4 '}>
         <AnimationSlideY>
@@ -16,7 +16,7 @@ const Questions = () => {
         <ContactQuestionForm />
       </div>
     </section>
-  )
+  ) : null
 }
 
 export default Questions

@@ -1,7 +1,6 @@
 import { navigation } from 'lib/utils'
 import { AnimationSlideY } from 'components/Animations/AnimationSlideY'
-import { Button } from 'components/ui/button'
-import Link from 'next/link'
+import { ScrollToButton } from 'components/ScrollToButton'
 
 export const Info = () => {
   return (
@@ -49,9 +48,13 @@ export const Info = () => {
           </AnimationSlideY>
         </div>
         <div className={'grid justify-center'}>
-          <Button asChild variant={'secondary'} size={'xxxl'}>
-            <Link href={`#${navigation.result}`}>Работы учеников</Link>
-          </Button>
+          <ScrollToButton
+            element={navigation.result}
+            variant={'secondary'}
+            size={'xxxl'}
+          >
+            Работы учеников
+          </ScrollToButton>
         </div>
       </div>
     </section>

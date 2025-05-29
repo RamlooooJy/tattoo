@@ -10,10 +10,13 @@
 .picture {
   position: relative;
   overflow: hidden;
-  &:hover .description {
-    transition: all 0.3s ease;
-    display: grid;
-    opacity: 1;
-    visibility: visible;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover .description {
+      transition: all 0.3s ease;
+      display: grid;
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }

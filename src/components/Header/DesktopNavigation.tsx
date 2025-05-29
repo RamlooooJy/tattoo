@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 import { navigation, navigationNames } from 'lib/utils'
 import { type FC, useContext } from 'react'
 import {
@@ -13,6 +12,7 @@ import { Button } from 'components/ui/button'
 import { User } from 'lucide-react'
 import { auth } from '../../widgets/WidgetReservation/store/authStore'
 import { MainContext } from '../../contexts/mainProvider'
+import { ScrollToLink } from 'components/ScrollToButton'
 
 type DesktopNavigationProps = {
   onChange(state: boolean): void
@@ -30,16 +30,16 @@ export const DesktopNavigation: FC<DesktopNavigationProps> = ({ onChange }) => {
   return (
     <div className={'flex items-center gap-2 p-4'}>
       {mainNavigation.map((value) => (
-        <Link
+        <ScrollToLink
+          element={value}
+          key={value}
           onClick={() => {
             onChange(false)
           }}
           className={'desktop-link'}
-          key={value}
-          href={`#${value}`}
         >
           {navigationNames[value]}
-        </Link>
+        </ScrollToLink>
       ))}
       <TooltipProvider>
         <Tooltip>
@@ -67,18 +67,18 @@ export const DesktopNavigation: FC<DesktopNavigationProps> = ({ onChange }) => {
           <TooltipContent>
             {secondaryNavigation.map((value) => (
               <div key={value}>
-                <Link
+                <ScrollToLink
                   onClick={() => {
                     onChange(false)
                   }}
+                  element={value}
                   className={
                     'text-sm text-sidebar-primary-foreground font-semibold cursor-pointer hover:text-chart-5 transition'
                   }
                   key={value}
-                  href={`#${value}`}
                 >
                   {navigationNames[value]}
-                </Link>
+                </ScrollToLink>
               </div>
             ))}
           </TooltipContent>

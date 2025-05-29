@@ -9,12 +9,16 @@
     "lint": "next lint",
     "prisma-dev": "prisma format && prisma generate && npx prisma db push",
     "migrate": "npx prisma migrate dev --name $npm_config_name",
-    "postbuild": "mkdir -p .next/prisma && cp prisma/dev.db .next/prisma/dev.db"
+    "postbuild": "mkdir -p .next/prisma && cp prisma/dev.db .next/prisma/dev.db",
+    "format:code": "biome format . --write",
+    "format:scss": "prettier --write '**/*.scss'",
+    "lint:scss": "stylelint '**/*.scss'"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.0.1",
     "@prisma/client": "^6.8.1",
     "@radix-ui/react-checkbox": "^1.2.3",
@@ -68,7 +72,11 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
     "prisma": "^6.8.1",
+    "stylelint": "^16.19.1",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-scss": "^6.12.0",
     "tailwind-merge": "^3.2.0",
     "tsx": "^4.19.4",
     "typescript": "^5"

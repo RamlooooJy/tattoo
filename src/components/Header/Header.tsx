@@ -1,21 +1,18 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, User, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { type FC, useContext, useState } from 'react'
-import Link from 'next/link'
 import Logo from 'components/Logo/Logo'
 import { MainContext } from '../../contexts/mainProvider'
 import { MobileNavigation } from 'components/Header/MobileNavigation'
 import { DesktopNavigation } from 'components/Header/DesktopNavigation'
-import { cn } from 'lib/utils'
-import { Button } from 'components/ui/button'
-import { AnimationSlideX } from 'components/Animations/AnimationSlideX'
-import { auth } from '../../widgets/WidgetReservation/store/authStore'
+import { cn, navigation } from 'lib/utils'
+import { ScrollToLink } from 'components/ScrollToButton'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { isMobile, isAdmin, isHydrated } = useContext(MainContext)
+  const { isMobile, isHydrated } = useContext(MainContext)
 
   const onChange = (value: boolean) => {
     setIsOpen(value)
@@ -35,32 +32,20 @@ export const Header = () => {
             'flex justify-between h-[var(--size-header)] items-center container-max-width'
           }
         >
-          <Link href={'/'} className={'logo-link h-full aspect-square'}>
+          <ScrollToLink
+            onClick={() => {
+              onChange(false)
+            }}
+            element={navigation.main}
+            className={'logo-link h-full aspect-square'}
+          >
             <Logo className={'h-full'} />
-          </Link>
+          </ScrollToLink>
           {isHydrated && !isMobile ? (
             <DesktopNavigation onChange={onChange} />
           ) : null}
           {isHydrated && isMobile ? (
             <div className={'grid grid-flow-col items-stretch gap-2'}>
-              {!isAdmin ? (
-                <AnimationSlideX
-                  className={'h-full aspect-square'}
-                  whileInViewEnabled={false}
-                  delay={0.5}
-                >
-                  <Button
-                    onClick={() => {
-                      auth.actions.clearAuthentication()
-                    }}
-                    className={'h-full w-full'}
-                    size={'inherit'}
-                    variant={'profile'}
-                  >
-                    <User className={'size-auto'} size={20} />
-                  </Button>
-                </AnimationSlideX>
-              ) : null}
               <MenuToggle isOpen={isOpen} onChange={onChange} size={'32'} />
             </div>
           ) : null}

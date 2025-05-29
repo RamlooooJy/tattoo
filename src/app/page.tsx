@@ -6,9 +6,7 @@ import Price from '../sections/Price6'
 import { Result } from '../sections/Result5'
 import AfterCourse from '../sections/AfterCourse7'
 import Diploma from '../sections/Diploma8'
-import Reviews from '../sections/Reviews9'
 import Reserve from '../sections/Reserve10'
-import About from '../sections/About11'
 import Questions from '../sections/Questions12'
 import Contacts from '../sections/Contacts13'
 import type { FC } from 'react'
@@ -33,9 +31,7 @@ const Home: FC = async () => {
         <Price />
         <AfterCourse />
         <Diploma />
-        <Reviews />
         <Reserve />
-        <About />
         <Questions />
         <Contacts />
         {/**
