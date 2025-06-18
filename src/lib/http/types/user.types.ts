@@ -1,10 +1,3 @@
-import { $Enums, type User } from 'prisma/index'
-import Roles = $Enums.Roles
-
-export const RolesMap = {
-  [Roles.ADMIN]: 1,
-  [Roles.USER]: 2,
-  [Roles.MODERATOR]: 3,
-}
+import type { User } from 'prisma/index'
 
 export type UserCreatePayload = Pick<User, 'name' | 'phone' | 'email'>

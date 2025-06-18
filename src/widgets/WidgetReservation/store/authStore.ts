@@ -2,7 +2,6 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { appKey } from '../constants'
 import { CustomEventType, eventBus } from 'lib/eventBus'
-import type { User } from 'prisma/index'
 import { http, HTTPMethod } from 'lib/http'
 import type {
   AuthenticationRequest,
@@ -10,9 +9,10 @@ import type {
   IdentificationRequest,
   IdentificationResponse,
 } from 'app/api/auth/identification/types'
+import type { UserData } from './reservationTypes'
 
 type AuthStore = {
-  user: User | null
+  user: UserData | null
   isFirstLoad: boolean
   isAdmin: boolean
   accessToken: string
@@ -65,7 +65,14 @@ const authStore = create<AuthStore>()(
             if (!response?.accessToken) {
               return false
             }
-            set({ accessToken: response?.accessToken })
+            set({
+              accessToken: response?.accessToken,
+            })
+
+            if (response.role && response.userId) {
+              set({ user: { role: response.role, userId: response.userId } })
+            }
+
             set({ isAdmin: true })
             return true
           })
@@ -96,21 +103,33 @@ const authStore = create<AuthStore>()(
       version: 1,
       name: `${appKey}auth`,
       storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        if (state?.accessToken) {
+          eventBus.emit(CustomEventType.AccessTokenReceived, {
+            accessToken: state?.accessToken,
+          })
+        }
+      },
     },
   ),
 )
 
 const useAccessToken = () => authStore((s) => s.accessToken)
 const useIsAdmin = () => authStore((s) => s.isAdmin)
+const useUser = () => authStore((s) => s.user)
 const useIsFirstLoad = () => authStore((s) => s.isFirstLoad)
 
 export const auth = {
   hooks: {
     useAccessToken,
     useIsAdmin,
+    useUser,
     useIsFirstLoad,
   },
   actions: {
+    getAccessToken() {
+      return authStore.getState().accessToken
+    },
     signIn: authStore.getState().signIn,
     identify: authStore.getState().identify,
     setFirstLoad: () => authStore.setState({ isFirstLoad: false }),

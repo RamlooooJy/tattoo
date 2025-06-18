@@ -26,9 +26,11 @@ export const MainContext = createContext<{
 
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { CustomEase } from 'gsap/CustomEase'
+
 import { useGSAP } from '@gsap/react'
 
-gsap.registerPlugin(useGSAP, ScrollTrigger)
+gsap.registerPlugin(useGSAP, ScrollTrigger, CustomEase)
 
 export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isMobile, setIsMobile] = useState<null | boolean>(null)

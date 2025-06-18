@@ -1,5 +1,9 @@
+import { Roles as UserRoles } from 'prisma/client'
+
 export type TimeParams = {
-  timeFrom: number | null
-  timeTo: number | null
-  message?: string
+  dateFrom: Date | null
+  dateTo: Date | null
+  message: string | null
 }
+
+export { UserRoles }

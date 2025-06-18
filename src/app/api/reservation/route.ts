@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import { responses } from 'app/api/types'
-import type { AuthenticationRequest } from 'app/api/auth/identification/types'
 import { logger } from '../../../backend/logger'
-import type { ReservationResponse } from 'app/api/reservation/reservation.types'
+import type { GetReservationsResponse } from 'app/api/reservation/reservation.types'
+import { reservationService } from 'app/api/reservation/reservation.service'
 
 /**
  * Бронирование
@@ -12,22 +12,23 @@ import type { ReservationResponse } from 'app/api/reservation/reservation.types'
  *  3) Post отмена брони
  *
  */
-export async function POST(
+export async function GET(
   request: Request,
-): Promise<NextResponse<ReservationResponse>> {
+): Promise<NextResponse<GetReservationsResponse>> {
   try {
-    const { login, password } = (await request.json()) as AuthenticationRequest
+    const { searchParams } = new URL(request.url)
+    const date = searchParams.get('date') as unknown as Date
+    const reservations = await reservationService.getReservations(date)
 
-    if (!login || !password) {
-      logger.error('Ошибка входа, нет пароля или логина', { login, password })
-      return NextResponse.json(responses.ForbiddenError)
-    }
-
-    return NextResponse.json(responses.Ok)
+    return NextResponse.json({ ...responses.Ok, reservations })
   } catch (error) {
-    logger.error('reservation: Ошибка ', error)
+    logger.error('get reservations: Ошибка ', error)
     return NextResponse.json(
-      { ...responses.InternalError, message: JSON.stringify(error) },
+      {
+        ...responses.InternalError,
+        message: JSON.stringify(error),
+        reservations: [],
+      },
       responses.InternalError,
     )
   }

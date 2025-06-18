@@ -1,12 +1,19 @@
+'use client'
 import { AnimationSlideY } from 'components/Animations/AnimationSlideY'
-import type { FC } from 'react'
+import { type FC, useRef } from 'react'
 
 const Stepper: FC = () => {
+  const main = useRef<HTMLDivElement>(null)
+
   return (
-    <div className="max-w-xl p-6 space-y-6 md:max-w-2/5">
+    <div
+      ref={main}
+      data-gsap="container"
+      className="max-w-xl p-6 space-y-6 md:max-w-2/5"
+    >
       {steps.map((step, index) => (
         <AnimationSlideY key={step.title}>
-          <div className="flex items-start space-x-4">
+          <div data-gsap="step" className="flex items-start space-x-4">
             <div className="text-lg font-bold text-gray-700">{index + 1}</div>
             <div>
               <div className="font-semibold text-gray-900">{step.title}</div>

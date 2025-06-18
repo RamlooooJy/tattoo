@@ -18,15 +18,15 @@ export const BookTime: FC<BookTimeProps> = ({
   onSelect,
   selectedDate,
 }) => {
-  const [timeFrom, setTimeFrom] = useState<number | null>(null)
-  const [timeTo, setTimeTo] = useState<number | null>(null)
+  const [timeFrom, setTimeFrom] = useState<Date | null>(null)
+  const [timeTo, setTimeTo] = useState<Date | null>(null)
   const messageRef = useRef('')
 
   return (
     <div className={'flex flex-col gap-3'}>
       <TimePicker
-        timeFrom={timeFrom}
-        timeTo={timeTo}
+        dateFrom={timeFrom}
+        dateTo={timeTo}
         setTimeFromAction={setTimeFrom}
         setTimeToAction={setTimeTo}
         selectedDate={selectedDate}
@@ -52,7 +52,11 @@ export const BookTime: FC<BookTimeProps> = ({
           variant={!timeFrom ? 'outline' : undefined}
           disabled={!timeFrom}
           onClick={() =>
-            onSelect({ timeTo, timeFrom, message: messageRef.current })
+            onSelect({
+              dateTo: timeTo,
+              dateFrom: timeFrom,
+              message: messageRef.current,
+            })
           }
         >
           <SquareCheck />

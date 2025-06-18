@@ -1,46 +1,107 @@
 import { create } from 'zustand'
-import type { Reservation } from './reservationTypes'
+import type { GetReservationParams } from './reservationTypes'
 import type { TimeParams } from '../types'
-import { getToday } from '../helpers'
+import { http, HTTPMethod } from 'lib/http'
+import type {
+  CreateReservationRequest,
+  CreateReservationResponse,
+  DeleteReservationParams,
+  DeleteReservationRequest,
+  DeleteReservationResponse,
+  GetReservationsRequest,
+  GetReservationsResponse,
+} from 'app/api/reservation/reservation.types'
+import type { Reservation } from 'prisma/index'
+import { produce } from 'immer'
 
 type ReservationState = {
   reservations: null | Reservation[]
 
   reserve(params: TimeParams): void
-  fetchReservations(params: Reservation): void
+  getReservations(date: GetReservationParams['date']): void
+  deleteReservation(id: DeleteReservationParams['id'], selectedDate: Date): void
 }
+
+const createReservationPath = '/reservation/create'
+const getReservationPath = '/reservation'
+const deleteReservationPath = '/reservation/delete'
 
 const reservationStore = create<ReservationState>()(
   // persist(
   (set, get) => ({
     reservations: null,
-    reserve({ timeFrom, timeTo, message }) {
-      const res = { status: 200 } // 'await fetch'
-      if (res.status !== 200 || !timeFrom || !timeTo) {
-        console.log(res)
-        return
+    getReservations: (date) => {
+      http
+        .makeRequestWithResponse<
+          GetReservationsResponse,
+          GetReservationsRequest
+        >({
+          method: HTTPMethod.GET,
+          url: getReservationPath,
+          config: { params: { date: date.toISOString() } },
+        })
+        .then(({ response }) => {
+          set({
+            reservations: response?.reservations.map((reservation) =>
+              produce(reservation, (draft) => {
+                draft.from = new Date(draft.from)
+                draft.to = new Date(draft.to)
+              }),
+            ),
+          })
+        })
+    },
+    reserve({ dateFrom, dateTo, message }) {
+      if (!dateFrom) return
+
+      const fetchParams = {
+        from: dateFrom,
+        to: dateTo ?? dateFrom,
+        message,
       }
 
-      const dateFrom = new Date(getToday().setHours(timeFrom))
-      const dateTo = new Date(getToday().setHours(timeTo))
-
-      get().fetchReservations({
-        dateFrom,
-        dateTo,
-        message,
-      })
+      void http
+        .makeRequestWithResponse<
+          CreateReservationResponse,
+          CreateReservationRequest
+        >({
+          config: {
+            withCredentials: true,
+          },
+          method: HTTPMethod.POST,
+          url: createReservationPath,
+          data: fetchParams,
+        })
+        .then(() => {
+          get().getReservations(dateFrom)
+          //   todo alert
+        })
     },
-    fetchReservations() {
-      const res = { data: [] } //  await fetch
+    deleteReservation(id, selectedDate) {
+      if (!id) return
 
-      set({ reservations: res.data })
+      const fetchParams = {
+        id,
+      }
+
+      void http
+        .makeRequestWithResponse<
+          DeleteReservationResponse,
+          DeleteReservationRequest
+        >({
+          config: {
+            withCredentials: true,
+          },
+          method: HTTPMethod.POST,
+          url: deleteReservationPath,
+          data: fetchParams,
+        })
+        .then(() => {
+          get().getReservations(selectedDate)
+          //   todo alert
+        })
     },
   }),
-  // {
-  //   name: `${appKey}auth`,
-  //   storage: createJSONStorage(() => sessionStorage),
-  // },
-  // ),
 )
 
 export const reservations = {
@@ -49,6 +110,7 @@ export const reservations = {
   },
   actions: {
     reserve: reservationStore.getState().reserve,
-    fetchReservations: reservationStore.getState().fetchReservations,
+    getReservations: reservationStore.getState().getReservations,
+    deleteReservation: reservationStore.getState().deleteReservation,
   },
 }

@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && next build && npm run postbuild",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "prisma-dev": "prisma format && prisma generate && npx prisma db push",
     "migrate": "npx prisma migrate dev --name $npm_config_name",
-    "postbuild": "mkdir -p .next/prisma && cp prisma/dev.db .next/prisma/dev.db",
     "format:code": "biome format . --write",
     "format:scss": "prettier --write '**/*.scss'",
     "lint:scss": "stylelint '**/*.scss'"

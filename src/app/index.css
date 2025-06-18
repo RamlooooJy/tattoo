@@ -78,6 +78,8 @@
   --widget-primary: var(--color-purple-600);
   --widget-primary-color: var(--color-purple-50);
   --widget-primary-selected: var(--color-purple-800);
+  --widget-delete: var(--color-red-600);
+  --widget-delete-border: var(--color-red-400);
   /*--widget-primary-disabled: rgba(var(--color-gray-300), 0.5);*/
   --widget-secondary: rgba(255, 255, 255, 0.2);
   --widget-secondary-color: var(--color-purple-50);
@@ -85,7 +87,7 @@
   /*--widget-secondary-disabled: var(--widget-primary-disabled);*/
 
   --font-widget-reservation: "Nunito", sans-serif;
-  --vh: 100vh;
+  --vh: 1vh;
   --app-height: calc(var(--vh) * 100);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -173,6 +175,7 @@
   }
   /* Глобальные стили */
   section {
+    position: relative;
     scroll-margin-top: var(--size-header) !important;
     transition: transform 0.3s ease, opacity 0.3s ease;
   }

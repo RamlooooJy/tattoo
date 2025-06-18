@@ -1,5 +1,3 @@
-import { getToday } from './helpers'
-
 export const appKey = process.env.NEXT_PUBLIC_STORAGE_KEY ?? 'key'
 
 export const mobileBreakpoint = 640
@@ -9,13 +7,10 @@ export const workingHours = {
   till: 23,
 }
 
-export const disabledDates = [
-  new Date(getToday().getTime() + 1000 * 60 * 60 * 24 * 2),
-]
-export const reservedTime = [
-  new Date(getToday().setHours(15, 0, 0, 0)),
-  new Date(getToday().setHours(16, 0, 0, 0)),
-]
+// todo store
+export const disabledDates = []
+export const reservedTime = []
+
 export const bookTimeList = [
   ...new Array(workingHours.till - workingHours.from + 1),
 ].map((_, idx) => workingHours.from + idx)

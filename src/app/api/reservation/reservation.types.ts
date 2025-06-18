@@ -1,8 +1,28 @@
-import type { Response } from 'app/api/types'
+import type { Response, ResponseWithData } from 'app/api/types'
+import type { Reservation } from 'prisma/index'
 
-export type ReservationRequest = {
-  dateFrom: Date
-  dateTo: Date
-  // userId: User['id']
+export type CreateReservationResponse = Response
+export type CreateReservationParams = Pick<
+  Reservation,
+  'userId' | 'from' | 'to' | 'message'
+>
+export type CreateReservationRequest = Omit<CreateReservationParams, 'userId'>
+
+/************************************************************************************************************/
+
+export type GetReservationsResponse = ResponseWithData<{
+  reservations: Reservation[]
+}>
+export type GetReservationsParams = {
+  date: Date
 }
-export type ReservationResponse = Response
+
+export type GetReservationsRequest = GetReservationsParams
+/************************************************************************************************************/
+
+export type DeleteReservationResponse = Response
+export type DeleteReservationParams = {
+  id: Reservation['id']
+}
+
+export type DeleteReservationRequest = DeleteReservationParams

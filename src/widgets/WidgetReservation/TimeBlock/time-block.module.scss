@@ -7,7 +7,7 @@
 .timeBlock {
   cursor: pointer;
   aspect-ratio: 6 / 5;
-  padding: .5rem;
+  padding: 0.5rem;
   font-weight: 1000;
   font-size: 12px;
   display: flex;
@@ -19,14 +19,29 @@
   transition: linear 0.2s;
   user-select: none;
 
-  &[data-disabled='true'] {
+  &[data-disabled="true"] {
     pointer-events: none;
     opacity: 0.2;
   }
 
-  &:hover,
-  &[data-selected='true'] {
+  &[data-reserved="true"] {
+    background: var(--widget-primary-selected);
+    opacity: 0.5;
+  }
+
+  &[data-selected="true"] {
     background: var(--widget-primary-selected);
   }
-}
 
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--widget-primary-selected);
+    }
+  }
+
+  &[data-remove="true"] {
+    opacity: 1;
+    border: 2px solid var(--widget-delete-border);
+    background: var(--widget-delete);
+  }
+}

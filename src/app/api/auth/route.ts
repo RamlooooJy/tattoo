@@ -6,10 +6,10 @@ import type {
 } from 'app/api/auth/identification/types'
 import { logger } from '../../../backend/logger'
 import { userService } from 'app/api/auth/create/service'
-import bcrypt from 'bcrypt'
-import { RolesMap } from 'lib/http/types/user.types'
 import jwt from 'jsonwebtoken'
 import { getSecret } from 'app/api/helpers'
+import { $Enums } from 'prisma/index'
+import Roles = $Enums.Roles
 
 /**
  * Авторизация пользователя: проверяет логин и пароль, возвращает JWT токен.
@@ -45,7 +45,9 @@ export async function POST(
       )
     }
 
-    if (RolesMap.ADMIN !== user.roleId || !user.password) {
+    const role = await userService.getRoleById(user.roleId)
+
+    if (Roles.ADMIN !== role?.name || !user.password) {
       logger.error(
         'auth: Ошибка входа, нет пароля или роль не админ или хуй знает',
         responses.ForbiddenError,
@@ -60,7 +62,10 @@ export async function POST(
       )
     }
 
-    const validPassword = await bcrypt.compare(password, user.password)
+    const validPassword = await userService.checkPassword(
+      password,
+      user.password,
+    )
 
     if (!validPassword)
       return NextResponse.json(
@@ -74,7 +79,12 @@ export async function POST(
       // { expiresIn: '' }, // todo expiration after refresh if needed
     )
 
-    return NextResponse.json({ ...responses.Ok, accessToken: token })
+    return NextResponse.json({
+      ...responses.Ok,
+      accessToken: token,
+      userId: user.id,
+      role: role.name,
+    })
   } catch (error) {
     logger.error('auth: Ошибка входа ', error)
     return NextResponse.json(

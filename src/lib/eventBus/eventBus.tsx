@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react'
 
 export const CustomEventType = {
   AuthenticationValidationReceived: 'AuthenticationValidationReceived',
+  AccessTokenReceived: 'AccessTokenReceived',
 } as const
 
 export type CustomEventType =

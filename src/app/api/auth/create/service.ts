@@ -3,9 +3,13 @@ import type { Role, Roles } from 'prisma/index'
 import type { UserCreatePayload } from 'lib/http/types/user.types'
 import { logger } from '../../../../backend/logger'
 import type { IdentificationRequest } from 'app/api/auth/identification/types'
+import bcrypt from 'bcrypt'
 
 class UserService {
   private roles: Role[] = []
+  public async checkPassword(pass: string, userPassword: string) {
+    return await bcrypt.compare(pass, userPassword)
+  }
   private async getRoles() {
     if (this.roles.length === 0) {
       this.roles = await db.role.findMany()
@@ -16,7 +20,7 @@ class UserService {
   async getRoleByName(name: Roles) {
     return (await this.getRoles()).find((r) => r.name === name)
   }
-  async getRoleById(id: number) {
+  async getRoleById(id: Role['id']) {
     return (await this.getRoles()).find((r) => r.id === id)
   }
   find(params: IdentificationRequest) {

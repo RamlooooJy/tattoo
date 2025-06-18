@@ -1,4 +1,6 @@
 import type { ResponseWithData } from 'app/api/types'
+import { $Enums } from 'prisma/index'
+import Roles = $Enums.Roles
 
 export type IdentificationRequest = {
   login: string
@@ -15,4 +17,6 @@ export type AuthenticationRequest = {
 
 export type AuthenticationResponse = ResponseWithData<{
   accessToken?: string
+  role?: Roles
+  userId?: string
 }>

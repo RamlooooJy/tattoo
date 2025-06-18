@@ -2,11 +2,12 @@ import { NextResponse } from 'next/server'
 import { responses } from 'app/api/types'
 import { userService } from 'app/api/auth/create/service'
 import { logger } from '../../../../backend/logger'
-import { RolesMap } from 'lib/http/types/user.types'
 import type {
   IdentificationRequest,
   IdentificationResponse,
 } from 'app/api/auth/identification/types'
+import { $Enums } from 'prisma/index'
+import Roles = $Enums.Roles
 
 /**
  * Обрабатывает POST-запрос на идентификацию пользователя.
@@ -24,7 +25,7 @@ import type {
  *
  * @throws {Error} В случае непредвиденных ошибок во время выполнения
  *
- * @todo Реализовать генерацию типа RolesMap автоматически
+ * @todo Реализовать генерацию типа Roles автоматически
  * @todo Добавить защиту от атак - ddos
  * @todo Настроить нормальный флоу ошибок
  */
@@ -65,7 +66,9 @@ export async function POST(
       throw new Error('Идентификация: Ошибка создания пользователя')
     }
 
-    const isAdmin = RolesMap.ADMIN === user.roleId
+    const role = await userService.getRoleById(user.roleId)
+
+    const isAdmin = Roles.ADMIN === role?.name
 
     logger.warn(
       isAdmin ? 'Вход админа' : 'Повторный вход',
@@ -77,7 +80,7 @@ export async function POST(
       ...responses.Ok,
     })
   } catch (error) {
-    logger.error(error)
+    logger.error(`identification error: ${error}`)
 
     return NextResponse.json(
       {

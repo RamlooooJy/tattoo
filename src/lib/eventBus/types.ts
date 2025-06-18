@@ -1,11 +1,18 @@
 import type { CustomEventType } from './eventBus'
 
-export type CustomEventPayload = {
-  type: typeof CustomEventType.AuthenticationValidationReceived
-  payload?: {
-    id: number
-  }
-}
+export type CustomEventPayload =
+  | {
+      type: typeof CustomEventType.AuthenticationValidationReceived
+      payload?: {
+        id: number
+      }
+    }
+  | {
+      type: typeof CustomEventType.AccessTokenReceived
+      payload: {
+        accessToken: string
+      }
+    }
 
 // type ExtractArgType<T, K extends keyof T> = NonNullable<T[K]> extends (
 //   ...args: infer P

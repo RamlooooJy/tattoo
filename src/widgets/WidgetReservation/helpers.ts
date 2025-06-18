@@ -1,4 +1,4 @@
-import { reservedTime, workingHours } from './constants'
+import { workingHours } from './constants'
 
 const roundToNearestHalfHour = (minutes: number) => {
   return minutes < 30 ? 0 : 30
@@ -44,14 +44,11 @@ export const getWorkTimeFrom = (selectedDate: Date) => {
 
   return null
 }
-export const isActiveTime = (time: Date) => {
-  if (
-    time.getHours() > workingHours.from &&
-    time.getHours() < workingHours.till
-  ) {
-    return false
-  }
-  return !reservedTime.some((date) => date.getHours() === time.getHours())
-}
 
-export const getToday = () => new Date(new Date().setHours(0, 0, 0, 0))
+export const getZeroDate = (date?: Date, hours = 0) =>
+  new Date((date ?? new Date()).setHours(hours, 0, 0, 0))
+
+export function isDateInRange(date: Date, from: Date, to: Date): boolean {
+  const target = date.getTime()
+  return target >= from.getTime() && target <= to.getTime()
+}

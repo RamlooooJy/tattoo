@@ -9,15 +9,20 @@ import {
   type PollParams,
   type Response,
 } from './types'
+import { CustomEventType, eventBus } from 'lib/eventBus'
 
 export class HTTPClient {
   public http: AxiosInstance
   public abortControllers: AbortController[] = []
+  private accessToken = ''
   private options: AxiosRequestConfig = {
     validateStatus: (status) => status >= 200 && status < 400,
   }
 
   constructor(httpClientConfig: HTTPClientConfig) {
+    eventBus.on(CustomEventType.AccessTokenReceived, ({ accessToken }) => {
+      this.accessToken = accessToken
+    })
     const { options, handleErrorResponse } = httpClientConfig
 
     this.http = axios.create({
@@ -49,6 +54,7 @@ export class HTTPClient {
     config?: AxiosRequestConfig,
   ): Promise<Response<ResponseData>> => {
     const controller = new AbortController()
+    const { withCredentials } = config ?? {}
 
     this.abortControllers.push(controller)
     const result = await this.http.post<
@@ -57,7 +63,13 @@ export class HTTPClient {
       RequestData
     >(url, data, {
       ...this.options,
-      ...config,
+      ...{
+        ...config,
+        headers: {
+          ...config?.headers,
+          ...this.getAuthHeader(withCredentials),
+        },
+      },
       signal: config?.signal || controller.signal,
     })
 
@@ -149,6 +161,14 @@ export class HTTPClient {
       onError?.(error) ?? this.handleErrorResponse(error)
     } finally {
       onLoading?.(false)
+    }
+  }
+
+  private getAuthHeader = (withCredentials: boolean | undefined) => {
+    if (!withCredentials) return {}
+
+    return {
+      Authorization: `Bearer ${this.accessToken}`,
     }
   }
 

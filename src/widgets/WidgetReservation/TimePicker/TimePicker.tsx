@@ -1,55 +1,83 @@
 'use client'
 
-import { type FC, useRef } from 'react'
+import { type FC, useRef, useState } from 'react'
 import { bookTimeList } from '../constants'
-import { isTodayDate } from '../helpers'
+import { getZeroDate, isDateInRange, isTodayDate } from '../helpers'
 import styles from './time-picker.module.scss'
 import { CalendarCheck } from 'lucide-react'
 import { Button } from 'components/ui/button'
 import { TimeBlock } from '../TimeBlock/TimePicker'
+import { reservations } from '../store/reservationStore'
+import { auth } from '../store/authStore'
 
 type Props = {
   selectedDate: Date
-  timeFrom: number | null
-  setTimeFromAction: (date: number | null) => void
-  timeTo: number | null
-  setTimeToAction: (date: number | null) => void
+  dateFrom: Date | null
+  dateTo: Date | null
+  setTimeFromAction: (date: Date | null) => void
+  setTimeToAction: (date: Date | null) => void
 }
 
 export const TimePicker: FC<Props> = ({
   selectedDate,
   setTimeFromAction,
   setTimeToAction,
-  timeTo,
-  timeFrom,
+  dateTo,
+  dateFrom,
 }) => {
+  const [actionId, setActionId] = useState(-1)
+  const reserved = reservations.hooks.useReservations()
+  const user = auth.hooks.useUser()
   const date = useRef(
     isTodayDate(selectedDate) ? new Date() : selectedDate,
   ).current
 
+  console.log(dateFrom, dateTo)
+
   const onAllButton = () => {
+    const startHour = getZeroDate(
+      selectedDate,
+      isTodayDate(selectedDate) ? new Date().getHours() : bookTimeList[0],
+    )
+    const lastHour = getZeroDate(
+      selectedDate,
+      bookTimeList[bookTimeList.length - 1],
+    )
+
     if (
-      timeFrom === date.getHours() &&
-      timeTo === bookTimeList[bookTimeList.length - 1]
+      dateFrom?.getTime() === startHour.getTime() &&
+      dateTo?.getTime() === lastHour.getTime()
     ) {
       setTimeToAction(null)
       setTimeFromAction(null)
 
       return
     }
-    setTimeFromAction(date.getHours())
-    setTimeToAction(bookTimeList[bookTimeList.length - 1])
+    setTimeFromAction(startHour)
+
+    setTimeToAction(lastHour)
   }
 
   const onChange = (time: number) => {
-    if (!timeFrom || time < timeFrom || (timeFrom && timeTo)) {
-      setTimeFromAction(time)
+    const selected = getZeroDate(selectedDate, time)
+
+    if (isReserved(time)) {
+      setActionId(time)
+      return
+    }
+
+    if (
+      !dateFrom ||
+      selected.getTime() < dateFrom.getTime() ||
+      (dateFrom && dateTo)
+    ) {
+      setTimeFromAction(selected)
       setTimeToAction(null)
       return
     }
 
-    if (!timeTo) {
-      setTimeToAction(time)
+    if (!dateTo) {
+      setTimeToAction(new Date(selected))
       return
     }
 
@@ -58,15 +86,39 @@ export const TimePicker: FC<Props> = ({
   }
 
   const getActiveState = (time: number) => {
-    if (timeFrom !== null && timeTo !== null) {
-      return time >= timeFrom && timeTo >= time
+    const selected = getZeroDate(selectedDate, time)
+
+    if (dateFrom !== null && dateTo !== null) {
+      return selected >= dateFrom && dateTo >= selected
     }
 
-    if (timeFrom !== null) {
-      return time === timeFrom
+    if (dateFrom !== null) {
+      return selected.getTime() === dateFrom.getTime()
     }
 
     return false
+  }
+
+  const removeReservation = (time: number) => {
+    const selected = isReserved(time)
+    if (!selected) return
+
+    setActionId(-1)
+    reservations.actions.deleteReservation(selected.id, selectedDate)
+  }
+
+  const isReserved = (time: number) => {
+    const current = getZeroDate(selectedDate, time)
+
+    return reserved?.find((r) => isDateInRange(current, r.from, r.to))
+  }
+
+  const isDisabled = (time: number) => {
+    const reservation = isReserved(time)
+    const isReservedByUser =
+      isReserved(time) && user?.userId === reservation?.userId
+
+    return Boolean(date.getHours() > time || isReservedByUser)
   }
 
   return (
@@ -80,8 +132,12 @@ export const TimePicker: FC<Props> = ({
       <div className={styles.list}>
         {bookTimeList.map((time) => (
           <TimeBlock
-            disabled={date.getHours() > time}
+            onClickOutside={() => setActionId(-1)}
+            onRemove={() => removeReservation(time)}
             selected={getActiveState(time)}
+            disabled={isDisabled(time)}
+            reserved={isDisabled(time) ? false : Boolean(isReserved(time))}
+            actionRemove={actionId === time}
             key={time}
             time={time}
             onClick={() => onChange(time)}

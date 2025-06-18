@@ -10,7 +10,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
@@ -21,18 +21,27 @@ enum Roles {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String?  @unique
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String?
   phone    String   @unique
   password String?
   name     String?
+  color    String?
   created  DateTime @default(now())
-  roleId   Int
-  role     Role     @relation(fields: [roleId], references: [id])
+  roleId   String   @db.ObjectId() // Ссылка на Role
 }
 
 model Role {
-  id    Int    @id @default(autoincrement())
-  name  Roles  @unique
-  users User[]
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String  @unique // ADMIN, USER, MODERATOR
+  description String? // Например: "Администратор"
+}
+
+model Reservation {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String   @db.ObjectId()
+  created DateTime @default(now())
+  from    DateTime
+  to      DateTime
+  message String?
 }
