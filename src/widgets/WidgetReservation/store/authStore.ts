@@ -9,10 +9,14 @@ import type {
   IdentificationRequest,
   IdentificationResponse,
 } from 'app/api/auth/identification/types'
-import type { UserData } from './reservationTypes'
+import type { Role } from 'types/enums'
 
+type User = {
+  role: Role
+  userId: AuthenticationResponse['userId']
+}
 type AuthStore = {
-  user: UserData | null
+  user: User | null
   isFirstLoad: boolean
   isAdmin: boolean
   accessToken: string
@@ -69,6 +73,10 @@ const authStore = create<AuthStore>()(
               accessToken: response?.accessToken,
             })
 
+            eventBus.emit(CustomEventType.AccessTokenReceived, {
+              accessToken: response?.accessToken,
+            })
+
             if (response.role && response.userId) {
               set({ user: { role: response.role, userId: response.userId } })
             }
@@ -105,6 +113,7 @@ const authStore = create<AuthStore>()(
       storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: () => (state) => {
         if (state?.accessToken) {
+          console.log('rehydrate')
           eventBus.emit(CustomEventType.AccessTokenReceived, {
             accessToken: state?.accessToken,
           })

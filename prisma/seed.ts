@@ -13,24 +13,37 @@ async function main() {
   }
   console.log('Роли созданы')
 
-  const adminRole = await prisma.role.findUnique({
-    where: { name: Roles.ADMIN },
+  const role = await prisma.role.findUnique({
+    where: { name: Roles.MODERATOR },
   })
 
-  if (!adminRole) {
-    throw new Error('Role ADMIN не найдена. Создайте сначала роли.')
+  if (!role) {
+    throw new Error('Role MODERATOR не найдена. Создайте сначала роли.')
   }
 
   await prisma.user.create({
     data: {
       name: 'Nikita',
       phone: '79995232783',
-      roleId: adminRole.id,
+      roleId: role.id,
+      password: '$2b$04$E3zAkuY0.sbGjyTwWLvpN.AlBs1Qws2rt38vO3gElqktFSFI6zppC',
       email: null,
     },
   })
 
   console.log('Пользователь Nikita создан')
+
+  await prisma.user.create({
+    data: {
+      name: 'Alina',
+      phone: '79169071111',
+      roleId: role.id,
+      password: '$2b$04$E3zAkuY0.sbGjyTwWLvpN.AlBs1Qws2rt38vO3gElqktFSFI6zppC',
+      email: null,
+    },
+  })
+
+  console.log('Пользователь Alina создан')
 }
 
 main()

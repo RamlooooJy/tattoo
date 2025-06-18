@@ -6,8 +6,7 @@ import type {
   IdentificationRequest,
   IdentificationResponse,
 } from 'app/api/auth/identification/types'
-import { $Enums } from 'prisma/index'
-import Roles = $Enums.Roles
+import { isRoleAdmin } from 'app/api/helpers'
 
 /**
  * Обрабатывает POST-запрос на идентификацию пользователя.
@@ -68,7 +67,11 @@ export async function POST(
 
     const role = await userService.getRoleById(user.roleId)
 
-    const isAdmin = Roles.ADMIN === role?.name
+    if (!role) {
+      throw new Error('Идентификация: Нет ролей')
+    }
+
+    const isAdmin = isRoleAdmin(role)
 
     logger.warn(
       isAdmin ? 'Вход админа' : 'Повторный вход',

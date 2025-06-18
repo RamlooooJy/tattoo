@@ -7,9 +7,8 @@ import type {
 import { logger } from '../../../backend/logger'
 import { userService } from 'app/api/auth/create/service'
 import jwt from 'jsonwebtoken'
-import { getSecret } from 'app/api/helpers'
-import { $Enums } from 'prisma/index'
-import Roles = $Enums.Roles
+import { getSecret, isRoleAdmin } from 'app/api/helpers'
+import type { Roles } from 'prisma/index'
 
 /**
  * Авторизация пользователя: проверяет логин и пароль, возвращает JWT токен.
@@ -47,7 +46,7 @@ export async function POST(
 
     const role = await userService.getRoleById(user.roleId)
 
-    if (Roles.ADMIN !== role?.name || !user.password) {
+    if (!role || !isRoleAdmin(role) || !user.password) {
       logger.error(
         'auth: Ошибка входа, нет пароля или роль не админ или хуй знает',
         responses.ForbiddenError,
@@ -83,7 +82,7 @@ export async function POST(
       ...responses.Ok,
       accessToken: token,
       userId: user.id,
-      role: role.name,
+      role: role.name as keyof typeof Roles,
     })
   } catch (error) {
     logger.error('auth: Ошибка входа ', error)

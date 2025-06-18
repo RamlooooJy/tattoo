@@ -9,6 +9,7 @@ import { Button } from 'components/ui/button'
 import { TimeBlock } from '../TimeBlock/TimePicker'
 import { reservations } from '../store/reservationStore'
 import { auth } from '../store/authStore'
+import { Roles } from 'types/enums'
 
 type Props = {
   selectedDate: Date
@@ -31,8 +32,6 @@ export const TimePicker: FC<Props> = ({
   const date = useRef(
     isTodayDate(selectedDate) ? new Date() : selectedDate,
   ).current
-
-  console.log(dateFrom, dateTo)
 
   const onAllButton = () => {
     const startHour = getZeroDate(
@@ -115,10 +114,11 @@ export const TimePicker: FC<Props> = ({
 
   const isDisabled = (time: number) => {
     const reservation = isReserved(time)
-    const isReservedByUser =
-      isReserved(time) && user?.userId === reservation?.userId
+    if (!user || !reservation) return date.getHours() > time
+    const isReservedByUser = user?.userId !== reservation?.userId
+    const isModer = Roles.MODERATOR === user?.role
 
-    return Boolean(date.getHours() > time || isReservedByUser)
+    return !isModer && isReservedByUser
   }
 
   return (

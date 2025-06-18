@@ -1,4 +1,4 @@
-import { Roles as UserRoles } from 'prisma/client'
+import { Roles as UserRoles } from 'types'
 
 export type TimeParams = {
   dateFrom: Date | null

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { logger } from '../../backend/logger'
+import { type Role, Roles } from 'prisma/index'
 
 export const getSecret = () => {
   const SECRET = process.env.JWT_SECRET
@@ -35,4 +36,11 @@ export function getUserIdFromRequest(request: Request): string {
     logger.error('Невалидный токен')
     throw new Error('Невалидный токен ')
   }
+}
+
+export const isRoleAdmin = (role: Role | undefined) => {
+  if (!role) return false
+  const adminRoles: Roles[] = [Roles.ADMIN, Roles.MODERATOR]
+
+  return adminRoles.includes(role.name as keyof typeof Roles)
 }

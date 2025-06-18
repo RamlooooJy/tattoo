@@ -7,14 +7,13 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma-dev": "prisma format && prisma generate && npx prisma db push",
+    "postgenerate": "tsx prisma/generateClientEnums.ts",
+    "prisma-dev": "prisma format && prisma generate && npx prisma db push && npm run postgenerate",
+    "seed": "tsx prisma/seed.ts",
     "migrate": "npx prisma migrate dev --name $npm_config_name",
     "format:code": "biome format . --write",
     "format:scss": "prettier --write '**/*.scss'",
     "lint:scss": "stylelint '**/*.scss'"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
