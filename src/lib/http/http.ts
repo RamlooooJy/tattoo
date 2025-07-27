@@ -41,7 +41,13 @@ export class HTTPClient {
     this.abortControllers.push(controller)
     const result = await this.http.get<ResponseData>(url, {
       ...this.options,
-      ...config,
+      ...{
+        ...config,
+        headers: {
+          ...config?.headers,
+          ...this.getAuthHeader(config?.withCredentials),
+        },
+      },
       signal: config?.signal || controller.signal,
     })
 

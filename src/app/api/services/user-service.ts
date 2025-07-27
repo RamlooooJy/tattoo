@@ -1,7 +1,7 @@
-import { db } from '../../../../backend/db/init'
+import { db } from '../../../backend/db/init'
 import type { Role, Roles } from 'prisma/index'
 import type { UserCreatePayload } from 'lib/http/types/user.types'
-import { logger } from '../../../../backend/logger'
+import { logger } from '../../../backend/logger'
 import type { IdentificationRequest } from 'app/api/auth/identification/types'
 import bcrypt from 'bcrypt'
 
@@ -46,6 +46,22 @@ class UserService {
     } catch (error) {
       logger.error('Ошибка создания пользователя', { error })
       throw error
+    }
+  }
+
+  async getUsers() {
+    try {
+      const users = await db.user.findMany()
+      const usersWithoutPass = users.map((user) => {
+        const { password, ...userInfo } = user
+        return userInfo
+      })
+
+      logger.info(`Пользователей найдено: ${users}`)
+      return usersWithoutPass
+    } catch (err) {
+      logger.error(`Ошибка getUsers: ${err}`)
+      throw err
     }
   }
 }

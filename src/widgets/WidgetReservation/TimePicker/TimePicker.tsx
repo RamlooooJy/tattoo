@@ -7,7 +7,7 @@ import styles from './time-picker.module.scss'
 import { CalendarCheck } from 'lucide-react'
 import { Button } from 'components/ui/button'
 import { TimeBlock } from '../TimeBlock/TimePicker'
-import { reservations } from '../store/reservationStore'
+import { reservationsStore } from '../store/reservationStore'
 import { auth } from '../store/authStore'
 import { Roles } from 'types/enums'
 
@@ -27,7 +27,8 @@ export const TimePicker: FC<Props> = ({
   dateFrom,
 }) => {
   const [actionId, setActionId] = useState(-1)
-  const reserved = reservations.hooks.useReservations()
+  const reservations = reservationsStore.hooks.useReservations()
+  console.log(reservations)
   const user = auth.hooks.useUser()
   const date = useRef(
     isTodayDate(selectedDate) ? new Date() : selectedDate,
@@ -75,8 +76,8 @@ export const TimePicker: FC<Props> = ({
       return
     }
 
-    if (!dateTo) {
-      setTimeToAction(new Date(selected))
+    if (!dateTo && dateFrom.getTime() !== selected.getTime()) {
+      setTimeToAction(selected)
       return
     }
 
@@ -103,13 +104,13 @@ export const TimePicker: FC<Props> = ({
     if (!selected) return
 
     setActionId(-1)
-    reservations.actions.deleteReservation(selected.id, selectedDate)
+    reservationsStore.actions.deleteReservation(selected.id, selectedDate)
   }
 
-  const isReserved = (time: number) => {
+  const isReserved = (time?: number) => {
     const current = getZeroDate(selectedDate, time)
 
-    return reserved?.find((r) => isDateInRange(current, r.from, r.to))
+    return reservations?.find((r) => isDateInRange(current, r.from, r.to))
   }
 
   const isDisabled = (time: number) => {
@@ -121,9 +122,17 @@ export const TimePicker: FC<Props> = ({
     return !isModer && isReservedByUser
   }
 
+  const isFullDayReservationDisabled = () => {
+    return reservations?.some(
+      (r) =>
+        getZeroDate(selectedDate).getTime() === getZeroDate(r.from).getTime(),
+    )
+  }
+
   return (
     <div className={'grid gap-1'}>
       <Button
+        disabled={isFullDayReservationDisabled()}
         onClick={onAllButton}
         className={'w-full bg-transparent border border-neutral-100/20'}
       >

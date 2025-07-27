@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { appKey } from '../constants'
 import { CustomEventType, eventBus } from 'lib/eventBus'
 import { http, HTTPMethod } from 'lib/http'
@@ -10,13 +10,16 @@ import type {
   IdentificationResponse,
 } from 'app/api/auth/identification/types'
 import type { Role } from 'types/enums'
+import type { User } from 'prisma/client'
+import type { ResponseWithData } from 'app/api/types'
 
-type User = {
+type UserRole = {
   role: Role
   userId: AuthenticationResponse['userId']
 }
 type AuthStore = {
-  user: User | null
+  users: User[]
+  user: UserRole | null
   isFirstLoad: boolean
   isAdmin: boolean
   accessToken: string
@@ -28,6 +31,7 @@ type AuthStore = {
   identify(data: {
     phone: string
   }): Promise<boolean>
+  getUsers(): Promise<Array<User>>
 }
 /**
  * todo
@@ -37,6 +41,7 @@ type AuthStore = {
  *
  * */
 
+const getUsersPatch = '/users'
 const identificationPath = '/auth/identification'
 const authPath = '/auth'
 
@@ -44,6 +49,7 @@ const authStore = create<AuthStore>()(
   persist(
     (set, get) => ({
       user: null,
+      users: [],
       isFirstLoad: true,
       isAdmin: false,
       accessToken: '',
@@ -83,6 +89,23 @@ const authStore = create<AuthStore>()(
 
             set({ isAdmin: true })
             return true
+          })
+      },
+
+      async getUsers() {
+        return await http
+          .makeRequestWithResponse<ResponseWithData<{ users: User[] }>, never>({
+            config: {
+              withCredentials: true,
+            },
+            method: HTTPMethod.GET,
+            url: getUsersPatch,
+          })
+          .then(({ response }) => {
+            const users = response?.users ?? []
+            console.log(response)
+            set({ users })
+            return users
           })
       },
 
@@ -127,6 +150,7 @@ const useAccessToken = () => authStore((s) => s.accessToken)
 const useIsAdmin = () => authStore((s) => s.isAdmin)
 const useUser = () => authStore((s) => s.user)
 const useIsFirstLoad = () => authStore((s) => s.isFirstLoad)
+const userUsers = () => authStore((s) => s.users)
 
 export const auth = {
   hooks: {
@@ -134,8 +158,12 @@ export const auth = {
     useIsAdmin,
     useUser,
     useIsFirstLoad,
+    userUsers,
   },
   actions: {
+    getUsers() {
+      return authStore.getState().getUsers()
+    },
     getAccessToken() {
       return authStore.getState().accessToken
     },

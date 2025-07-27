@@ -5,10 +5,10 @@ import type {
   AuthenticationResponse,
 } from 'app/api/auth/identification/types'
 import { logger } from '../../../backend/logger'
-import { userService } from 'app/api/auth/create/service'
 import jwt from 'jsonwebtoken'
 import { getSecret, isRoleAdmin } from 'app/api/helpers'
 import type { Roles } from 'prisma/index'
+import { userService } from 'app/api/services/user-service'
 
 /**
  * Авторизация пользователя: проверяет логин и пароль, возвращает JWT токен.
@@ -28,7 +28,22 @@ export async function POST(
   request: Request,
 ): Promise<NextResponse<AuthenticationResponse>> {
   try {
+    // bcrypt
+    //   .compare(
+    //     'tmp_master',
+    //     '$2b$04$60VHU2/nyEQ/23Mzbn3p2OYYSzsbRetbkpqnHiQVp3AHiPBqpH/mW',
+    //   )
+    //   .then((hash) => {
+    //     console.log(hash, 123)
+    //   })
     const { login, password } = (await request.json()) as AuthenticationRequest
+
+    // console.log(
+    //   bcrypt.compareSync(
+    //     password,
+    //     '$2b$04$60VHU2/nyEQ/23Mzbn3p2OYYSzsbRetbkpqnHiQVp3AHiPBqpH/mW',
+    //   ),
+    // )
 
     if (!login || !password) {
       logger.error('Ошибка входа, нет пароля или логина', { login, password })
@@ -78,12 +93,19 @@ export async function POST(
       // { expiresIn: '' }, // todo expiration after refresh if needed
     )
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       ...responses.Ok,
       accessToken: token,
       userId: user.id,
       role: role.name as keyof typeof Roles,
     })
+
+    // res.headers.append(
+    //   'Set-Cookie',
+    //   `token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax;`,
+    // )
+
+    return res
   } catch (error) {
     logger.error('auth: Ошибка входа ', error)
     return NextResponse.json(

@@ -15,11 +15,11 @@ type WidgetReservationType = {
 }
 export const WidgetReservation: FC<WidgetReservationType> = () => {
   const ref = useRef<HTMLDivElement | null>(null)
-  const { isAdmin, isAuthorized, isPortrait } = useContext(MainContext)
+  const { isAuthorized, isPortrait } = useContext(MainContext)
 
-  if (!isAdmin) {
-    return null
-  }
+  // if (!isAdmin) {
+  //   return null
+  // }
 
   return (
     <Popover>
