@@ -103,7 +103,6 @@ const authStore = create<AuthStore>()(
           })
           .then(({ response }) => {
             const users = response?.users ?? []
-            console.log(response)
             set({ users })
             return users
           })
@@ -136,7 +135,6 @@ const authStore = create<AuthStore>()(
       storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: () => (state) => {
         if (state?.accessToken) {
-          console.log('rehydrate')
           eventBus.emit(CustomEventType.AccessTokenReceived, {
             accessToken: state?.accessToken,
           })

@@ -47,7 +47,8 @@ const reservationStore = create<ReservationState>()(
         .then(({ response }) => {
           set({
             reservations: response?.reservations.sort(
-              (a, b) => new Date(a.from).getTime() - new Date(b.from).getTime(),
+              (a, b) =>
+                new Date(b.created).getTime() - new Date(a.created).getTime(),
             ),
           })
         })

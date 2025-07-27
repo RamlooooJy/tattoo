@@ -1,6 +1,6 @@
 'use client'
 
-import { type FC, useEffect } from 'react'
+import { type FC, Fragment, useEffect } from 'react'
 import type { ClassicComponent } from 'types/types'
 import { reservationsStore } from '../../widgets/WidgetReservation/store/reservationStore'
 import {
@@ -14,6 +14,7 @@ import {
 import type { Reservation, User } from 'prisma/client'
 import { auth } from '../../widgets/WidgetReservation/store/authStore'
 import { getOpacityFromDate } from 'utils/style.utils'
+import { isTodayDate } from '../../widgets/WidgetReservation/helpers'
 
 type ReservationTableProps = {
   users?: User[]
@@ -49,9 +50,12 @@ const ReservationTable: FC<ReservationTableProps> = () => {
       if (!user) return 'не мастер'
 
       return (
-        <a className={'text-red-300'} href={`tel:+${user.phone}`}>
-          {user.name} {user.phone}
-        </a>
+        <>
+          <h3>{user.name}</h3>
+          <a className={'text-red-300'} href={`tel:+${user.phone}`}>
+            {user.phone}
+          </a>
+        </>
       )
     }
 
@@ -73,6 +77,15 @@ const ReservationTable: FC<ReservationTableProps> = () => {
     reservationsStore.actions.getReservations()
   }, [])
 
+  const isNextFromNextDay = (current: Reservation, next: Reservation) => {
+    const createdDate = new Date(current.created)
+    const nextCreatedDate = new Date(next.created)
+
+    if (createdDate.getDate() !== nextCreatedDate.getDate()) {
+      return true
+    }
+  }
+
   return (
     <div className={'relative w-full h-full'}>
       <Table>
@@ -86,17 +99,28 @@ const ReservationTable: FC<ReservationTableProps> = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {reservations?.map((r) => (
-            <TableRow
-              style={{
-                background: `rgba(30, 144, 255, ${getOpacityFromDate(r.created)})`,
-              }}
-              key={r.id}
-            >
-              {tableSorting.map((key) => (
-                <TableCell key={key}>{getData(r[key], key)}</TableCell>
-              ))}
-            </TableRow>
+          {reservations?.map((r, idx) => (
+            <Fragment key={r.id}>
+              {isTodayDate(r.created) &&
+              isNextFromNextDay(r, reservations[idx + 1]) ? (
+                <TableRow>
+                  <TableCell colSpan={3}>
+                    <br />
+                    Ранее забронировавшие
+                  </TableCell>
+                </TableRow>
+              ) : null}
+              <TableRow
+                style={{
+                  background: `rgba(30, 144, 255, ${getOpacityFromDate(r.created)})`,
+                }}
+                key={r.id}
+              >
+                {tableSorting.map((key) => (
+                  <TableCell key={key}>{getData(r[key], key)}</TableCell>
+                ))}
+              </TableRow>
+            </Fragment>
           ))}
         </TableBody>
       </Table>
