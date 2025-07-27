@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
 import { responses } from 'app/api/types'
-import { userService } from 'app/api/auth/create/service'
 import { logger } from '../../../../backend/logger'
 import type {
   IdentificationRequest,
   IdentificationResponse,
 } from 'app/api/auth/identification/types'
 import { isRoleAdmin } from 'app/api/helpers'
+import { userService } from 'app/api/services/user-service'
 
 /**
  * Обрабатывает POST-запрос на идентификацию пользователя.

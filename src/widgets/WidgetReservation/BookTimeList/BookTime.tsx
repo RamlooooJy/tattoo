@@ -49,8 +49,8 @@ export const BookTime: FC<BookTimeProps> = ({
           </span>
         </div>
         <Button
-          variant={!timeFrom ? 'outline' : undefined}
-          disabled={!timeFrom}
+          variant={!timeFrom || !timeTo ? 'outline' : undefined}
+          disabled={!timeFrom || !timeTo}
           onClick={() =>
             onSelect({
               dateTo: timeTo,

@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import type { GetReservationParams } from './reservationTypes'
 import type { TimeParams } from '../types'
 import { http, HTTPMethod } from 'lib/http'
 import type {
@@ -12,13 +11,14 @@ import type {
   GetReservationsResponse,
 } from 'app/api/reservation/reservation.types'
 import type { Reservation } from 'prisma/index'
-import { produce } from 'immer'
 
 type ReservationState = {
+  currentMonth: Date
+  setCurrentMonth: (currentMonth: Date) => void
   reservations: null | Reservation[]
 
   reserve(params: TimeParams): void
-  getReservations(date: GetReservationParams['date']): void
+  getReservations(): void
   deleteReservation(id: DeleteReservationParams['id'], selectedDate: Date): void
 }
 
@@ -30,7 +30,11 @@ const reservationStore = create<ReservationState>()(
   // persist(
   (set, get) => ({
     reservations: null,
-    getReservations: (date) => {
+    currentMonth: new Date(),
+    setCurrentMonth: (date) => {
+      set({ currentMonth: date })
+    },
+    getReservations: () => {
       http
         .makeRequestWithResponse<
           GetReservationsResponse,
@@ -38,25 +42,22 @@ const reservationStore = create<ReservationState>()(
         >({
           method: HTTPMethod.GET,
           url: getReservationPath,
-          config: { params: { date: date.toISOString() } },
+          config: {},
         })
         .then(({ response }) => {
           set({
-            reservations: response?.reservations.map((reservation) =>
-              produce(reservation, (draft) => {
-                draft.from = new Date(draft.from)
-                draft.to = new Date(draft.to)
-              }),
+            reservations: response?.reservations.sort(
+              (a, b) => new Date(a.from).getTime() - new Date(b.from).getTime(),
             ),
           })
         })
     },
     reserve({ dateFrom, dateTo, message }) {
-      if (!dateFrom) return
+      if (!dateFrom || !dateTo) return
 
       const fetchParams = {
         from: dateFrom,
-        to: dateTo ?? dateFrom,
+        to: dateTo,
         message,
       }
 
@@ -73,11 +74,10 @@ const reservationStore = create<ReservationState>()(
           data: fetchParams,
         })
         .then(() => {
-          get().getReservations(dateFrom)
-          //   todo alert
+          get().getReservations()
         })
     },
-    deleteReservation(id, selectedDate) {
+    deleteReservation(id) {
       if (!id) return
 
       const fetchParams = {
@@ -97,19 +97,20 @@ const reservationStore = create<ReservationState>()(
           data: fetchParams,
         })
         .then(() => {
-          get().getReservations(selectedDate)
-          //   todo alert
+          get().getReservations()
         })
     },
   }),
 )
 
-export const reservations = {
+export const reservationsStore = {
   hooks: {
     useReservations: () => reservationStore((s) => s.reservations),
+    useCurrentMonth: () => reservationStore((s) => s.currentMonth),
   },
   actions: {
     reserve: reservationStore.getState().reserve,
+    setCurrentMonth: reservationStore.getState().setCurrentMonth,
     getReservations: reservationStore.getState().getReservations,
     deleteReservation: reservationStore.getState().deleteReservation,
   },

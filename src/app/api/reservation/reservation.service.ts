@@ -53,7 +53,19 @@ class ReservationService {
       throw err
     }
   }
-  async getReservations(date: Date) {
+  async getReservations() {
+    try {
+      const reservations = await db.reservation.findMany({
+        orderBy: { from: 'asc' },
+      })
+      logger.info(`Найдено ${reservations.length} бронирований`)
+      return reservations
+    } catch (err) {
+      logger.error(`Ошибка при получении бронирований: ${err}`)
+      throw err
+    }
+  }
+  async getReservationsByDate(date: Date) {
     try {
       const startOfDay = new Date(date)
       startOfDay.setHours(0, 0, 0, 0)

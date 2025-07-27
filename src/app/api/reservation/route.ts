@@ -18,7 +18,10 @@ export async function GET(
   try {
     const { searchParams } = new URL(request.url)
     const date = searchParams.get('date') as unknown as Date
-    const reservations = await reservationService.getReservations(date)
+    const method = date
+      ? reservationService.getReservationsByDate
+      : reservationService.getReservations
+    const reservations = await method(date)
 
     return NextResponse.json({ ...responses.Ok, reservations })
   } catch (error) {

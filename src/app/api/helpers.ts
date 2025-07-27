@@ -14,8 +14,6 @@ export const getSecret = () => {
 export function getUserIdFromRequest(request: Request): string {
   const authHeader = request.headers.get('authorization')
 
-  console.log(JSON.stringify(request.headers))
-
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     logger.error('Нет токена авторизации')
     throw new Error('Нет токена авторизации')

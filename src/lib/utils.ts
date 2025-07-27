@@ -34,6 +34,9 @@ export const disabled = [
   allNavigation.reviews,
   allNavigation.about,
   allNavigation.questions,
+  ...Object.values(allNavigation).filter(
+    (x) => ![allNavigation.contacts].includes(x),
+  ),
 ]
 
 export const navigation = Object.fromEntries(

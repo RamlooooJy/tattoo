@@ -46,9 +46,11 @@ export const getWorkTimeFrom = (selectedDate: Date) => {
 }
 
 export const getZeroDate = (date?: Date, hours = 0) =>
-  new Date((date ?? new Date()).setHours(hours, 0, 0, 0))
+  new Date((date ? new Date(date) : new Date()).setHours(hours, 0, 0, 0))
 
 export function isDateInRange(date: Date, from: Date, to: Date): boolean {
   const target = date.getTime()
-  return target >= from.getTime() && target <= to.getTime()
+  const fromDate = new Date(from)
+  const toDate = new Date(to)
+  return target >= fromDate.getTime() && target <= toDate.getTime()
 }
