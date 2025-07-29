@@ -41,7 +41,7 @@ export const sendMail = async (data: Params, options: { type: EmailType }) => {
 
   const mailOptions: SendMailOptions = {
     from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER,
+    to: process.env.EMAIL_RECIPIENT,
     subject: title,
     html: fn(data),
   }

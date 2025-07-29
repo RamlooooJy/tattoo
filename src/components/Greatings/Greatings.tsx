@@ -69,8 +69,8 @@ export const Greetings: FC = () => {
       auth.actions.setFirstLoad()
       setIsOpen(true)
     }
-    let timeout = 0
-    timeout = window.setTimeout(handler, 15_000)
+    const timeout = 0
+    // timeout = window.setTimeout(handler, 15_000)
     return () => window.clearTimeout(timeout)
   }, [isFirstLoad])
 
