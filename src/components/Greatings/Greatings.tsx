@@ -1,6 +1,6 @@
 'use client'
 
-import { type FC, useEffect, useState } from 'react'
+import { type FC, useState } from 'react'
 import {
   Form,
   FormControl,
@@ -62,17 +62,17 @@ export const Greetings: FC = () => {
     })
   }
 
-  useEffect(() => {
-    if (!isFirstLoad) return
-
-    const handler = () => {
-      auth.actions.setFirstLoad()
-      setIsOpen(true)
-    }
-    const timeout = 0
-    // timeout = window.setTimeout(handler, 15_000)
-    return () => window.clearTimeout(timeout)
-  }, [isFirstLoad])
+  // useEffect(() => {
+  //   if (!isFirstLoad) return
+  //
+  //   const handler = () => {
+  //     auth.actions.setFirstLoad()
+  //     setIsOpen(true)
+  //   }
+  //   const timeout = 0
+  //   timeout = window.setTimeout(handler, 15_000)
+  //   return () => window.clearTimeout(timeout)
+  // }, [isFirstLoad])
 
   useEventBus(CustomEventType.AuthenticationValidationReceived, () => {
     setIsOpen(true)
