@@ -79,7 +79,9 @@ const ReservationTable: FC<ReservationTableProps> = () => {
     reservationsStore.actions.getReservations()
   }, [])
 
-  const isNextFromNextDay = (current: Reservation, next: Reservation) => {
+  const isNextFromNextDay = (current: Reservation, next?: Reservation) => {
+    if (!next) return
+
     const createdDate = new Date(current.created)
     const nextCreatedDate = new Date(next.created)
 
