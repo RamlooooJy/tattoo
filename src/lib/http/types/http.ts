@@ -19,11 +19,15 @@ export enum HTTPMethod {
   DELETE = 'delete',
 }
 
+export type ExtraRequestConfig = {
+  polling?: number
+}
+
 export type MakeRequestParamsBase<RequestData> = {
   method: HTTPMethod
   url: string
   data?: RequestData
-  config?: AxiosRequestConfig
+  config?: AxiosRequestConfig & ExtraRequestConfig
 }
 
 export type MakeRequestParams<ResponseData, RequestData> =

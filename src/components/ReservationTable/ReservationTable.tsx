@@ -15,6 +15,8 @@ import type { Reservation, User } from 'prisma/client'
 import { auth } from '../../widgets/WidgetReservation/store/authStore'
 import { getOpacityFromDate } from 'utils/style.utils'
 import { isTodayDate } from '../../widgets/WidgetReservation/helpers'
+import { Button } from 'components/ui/button'
+import NewMaster from 'components/NewMaster/NewMaster'
 
 type ReservationTableProps = {
   users?: User[]
@@ -87,7 +89,22 @@ const ReservationTable: FC<ReservationTableProps> = () => {
   }
 
   return (
-    <div className={'relative w-full h-full'}>
+    <div className={'relative w-full h-full gap-2 grid'}>
+      <div className={'flex justify-between'}>
+        <NewMaster />
+        <Button
+          variant={'destructive'}
+          onClick={() =>
+            confirm(
+              'точно? удалятся все завершенные записи начиная с прошлого месяца',
+            )
+              ? reservationsStore.actions.deleteReservationBefore()
+              : null
+          }
+        >
+          Удалить прошедшие даты
+        </Button>
+      </div>
       <Table>
         <TableHeader>
           <TableRow>

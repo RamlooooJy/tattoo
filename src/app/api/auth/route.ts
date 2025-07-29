@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken'
 import { getSecret, isRoleAdmin } from 'app/api/helpers'
 import type { Roles } from 'prisma/index'
 import { userService } from 'app/api/services/user-service'
+import bcrypt from 'bcrypt'
 
 /**
  * Авторизация пользователя: проверяет логин и пароль, возвращает JWT токен.
@@ -28,22 +29,22 @@ export async function POST(
   request: Request,
 ): Promise<NextResponse<AuthenticationResponse>> {
   try {
-    // bcrypt
-    //   .compare(
-    //     'tmp_master',
-    //     '$2b$04$60VHU2/nyEQ/23Mzbn3p2OYYSzsbRetbkpqnHiQVp3AHiPBqpH/mW',
-    //   )
-    //   .then((hash) => {
-    //     console.log(hash, 123)
+    const tmpPass = '123456'
+    // bcrypt.hash(tmpPass, 2).then((hash) => {
+    //   console.log('suda-: ', tmpPass, hash)
+    //
+    //   bcrypt.compare(tmpPass, hash).then((hash) => {
+    //     console.log('ok?', hash, 123)
     //   })
+    // })
     const { login, password } = (await request.json()) as AuthenticationRequest
 
-    // console.log(
-    //   bcrypt.compareSync(
-    //     password,
-    //     '$2b$04$60VHU2/nyEQ/23Mzbn3p2OYYSzsbRetbkpqnHiQVp3AHiPBqpH/mW',
-    //   ),
-    // )
+    console.log(
+      bcrypt.compareSync(
+        '123456',
+        '$2b$04$.N/Bm2v4K6Ijso4txK25weRkjFurjsJuYlQ1FGfF2gI/7X61yB4da',
+      ),
+    )
 
     if (!login || !password) {
       logger.error('Ошибка входа, нет пароля или логина', { login, password })

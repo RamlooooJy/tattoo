@@ -1,5 +1,5 @@
 import { db } from '../../../backend/db/init'
-import type { Role, Roles } from 'prisma/index'
+import type { Role, Roles, User } from 'prisma/index'
 import type { UserCreatePayload } from 'lib/http/types/user.types'
 import { logger } from '../../../backend/logger'
 import type { IdentificationRequest } from 'app/api/auth/identification/types'
@@ -46,6 +46,22 @@ class UserService {
     } catch (error) {
       logger.error('Ошибка создания пользователя', { error })
       throw error
+    }
+  }
+
+  async getUserById(id: string): Promise<User> {
+    try {
+      const user = await db.user.findFirst({ where: { id } })
+
+      if (!user) {
+        logger.info('Пользователь не найден!')
+        throw new Error('Нет такого пользователя')
+      }
+
+      return user
+    } catch (err) {
+      logger.error(`Ошибка getUserById: ${err}`)
+      throw err
     }
   }
 

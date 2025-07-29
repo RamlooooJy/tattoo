@@ -8,8 +8,10 @@ import type {
   AuthenticationResponse,
   IdentificationRequest,
   IdentificationResponse,
+  SignUpRequest,
+  SignUpResponse,
 } from 'app/api/auth/identification/types'
-import type { Role } from 'types/enums'
+import { type Role, Roles } from 'types/enums'
 import type { User } from 'prisma/client'
 import type { ResponseWithData } from 'app/api/types'
 
@@ -28,6 +30,11 @@ type AuthStore = {
     login: string
     password: string
   }): Promise<boolean>
+  createUser(data: {
+    login: string
+    password: string
+    name: string
+  }): Promise<boolean>
   identify(data: {
     phone: string
   }): Promise<boolean>
@@ -44,6 +51,7 @@ type AuthStore = {
 const getUsersPatch = '/users'
 const identificationPath = '/auth/identification'
 const authPath = '/auth'
+const authCreatePath = '/auth/create'
 
 const authStore = create<AuthStore>()(
   persist(
@@ -128,9 +136,26 @@ const authStore = create<AuthStore>()(
             return isAdmin
           })
       },
+
+      async createUser({ login, password, name }) {
+        return await http
+          .makeRequestWithResponse<SignUpResponse, SignUpRequest>({
+            method: HTTPMethod.POST,
+            url: authCreatePath,
+            config: {
+              withCredentials: true,
+            },
+            data: {
+              login,
+              password,
+              name,
+            },
+          })
+          .then((r) => Boolean(r.response))
+      },
     }),
     {
-      version: 1,
+      version: 2,
       name: `${appKey}auth`,
       storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: () => (state) => {
@@ -146,6 +171,7 @@ const authStore = create<AuthStore>()(
 
 const useAccessToken = () => authStore((s) => s.accessToken)
 const useIsAdmin = () => authStore((s) => s.isAdmin)
+const useIsModerator = () => authStore((s) => s.user?.role === Roles.MODERATOR)
 const useUser = () => authStore((s) => s.user)
 const useIsFirstLoad = () => authStore((s) => s.isFirstLoad)
 const userUsers = () => authStore((s) => s.users)
@@ -154,11 +180,13 @@ export const auth = {
   hooks: {
     useAccessToken,
     useIsAdmin,
+    useIsModerator,
     useUser,
     useIsFirstLoad,
     userUsers,
   },
   actions: {
+    createUser: authStore.getState().createUser,
     getUsers() {
       return authStore.getState().getUsers()
     },

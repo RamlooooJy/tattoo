@@ -15,6 +15,7 @@ export class HTTPClient {
   public http: AxiosInstance
   public abortControllers: AbortController[] = []
   private accessToken = ''
+  private pollingMap: Map<string, typeof setTimeout> = new Map()
   private options: AxiosRequestConfig = {
     validateStatus: (status) => status >= 200 && status < 400,
   }

@@ -6,7 +6,10 @@ export async function POST(req: NextRequest) {
     const data = await req.json()
 
     try {
-      await sendMail({ ...data, url: req.headers.get('origin') })
+      await sendMail(
+        { ...data, url: req.headers.get('origin') },
+        { type: 'new_user' },
+      )
       return NextResponse.json(
         {
           success: true,

@@ -26,3 +26,11 @@ export type DeleteReservationParams = {
 }
 
 export type DeleteReservationRequest = DeleteReservationParams
+/************************************************************************************************************/
+
+export type DeleteManyReservationResponse = Response
+export type DeleteManyReservationParams = {
+  date: Date
+}
+
+export type DeleteManyReservationRequest = DeleteManyReservationParams

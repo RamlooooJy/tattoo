@@ -1,3 +1,5 @@
+import type { Params } from 'app/api/contact/sendMail'
+
 export function generateContactEmailHTML({
   name,
   phone,
@@ -5,14 +7,7 @@ export function generateContactEmailHTML({
   course,
   question,
   url,
-}: {
-  url: string
-  name: string
-  phone: string
-  email?: string
-  course?: string
-  question?: string
-}) {
+}: Params) {
   return `
   <html lang="ru">
     <head>
@@ -80,11 +75,28 @@ export function generateContactEmailHTML({
   `
 }
 
-const getDate = () => {
-  return new Date().toLocaleDateString('ru-RU', {
+export const getDate = (date: string | Date = new Date()) => {
+  return new Date(date).toLocaleDateString('ru-RU', {
     weekday: 'long', // "понедельник"
     year: 'numeric', // "2025"
     month: 'long', // "май"
     day: 'numeric', // "7"
+  })
+}
+
+export const getDateWithTime = (date: string | Date = new Date()) => {
+  return new Date(date).toLocaleString('ru-RU', {
+    weekday: 'long', // "понедельник"
+    year: 'numeric', // "2025"
+    month: 'long', // "июль"
+    day: 'numeric', // "29"
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}
+export const getTime = (date: string | Date = new Date()) => {
+  return new Date(date).toLocaleString('ru-RU', {
+    hour: '2-digit',
+    minute: '2-digit',
   })
 }

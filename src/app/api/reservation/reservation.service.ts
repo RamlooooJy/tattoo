@@ -53,6 +53,19 @@ class ReservationService {
       throw err
     }
   }
+  async deleteManyReservation(date: Date) {
+    try {
+      const data = await db.reservation.deleteMany({
+        where: { from: { lt: date } },
+      })
+
+      logger.info(`Бронирований ${data.count} удалено`)
+      return true
+    } catch (err) {
+      logger.error(`Ошибка при удалении бронирований: ${err}`)
+      throw err
+    }
+  }
   async getReservations() {
     try {
       const reservations = await db.reservation.findMany({

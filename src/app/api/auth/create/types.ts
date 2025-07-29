@@ -20,13 +20,3 @@ export type AuthenticationResponse = ResponseWithData<{
   role?: Roles
   userId?: string
 }>
-
-export type SignUpRequest = {
-  login: string
-  password: string
-  name: string
-}
-
-export type SignUpResponse = ResponseWithData<{
-  name: string
-}>
